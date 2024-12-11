@@ -22,7 +22,7 @@ class User extends Authenticatable implements LaratrustUser
     protected $fillable = [
         'name',
         'email',
-        'password',
+        // 'password',
     ];
 
     /**
@@ -31,7 +31,7 @@ class User extends Authenticatable implements LaratrustUser
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
@@ -44,7 +44,7 @@ class User extends Authenticatable implements LaratrustUser
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            // 'password' => 'hashed',
         ];
     }
 }
