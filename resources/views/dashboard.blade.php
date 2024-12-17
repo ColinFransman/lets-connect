@@ -56,7 +56,7 @@
             overflow: auto;
         }
 
-        .workshop {
+        .workshops .workshop {
             width: 90%;
             height: 150px;
             margin: 10px;
@@ -70,6 +70,9 @@
 
         .info {
             width: 10%;
+            margin: 10px;
+            padding-left: 12px;
+            padding-right: 12px;
             border: 2px solid black;
             border-radius: 100px;
             display: flex;
@@ -85,25 +88,55 @@
             justify-content: center;
             align-items: center;
         }
+
+        .round .workshop{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: end;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
     <div class="main">
         <div class="rounds">
-            <div class="round" id="1">Ronde 1</div>
-            <div class="round" id="2">Ronde 2</div>
-            <div class="round" id="3">Ronde 3</div>
+            <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
+            <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2">Ronde 2</div>
+            <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3">Ronde 3</div>
         </div>
-        <div class="workshops">
+        <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
             <?php for ($i=1; $i < 13; $i++) { 
-                echo "
-                    <div class='workshop' draggable='true' id=" . $i . ">
-                        <div class='info'>i</div>
-                        <div class='title'>Workshop " . $i . "</div>
+                 echo " 
+                    <div class='workshop' id='workshop" . $i . "' draggable='true' ondragstart='drag(event)'>
+                        <div class='info' id='info" . $i . "'>i</div>
+                        <div class='title' id='title" . $i . "'>Workshop " . $i . "</div>
                     </div> 
                 ";
             } ?>
         </div>
     </div>
 </body>
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        console.log(ev.target.id);
+        if (ev.target.id < 5) {
+            if (ev.target.id < 4) {
+                ev.target.innerHTML = "";
+            }
+            ev.target.append(document.getElementById(data));
+        }
+    }
+</script>
 </x-app-layout>
