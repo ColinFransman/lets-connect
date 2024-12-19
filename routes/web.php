@@ -18,3 +18,20 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+$request = $_SERVER['REQUEST_URI'];
+
+switch ($request) {
+    case '/':
+        require 'home.php';
+        break;
+
+    case '/overview':
+        require 'overview.php';
+        break;
+
+    default:
+        http_response_code(404);
+        require '404.php';
+        break;
+}
