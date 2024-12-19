@@ -67,8 +67,11 @@
         function drop(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
-            console.log(ev.target.id);
-            if (ev.target.classList.contains('workshops') || ev.target.classList.contains('room-placeholder')) {
+            // console.log(ev.target.id);
+            if (ev.target.id < 5) {
+                if (ev.target.id < 4) {
+                    ev.target.innerHTML = "";
+                }
                 ev.target.append(document.getElementById(data));
             }
         }
