@@ -22,70 +22,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
     <title>Planning</title>
-    <style>
-        .main {
-            width: 100%;
-            display: flex;
-            margin-top: 50px;
-            justify-content: space-around;
-        }
-
-        .rounds {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .round {
-            width: 300px;
-            height: 150px;
-            margin: 20px;
-            border: 1px solid black;
-            border-radius: 10px;
-            background-color: lightgrey;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .workshops {
-            width: 40%;
-            max-height: 580px;
-            display: grid;
-            grid-template-columns: auto auto;
-            overflow: auto;
-        }
-
-        .workshop {
-            width: 90%;
-            height: 150px;
-            margin: 10px;
-            border: 1px solid black;
-            border-radius: 10px;
-            background-color: lightgrey;
-            display: flex;
-            align-items: end;
-            flex-direction: column;
-        }
-
-        .info {
-            width: 10%;
-            border: 2px solid black;
-            border-radius: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        .title {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
 </head>
 <body>
     <div class="main">
