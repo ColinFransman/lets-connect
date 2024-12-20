@@ -13,24 +13,6 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
         <title>Planning</title>
-        <style>
-            .popup {
-                display: none;
-                position: absolute;
-                z-index: 1000;
-                margin-top: 5px;
-                padding: 10px;
-                background-color: white;
-                border: 1px solid black;
-                border-radius: 5px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            .info:hover + .popup, 
-            .info:focus + .popup {
-                display: block;
-            }
-        </style>
     </head>
     <body>
         <div class="main">
@@ -53,6 +35,9 @@
                     ";
                 } ?>
             </div>
+        </div>
+        <div class="flex">
+            <button onclick="alert('placeholder')" value="opslaan" class="button save">Opslaan</button>
         </div>
     </body>
     <script>

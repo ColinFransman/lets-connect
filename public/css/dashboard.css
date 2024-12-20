@@ -72,3 +72,34 @@
     flex-direction: column;
 }
 
+.popup {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info:hover + .popup, 
+.info:focus + .popup {
+    display: block;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: #010174;
+}
