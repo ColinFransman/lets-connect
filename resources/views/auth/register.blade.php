@@ -1,7 +1,12 @@
-<div class="logo">
-    <img src="https://xerte.deltion.nl/USER-FILES/3183-cmartens-site/media/Deltion_College_CMYK_145x57.png" alt="Deltion Logo" class="deltion-logo">
 <x-guest-layout>
     <link href="{{ asset('/css/register.css') }}" rel="stylesheet">
+    
+    <!-- Logo -->
+    <div class="logo">
+        <img src="https://xerte.deltion.nl/USER-FILES/3183-cmartens-site/media/Deltion_College_CMYK_145x57.png" alt="Deltion Logo" class="deltion-logo">
+    </div>
+
+    <!-- Achtergrond -->
     <div class="full-page-background"></div>
 
     <!-- Registratieformulier -->
@@ -37,4 +42,3 @@
         </form>
     </div>
 </x-guest-layout>
-</div>
