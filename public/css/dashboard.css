@@ -53,6 +53,15 @@
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    font-size: 20px;
+    background-color: rgb(246, 188, 80);
+    color: black;
+    cursor: pointer;
+}
+
+.info-icon {
+    font-size: 20px;  
+    font-weight: bold;
 }
 
 .title {
@@ -63,37 +72,38 @@
     align-items: center;
 }
 
-.round .workshop{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    display: flex;
-    align-items: end;
-    flex-direction: column;
-}
 
 .popup {
     display: none;
     position: absolute;
-    z-index: 1000;
-    margin-top: 5px;
-    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;  /* Zorgt voor een basis z-index voor alle popups */
+    padding: 20px;
     background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(1, 1, 116);
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+    height: 400px;
+    flex-direction: column;
+    transition: opacity 0.3s ease-in-out;
 }
 
-.info:hover + .popup, 
-.info:focus + .popup {
-    display: block;
-}
 
-.flex {
+
+
+.close {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    color: red;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
 }
+
 
 .button {
     margin: 10px;
