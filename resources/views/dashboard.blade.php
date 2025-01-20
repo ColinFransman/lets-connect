@@ -13,11 +13,102 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
         <title>Planning</title>
+        <style>
+    body {
+        font-family: Arial, sans-serif;
+        position: relative;
+    }
+
+    .tutorial-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000; /* High priority for the overlay */
+        display: none;
+        justify-content: center;
+        align-items: center;
+        pointer-events: auto; /* Allows interaction with the tutorial */
+    }
+
+    .tutorial-box {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 300px;
+        max-width: 90%;
+        position: relative;
+        z-index: 1001; /* Above the overlay */
+    }
+
+    .tutorial-box h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .tutorial-box p {
+        margin: 10px 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .tutorial-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .tutorial-buttons button {
+        background-color: #0078d7;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1002; /* Interactive buttons */
+    }
+
+    .tutorial-buttons button:hover {
+        background-color: #0056a1;
+    }
+
+    .highlight {
+        position: relative;
+        z-index: 999; /* Below tutorial but above normal content */
+        outline: 3px solid orange;
+        transition: outline 0.3s ease-in-out;
+    }
+
+    .main, .rounds, .workshops {
+        pointer-events: none; /* Prevents interaction with workshops */
+    }
+</style>
+
+
     </head>
     <body>
+        <!-- Tutorial Overlay -->
+        <div class="tutorial-overlay" id="tutorial-overlay">
+            <div class="tutorial-box">
+                <h3 id="tutorial-title">Welcome to Mijn Planning</h3>
+                <p id="tutorial-text">This is a drag-and-drop interface where you can plan your workshops.</p>
+                <div class="tutorial-buttons">
+                    <button id="previous-btn" onclick="navigateTutorial(-1)" disabled>Previous</button>
+                    <button id="next-btn" onclick="navigateTutorial(1)">Next</button>
+                    <button id="finish-btn" onclick="endTutorial()" style="display: none;">Finish</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
         <div class="main">
             <div class="rounds">
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
+                <div class="round highlight" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
                 <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2">Ronde 2</div>
                 <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3">Ronde 3</div>
             </div>
@@ -39,28 +130,76 @@
         <div class="flex">
             <button onclick="alert('placeholder')" value="opslaan" class="button save">Opslaan</button>
         </div>
+
+        <script>
+    let tutorialSteps = [
+        { title: "Welcome to Mijn Planning", text: "This is a drag-and-drop interface where you can plan your workshops.", highlight: ".round.highlight" },
+        { title: "Workshop Sections", text: "Drag workshops into the rounds to assign them.", highlight: ".workshops" },
+        { title: "Save Button", text: "Click this button to save your planning.", highlight: ".button.save" }
+    ];
+    let currentStep = 0;
+
+    // Start tutorial on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        const visited = localStorage.getItem("tutorialCompleted");
+        if (!visited) {
+            startTutorial();
+        }
+    });
+
+    function startTutorial() {
+        const overlay = document.getElementById("tutorial-overlay");
+        overlay.style.display = "flex";
+        togglePointerEvents("disable");
+        highlightElement(tutorialSteps[currentStep].highlight);
+    }
+
+    function navigateTutorial(direction) {
+        unhighlightElement(tutorialSteps[currentStep].highlight);
+
+        currentStep += direction;
+
+        if (currentStep < tutorialSteps.length) {
+            document.getElementById("tutorial-title").textContent = tutorialSteps[currentStep].title;
+            document.getElementById("tutorial-text").textContent = tutorialSteps[currentStep].text;
+
+            highlightElement(tutorialSteps[currentStep].highlight);
+
+            document.getElementById("previous-btn").disabled = currentStep === 0;
+            document.getElementById("next-btn").style.display = currentStep < tutorialSteps.length - 1 ? "inline-block" : "none";
+            document.getElementById("finish-btn").style.display = currentStep === tutorialSteps.length - 1 ? "inline-block" : "none";
+        } else {
+            endTutorial();
+        }
+    }
+
+    function endTutorial() {
+        document.getElementById("tutorial-overlay").style.display = "none";
+        togglePointerEvents("enable");
+        localStorage.setItem("tutorialCompleted", "true");
+    }
+
+    function togglePointerEvents(state) {
+        const mainContent = document.querySelector(".main");
+        mainContent.style.pointerEvents = state === "disable" ? "none" : "auto";
+    }
+
+    function highlightElement(selector) {
+        const element = document.querySelector(selector);
+        if (element) element.classList.add("highlight");
+    }
+
+    function unhighlightElement(selector) {
+        const element = document.querySelector(selector);
+        if (element) element.classList.remove("highlight");
+    }
+            
+</script>
+
+
+
     </body>
-    <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-        
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-        
-        function drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            // console.log(ev.target.id);
-            if (ev.target.id < 5) {
-                if (ev.target.id < 4) {
-                    ev.target.innerHTML = "";
-                }
-                ev.target.append(document.getElementById(data));
-            }
-        }
-    </script>
+    </html>
 </x-app-layout>
 
 
