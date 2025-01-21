@@ -28,7 +28,12 @@
                     :value="old('email')" placeholder="Voer je studentenemail in" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
-
+            <div class="form-group">
+                <x-input-label for="klas" :value="__('Klas')" />
+                <x-text-input id="klas" class="block mt-1 w-full" type="text" name="klas" 
+                    :value="old('klas')" placeholder="Voer je klas in" required autofocus autocomplete="klas" />
+                <x-input-error :messages="$errors->get('Klas')" class="mt-2" />
+            </div>
             <!-- Registreren Button -->
             <div class="form-actions flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
