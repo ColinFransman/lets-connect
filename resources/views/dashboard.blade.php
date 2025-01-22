@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
 
+    <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -15,28 +16,28 @@
         <title>Planning</title>
     </head>
     <body>
-    <style>
-    ::-webkit-scrollbar {
-        width: 20px;
-      }
-      
-      /* Track */
-      ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey; 
-        border-radius: 10px;
-      }
-       
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-        background: darkblue; 
-        border-radius: 10px;
-      }
-      
-      /* Handle on hover */
-      ::-webkit-scrollbar-thumb:hover {
-        background: darkblue; 
-      }
-      </style>
+        <style>
+        ::-webkit-scrollbar {
+            width: 20px;
+          }
+          
+          /* Track */
+          ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey; 
+            border-radius: 10px;
+          }
+           
+          /* Handle */
+          ::-webkit-scrollbar-thumb {
+            background: blue; 
+            border-radius: 10px;
+          }
+          
+          /* Handle on hover */
+          ::-webkit-scrollbar-thumb:hover {
+            background: blue; 
+          }
+          </style>
         <div class="main">
             <div class="rounds">
                 <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
@@ -59,6 +60,7 @@
                 } ?>
             </div>
         </div>
+        <div class="flex">
 
         <div id="confirmation-popup" class="confpopup" style="display: none;">
             <div class="popup-content">
@@ -70,124 +72,164 @@
 
         <script>
             let planningChanged = false;
-            let currentZIndex = 1000;
+let workshopsInRounds = new Set(); // Houdt bij welke workshops naar een ronde zijn gesleept
 
-            // Popup tonen/verbergen
-            function showSavePopup() {
-                document.getElementById("confirmation-popup").style.display = "flex";
-            }
+// Zorg ervoor dat slepen mogelijk is
+function allowDrop(ev) {
+    ev.preventDefault();
+}
 
-            function closeSavePopup() {
-                document.getElementById("confirmation-popup").style.display = "none";
-            }
+// Sleep functie (om het workshop ID te verkrijgen)
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
 
-            function confirmSave() {
-                const rounds = [...document.querySelectorAll(".round")].map(round => ({
-                    roundId: round.id,
-                    workshops: [...round.children].map(workshop => workshop.id)
-                }));
+// Drop functie
+function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(data);
 
-                fetch("/save-planning", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    },
-                    body: JSON.stringify(rounds)
-                })
-                .then(response => response.json())
-                .then(data => console.log("Planning opgeslagen:", data))
-                .catch(error => console.error("Opslaan mislukt:", error));
+    // Zorg ervoor dat het een geldige drop is
+    if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
+        ev.target.innerHTML = ""; // Leeg de ronde
+        ev.target.appendChild(draggedElement); // Voeg de workshop toe
+        planningChanged = true; // Markeer als gewijzigd
 
-                planningChanged = false;
-                closeSavePopup();
-            }
+        // Voeg een rood kruisje toe
+        addCloseButton(draggedElement);
 
-            function cancelSave() {
-                planningChanged = false;
-                closeSavePopup();
-            }
+        // Voeg workshop toe aan de Set van gesleepte workshops in rondes
+        workshopsInRounds.add(draggedElement.id);
+        checkWorkshopsInRounds(); // Controleer of er 3 workshops zijn gesleept
+    } else if (ev.target.id === "4") {
+        // Workshop terugplaatsen in de lijst
+        ev.target.appendChild(draggedElement);
+        planningChanged = true; // Markeer als gewijzigd
 
-            function checkRoundsFilled() {
-                const rounds = document.querySelectorAll(".round");
-                const isFilled = [...rounds].every(round => round.children.length > 0);
-                if (isFilled && planningChanged) {
-                    showSavePopup();
-                }
-            }
+        // Verwijder workshop uit de Set van gesleepte workshops
+        workshopsInRounds.delete(draggedElement.id);
 
-            // Drag & drop functies
-            function allowDrop(ev) {
-                ev.preventDefault();
-            }
+        // Verwijder het kruisje
+        const closeButton = draggedElement.querySelector(".close-button");
+        if (closeButton) {
+            closeButton.remove();
+        }
+    }
+}
 
-            function drag(ev) {
-                ev.dataTransfer.setData("text", ev.target.id);
-            }
+// Controleer of er 3 workshops in verschillende rondes zijn gesleept
+function checkWorkshopsInRounds() {
+    if (workshopsInRounds.size === 3) {
+        showSavePopup(); // Toon opslaan popup als er 3 workshops gesleept zijn
+    }
+}
 
-            function drop(ev) {
-                ev.preventDefault();
-                const data = ev.dataTransfer.getData("text");
-                const draggedElement = document.getElementById(data);
+// Toon opslaan popup
+function showSavePopup() {
+    const popup = document.getElementById("confirmation-popup");
+    popup.style.display = "flex";
+}
 
-                if (ev.target.classList.contains("round")) {
-                    const targetRoundId = parseInt(ev.target.id);
-                    const workshopId = parseInt(draggedElement.id.replace('workshop', ''));
+// Sluit de opslaan popup
+function closeSavePopup() {
+    const popup = document.getElementById("confirmation-popup");
+    popup.style.display = "none";
+}
 
-                    if (
-                        (workshopId === 1 && targetRoundId === 1) ||
-                        (workshopId === 2 && targetRoundId === 2) ||
-                        (workshopId === 3 && targetRoundId === 3) ||
-                        (workshopId >= 4 && workshopId <= 12)
-                    ) {
-                        if (!ev.target.contains(draggedElement)) {
-                            ev.target.innerHTML = "";
-                            ev.target.appendChild(draggedElement);
-                            planningChanged = true;
-                        }
-                    } else {
-                        alert('Deze workshop kan niet op deze ronde worden geplaatst!');
-                    }
-                } else if (ev.target.id === "4") {
-                    ev.target.appendChild(draggedElement);
-                    planningChanged = true;
-                }
+// Bevestigen opslaan
+function confirmSave() {
+    const rounds = [...document.querySelectorAll(".round")].map(round => ({
+        roundId: round.id,
+        workshops: [...round.children].map(workshop => workshop.id)
+    }));
+    console.log("Op te slaan data:", rounds);
 
-                checkRoundsFilled();
-            }
+    fetch("/save-planning", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+        },
+        body: JSON.stringify(rounds)
+    })
+        .then(response => response.json())
+        .then(data => console.log("Planning opgeslagen:", data))
+        .catch(error => console.error("Opslaan mislukt:", error));
+    
+    planningChanged = false;
+    closeSavePopup();
+}
 
-            // Workshopinfo popup
-            function info(event) {
-                const buttonId = event.target.id;
-                const popupId = "popup" + buttonId.match(/\d+/)[0];
-                const popup = document.getElementById(popupId);
+// Annuleren opslaan
+function cancelSave() {
+    // Sluit de popup, maar doe verder niets
+    closeSavePopup();
+}
 
-                document.querySelectorAll(".popup").forEach(p => {
-                    if (p !== popup) {
-                        p.style.display = "none";
-                    }
-                });
+// Voeg een rood kruisje toe aan een workshop
+function addCloseButton(workshop) {
+    if (workshop.querySelector(".close-button")) {
+        return; // Voorkom dubbele kruisjes
+    }
 
-                if (popup.style.display === "flex") {
-                    popup.style.display = "none";
-                } else {
-                    currentZIndex++;
-                    popup.style.zIndex = currentZIndex;
-                    popup.style.display = "flex";
-                }
-            }
+    const closeButton = document.createElement("button");
+    closeButton.classList.add("close-button");
+    closeButton.textContent = "X";
 
-            function closePopup(workshopId) {
-                document.getElementById("popup" + workshopId).style.display = "none";
-            }
+    closeButton.addEventListener("click", function () {
+        const workshopList = document.getElementById("4");
+        workshopList.appendChild(workshop); // Verplaats terug naar workshoplijst
+        workshopsInRounds.delete(workshop.id); // Verwijder uit geplaatste workshops
+        closeButton.remove(); // Verwijder kruisje
+    });
 
-            // Sluit popups bij klikken buiten de popup
-            document.addEventListener("click", function (event) {
-                if (!event.target.classList.contains("info") && !event.target.closest(".popup")) {
-                    document.querySelectorAll(".popup").forEach(popup => popup.style.display = "none");
-                }
-            });
-        </script>
+    workshop.appendChild(closeButton); // Voeg het kruisje toe
+}
+
+// Popup voor workshopinfo
+let currentZIndex = 1000; // Start z-index voor popups
+function info(event) {
+    const buttonId = event.target.id;
+    const popupId = "popup" + buttonId.match(/\d+/)[0];
+    const popup = document.getElementById(popupId);
+    
+    // Sluit andere popups
+    const allPopups = document.querySelectorAll(".popup");
+    allPopups.forEach((p) => {
+        if (p !== popup) {
+            p.style.display = "none";
+        }
+    });
+    // Toggle huidige popup
+    if (popup.style.display === "flex") {
+        popup.style.display = "none";
+    } else {
+        currentZIndex++;
+        popup.style.zIndex = currentZIndex;
+        popup.style.display = "flex";
+    }
+}
+
+function closePopup(workshopId) {
+    const popup = document.getElementById("popup" + workshopId);
+    popup.style.display = "none";
+}
+
+// Sluit alle popups bij klikken buiten een popup
+document.addEventListener("click", function (event) {
+    const isInfoButton = event.target.classList.contains("info");
+    const isPopup = event.target.closest(".popup");
+    if (!isInfoButton && !isPopup) {
+        const allPopups = document.querySelectorAll(".popup");
+        allPopups.forEach((popup) => {
+            popup.style.display = "none";
+        });
+    }
+});
+
+        </script>        
     </body>
     </html>
 </x-app-layout>
+

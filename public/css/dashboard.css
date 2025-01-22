@@ -1,13 +1,13 @@
-/* Algemene instellingen */
+/* Algemene styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Verbergt de globale scrollbar */
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-
-/* Hoofd container */
+/* Container voor de hoofdinhoud */
 .main {
     width: 100%;
     display: flex;
@@ -15,27 +15,24 @@ body {
     justify-content: space-around;
 }
 
-/* Ronde container */
 .rounds {
     display: flex;
     flex-direction: column;
 }
 
-/* Ronde */
 .round {
     width: 300px;
     height: 150px;
     margin: 20px;
-    border: 3px dashed rgb(1, 1, 116);
+    border: 3px solid rgb(1, 1, 116);
     border-radius: 10px;
     background-color: rgb(246, 188, 80);
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: relative; /* Context voor het kruisje */
 }
 
-/* Workshop container */
 .workshops {
     width: 40%;
     max-height: 580px;
@@ -44,7 +41,6 @@ body {
     overflow: auto;
 }
 
-/* Workshop item */
 .workshops .workshop {
     width: 90%;
     height: 150px;
@@ -55,10 +51,11 @@ body {
     display: flex;
     align-items: end;
     flex-direction: column;
-    position: relative;
+    position: relative; /* Context voor absolute elementen */
+    overflow: visible; /* Zorg dat elementen niet afgesneden worden */
 }
 
-/* Info knop in workshop */
+/* Info knop */
 .info {
     width: 10%;
     margin: 10px;
@@ -76,106 +73,150 @@ body {
     cursor: pointer;
 }
 
-/* Popup instellingen */
+/* Rood kruisje binnen workshops */
+.close-button {
+    position: absolute;
+    top: 10px; /* Plaats in de rechterbovenhoek van de workshop */
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Titel van de workshop */
+.title {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Popup styling */
 .popup {
     display: none;
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 50%; /* Zorg dat de popup correct gecentreerd wordt */
     left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 4000;
     padding: 20px;
     background-color: white;
     border: 2px solid rgb(1, 1, 116);
     border-radius: 10px;
     text-align: center;
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     flex-direction: column;
-    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Sluitknop voor popup */
-.close {
-    display: flex;
-    color: red;
+.popup .close {
+    background-color: red;
+    color: white;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 50%;
+    padding: 5px;
     cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     font-size: 16px;
-    background-color: transparent;
 }
 
-/* Popup-overlay voor bevestiging */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Donkere achtergrond */
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9998;
+/* Opslaan-knop */
+.button {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: #010174;
+    cursor: pointer;
 }
 
-/* Bevestigingspopup */
+.button:hover {
+    background-color: #0a28aa;
+}
+
+/* Bevestigingspopup styling */
 .confpopup {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 9999;
     padding: 20px;
     background-color: white;
     border: 2px solid rgb(1, 1, 116);
     border-radius: 10px;
-    width: 400px;
-    z-index: 10000;
-
-    /* Center content */
-    display: flex;
-    justify-content: center;  /* Centers children horizontally */
-    align-items: center;      /* Centers children vertically */
-    flex-direction: column;   /* Stack the content vertically */
-}
-
-/* Popup content (text and buttons) */
-.confpopup .popup-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* Centers text horizontally */
-    align-items: center;      /* Centers text and buttons vertically */
     text-align: center;
+    width: 400px;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
 }
 
-/* Knoppen in de bevestigingspopup */
 .confpopup button {
     margin: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #010174;
     color: white;
-    font-weight: bold;
 }
 
 .confpopup button:hover {
     background-color: #0a28aa;
 }
 
-/* Title styling for workshop */
-.title {
+/* Tutorial overlay */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    justify-content: center; /* Centers text horizontally */
-    align-items: center;     /* Centers text vertically */
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    height: 100%; /* Ensure it takes up full height of its parent container */
-    margin-top: 10px; /* Optional: space from the top if needed */
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+    pointer-events: none;
 }
+
+.tutorial-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+    z-index: 9999;
+}
+
+.tutorial-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #010174;
+    color: white;
+}
+
+.tutorial-button:hover {
+    background-color: #0a28aa;
+}
+
