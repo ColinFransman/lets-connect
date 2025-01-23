@@ -1,10 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Mijn Planning') }}
+            {{ __("Let's Connect") }}
         </h2>
     </x-slot>
 
+    <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -15,6 +16,28 @@
         <title>Planning</title>
     </head>
     <body>
+        <style>
+        .workshops::-webkit-scrollbar {
+            width: 20px;
+          }
+          
+          /* Track */
+          .workshops::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey; 
+            border-radius: 10px;
+          }
+           
+          /* Handle */
+          .workshops::-webkit-scrollbar-thumb {
+            background: #343469; 
+            border-radius: 10px;
+          }
+          
+          /* Handle on hover */
+          .workshops::-webkit-scrollbar-thumb:hover {
+            background: rgb(245, 130, 32); 
+          }
+          </style>
         <div class="main">
             <div class="rounds">
                 <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
@@ -38,8 +61,8 @@
                 <script src="../resources/js/api.js"></script>
             </div>
         </div>
+        <div class="flex">
 
-      
         <div id="confirmation-popup" class="confpopup" style="display: none;">
             <div class="popup-content">
                 <p>Wil je dit opslaan?</p>
@@ -49,11 +72,64 @@
         </div>
 
         <script>
-            let planningChanged = false; 
-            function showSavePopup() {
-                const popup = document.getElementById("confirmation-popup");
-                popup.style.display = "flex"; 
-            }
+let planningChanged = false;
+let workshopsInRounds = new Set(); // Houdt bij welke workshops naar een ronde zijn gesleept
+
+// Zorg ervoor dat slepen mogelijk is
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+// Sleep functie (om het workshop ID te verkrijgen)
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+// Drop functie
+function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(data);
+
+    // Zorg ervoor dat het een geldige drop is
+    if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
+        ev.target.innerHTML = ""; // Leeg de ronde
+        ev.target.appendChild(draggedElement); // Voeg de workshop toe
+        planningChanged = true; // Markeer als gewijzigd
+        // Voeg een rood kruisje toe
+        addCloseButton(draggedElement);
+
+        // Voeg workshop toe aan de Set van gesleepte workshops in rondes
+        workshopsInRounds.add(draggedElement.id);
+        checkWorkshopsInRounds(); // Controleer of er 3 workshops zijn gesleept
+    } /*else if (ev.target.id === "4") {
+        // Workshop terugplaatsen in de lijst
+        ev.target.appendChild(draggedElement);
+        planningChanged = true; // Markeer als gewijzigd
+
+        // Verwijder workshop uit de Set van gesleepte workshops
+        workshopsInRounds.delete(draggedElement.id);
+
+        // Verwijder het kruisje
+        const closeButton = draggedElement.querySelector(".close-button");
+        if (closeButton) {
+            closeButton.remove();
+        }
+    }*/
+}
+
+// Controleer of er 3 workshops in verschillende rondes zijn gesleept
+function checkWorkshopsInRounds() {
+    if (workshopsInRounds.size === 3) {
+        showSavePopup(); // Toon opslaan popup als er 3 workshops gesleept zijn
+    }
+}
+
+// Toon opslaan popup
+        function showSavePopup() {
+            const popup = document.getElementById("confirmation-popup");
+            popup.style.display = "flex";
+        }
 
             function closeSavePopup() {
                 const popup = document.getElementById("confirmation-popup");
@@ -91,7 +167,31 @@
                 planningChanged = false; 
                 closeSavePopup(); 
             }
+// Annuleren opslaan
+function cancelSave() {
+    // Sluit de popup, maar doe verder niets
+    closeSavePopup();
+}
 
+// Voeg een rood kruisje toe aan een workshop
+function addCloseButton(workshop) {
+    if (workshop.querySelector(".close-button")) {
+        return; // Voorkom dubbele kruisjes
+    }
+
+    const closeButton = document.createElement("button");
+    closeButton.classList.add("close-button");
+    closeButton.textContent = "X";
+
+    closeButton.addEventListener("click", function () {
+        const workshopList = document.getElementById("4");
+        workshopList.appendChild(workshop); // Verplaats terug naar workshoplijst
+        workshopsInRounds.delete(workshop.id); // Verwijder uit geplaatste workshops
+        closeButton.remove(); // Verwijder kruisje
+    });
+
+    workshop.appendChild(closeButton); // Voeg het kruisje toe
+}
             // Controleer of alle rondes gevuld zijn
             function checkRoundsFilled() {
                 const rounds = document.querySelectorAll(".round");
@@ -103,33 +203,33 @@
                 }
             }
 
-            // Zorg ervoor dat wijzigingen worden bijgehouden bij drag & drop
-            function allowDrop(ev) {
-                ev.preventDefault();
-            }
+            // // Zorg ervoor dat wijzigingen worden bijgehouden bij drag & drop
+            // function allowDrop(ev) {
+            //     ev.preventDefault();
+            // }
 
-            function drag(ev) {
-                ev.dataTransfer.setData("text", ev.target.id);
-            }
+            // function drag(ev) {
+            //     ev.dataTransfer.setData("text", ev.target.id);
+            // }
 
-            function drop(ev) {
-                ev.preventDefault();
-                const data = ev.dataTransfer.getData("text");
-                const draggedElement = document.getElementById(data);
+            // function drop(ev) {
+            //     ev.preventDefault();
+            //     const data = ev.dataTransfer.getData("text");
+            //     const draggedElement = document.getElementById(data);
 
-                // Controleer of het droppen geldig is (rondes of workshoplijst)
-                if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
-                    ev.target.innerHTML = ""; // Leeg ronde
-                    ev.target.appendChild(draggedElement); // Voeg workshop toe
-                    planningChanged = true; // Markeer als gewijzigd
-                } else if (ev.target.id === "4") {
-                    // Workshop terugplaatsen in de lijst
-                    ev.target.appendChild(draggedElement);
-                    planningChanged = true; // Markeer als gewijzigd
-                }
+            //     // Controleer of het droppen geldig is (rondes of workshoplijst)
+            //     if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
+            //         ev.target.innerHTML = ""; // Leeg ronde
+            //         ev.target.appendChild(draggedElement); // Voeg workshop toe
+            //         planningChanged = true; // Markeer als gewijzigd
+            //     } else if (ev.target.id === "4") {
+            //         // Workshop terugplaatsen in de lijst
+            //         ev.target.appendChild(draggedElement);
+            //         planningChanged = true; // Markeer als gewijzigd
+            //     }
 
-                checkRoundsFilled(); // Controleer status na wijziging
-            }
+            //     checkRoundsFilled(); // Controleer status na wijziging
+            // }
 
             // Popup voor workshopinfo
             let currentZIndex = 1000; // Start z-index voor popups
@@ -161,19 +261,20 @@
                 popup.style.display = "none";
             }
 
-            // Sluit alle popups bij klikken buiten een popup
-            document.addEventListener("click", function (event) {
-                const isInfoButton = event.target.classList.contains("info");
-                const isPopup = event.target.closest(".popup");
+// Sluit alle popups bij klikken buiten een popup
+document.addEventListener("click", function (event) {
+    const isInfoButton = event.target.classList.contains("info");
+    const isPopup = event.target.closest(".popup");
+    if (!isInfoButton && !isPopup) {
+        const allPopups = document.querySelectorAll(".popup");
+        allPopups.forEach((popup) => {
+            popup.style.display = "none";
+        });
+    }
+});
 
-                if (!isInfoButton && !isPopup) {
-                    const allPopups = document.querySelectorAll(".popup");
-                    allPopups.forEach(popup => {
-                        popup.style.display = "none";
-                    });
-                }
-            });
-        </script>
+        </script>        
     </body>
     </html>
 </x-app-layout>
+

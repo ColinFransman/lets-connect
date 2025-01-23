@@ -17,7 +17,7 @@ function fJson2Html(json) {
         workshops += 
         "<div class='workshop' id='workshop" + i + "' draggable='true' ondragstart='drag(event)'>" + 
             "<div class='info' onclick='info(event)' id='info" + i + "' tabindex='0'>i</div>" + 
-            "<div class='popup' id='popup" + i + "'>" + 
+            "<div class='popup' id='popup" + i + "' draggable='false'>" + 
                 "<button class='close' onclick='closePopup(" + i + ")'>x</button>" + 
                 //"<p>Lokaal: " + i + "</p>"
                 "<div class='description'>" +

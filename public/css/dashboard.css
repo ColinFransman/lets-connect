@@ -1,3 +1,12 @@
+/* Algemene styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container voor de hoofdinhoud */
 .main {
     width: 100%;
     display: flex;
@@ -20,12 +29,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; /* Context voor het kruisje */
 }
 
 .round .workshop {
     width: 100%;
     height: 100%;
     text-align: center;
+}
+
+.round .workshop {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: n-resize;
 }
 
 .workshops {
@@ -45,7 +62,8 @@
     display: flex;
     align-items: end;
     flex-direction: column;
-    position: relative;
+    position: relative; /* Context voor absolute elementen */
+    overflow: visible; /* Zorg dat elementen niet afgesneden worden */    
     cursor: all-scroll;
 }
 
@@ -60,6 +78,7 @@
     border-color: rgb(206, 107, 21);
 }
 
+/* Info knop */
 .info {
     width: 10%;
     margin: 10px;
@@ -75,6 +94,25 @@
     cursor: pointer;
 }
 
+/* Rood kruisje binnen workshops */
+.close-button {
+    position: absolute;
+    top: 10px; /* Plaats in de rechterbovenhoek van de workshop */
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Titel van de workshop */
 .title {
     width: 100%;
     height: auto;
@@ -91,17 +129,20 @@
 
 .description img {
     padding-left: 10px;
+    padding-top: 30px;
 }
 
 .descriptionText {
     min-width: 50%;
     max-width: 50%;
+    padding-top: 30px;
 }
 
+/* Popup styling */
 .popup {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 50%; /* Zorg dat de popup correct gecentreerd wordt */
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -114,6 +155,7 @@
     width: auto;
     height: auto;
     flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -121,16 +163,25 @@
     padding-top: 4px;
 }
 
-.close {
-    display: flex;
-    color: red;
+.popup .close {
+    background-color: red;
+    color: white;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 50%;
+    padding: 5px;
     cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
     font-size: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Opslaan-knop */
 .button {
     margin: 10px;
     padding: 10px;
@@ -138,8 +189,48 @@
     font-size: 20px;
     color: white;
     background-color: #010174;
+    cursor: pointer;
 }
 
+.button:hover {
+    background-color: #0a28aa;
+}
+
+/* Bevestigingspopup styling */
+.confpopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    padding: 20px;
+    background-color: white;
+    border: 2px solid rgb(1, 1, 116);
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.confpopup button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #010174;
+    color: white;
+}
+
+.confpopup button:hover {
+    background-color: #0a28aa;
+}
+
+/* Tutorial overlay */
 .tutorial-overlay {
     position: fixed;
     top: 0;
@@ -150,7 +241,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 9998;
     pointer-events: none;
 }
 
@@ -162,7 +253,7 @@
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     pointer-events: auto;
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .tutorial-button {
@@ -180,19 +271,3 @@
     background-color: #0a28aa;
 }
 
-.confpopup{
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 4000px;
-    padding: 20px;
-    background-color: white;
-    border: 2px solid rgb(1, 1, 116);
-    border-radius: 10px;
-    text-align: center;
-    width: 400px;
-    flex-direction: column;
-    transition: opacity 0.3s ease-in-out; 
-}
