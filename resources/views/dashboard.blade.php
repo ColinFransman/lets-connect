@@ -1,18 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Mijn Planning') }}
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="color: orange">
+            {{ __("Let's Connect") }}
         </h2>
     </x-slot>
 
     <!DOCTYPE html>
     <html lang="en">
     <head>
+        <title>Let's Connect</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <title>Planning</title>
         <style>
 
             body {
@@ -393,9 +393,7 @@
                     });
                 }
             });
-
         </script>        
     </body>
     </html>
 </x-app-layout>
-
