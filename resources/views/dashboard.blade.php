@@ -146,18 +146,28 @@
             </div>
         </div>
         <div class="flex">
+            <div id="save-button-container" style="display: none;">
+                <button id="save-button" onclick="showSavePopup()">Opslaan</button>
+            </div>
+            
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
                     <button onclick="confirmSave()">Ja</button>
                     <button onclick="cancelSave()">Nee</button>
                 </div>
+
+                </div>
+                </div>
+            </div>
             </div>
         </div>
+        <div class="flex">
+            <button id="save-button" onclick="showSavePopup()">Opslaan</button>
+        </div>
         <script>
-            let planningChanged = false;
-            let workshopsInRounds = new Set(); // Houdt bij welke workshops naar een ronde zijn gesleept
-
+           let planningChanged = false;
+           let workshopsInRounds = new Set(); // Houdt bij welke workshops naar een ronde zijn gesleept
             let tutorialSteps = [
                 { title: "Welcome to Mijn Planning", text: "This is a drag-and-drop interface where you can plan your workshops.", highlight: ".round.highlight" },
                 { title: "Workshop Sections", text: "Drag workshops into the rounds to assign them.", highlight: ".workshops" },
@@ -240,15 +250,15 @@
 
                 // Zorg ervoor dat het een geldige drop is
                 if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
-                    ev.target.innerHTML = ""; // Leeg de ronde
-                    ev.target.appendChild(draggedElement); // Voeg de workshop toe
-                    planningChanged = true; // Markeer als gewijzigd
-                    // Voeg een rood kruisje toe
-                    addCloseButton(draggedElement);
+        ev.target.innerHTML = ""; // Leeg de ronde
+        ev.target.appendChild(draggedElement); // Voeg de workshop toe
+        planningChanged = true; // Markeer als gewijzigd
+        // Voeg een rood kruisje toe
+        addCloseButton(draggedElement);
 
-                    // Voeg workshop toe aan de Set van gesleepte workshops in rondes
-                    workshopsInRounds.add(draggedElement.id);
-                    checkWorkshopsInRounds(); // Controleer of er 3 workshops zijn gesleept
+        // Voeg workshop toe aan de Set van gesleepte workshops in rondes
+        workshopsInRounds.add(draggedElement.id);
+        checkWorkshopsInRounds(); // Controleer of er 3 workshops zijn gesleept
                 } /*else if (ev.target.id === "4") {
                     // Workshop terugplaatsen in de lijst
                     ev.target.appendChild(draggedElement);
@@ -311,9 +321,10 @@
 
                 
             function cancelSave() {
-                planningChanged = false; 
-                closeSavePopup(); 
-            }
+    closeSavePopup(); // Sluit de popup
+    document.getElementById("save-button-container").style.display = "block"; // Toon de Opslaan-knop opnieuw
+}
+
 
             // Annuleren opslaan
             function cancelSave() {

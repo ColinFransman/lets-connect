@@ -31,7 +31,7 @@
             <div class="form-group">
                 <x-input-label for="klas" :value="__('Klas')" />
                 <x-text-input id="klas" class="block mt-1 w-full" type="text" name="klas" 
-                    :value="old('klas')" placeholder="Voer je klas in" required autofocus autocomplete="klas" />
+                    :value="old('klas')" placeholder="Voer je volledige klassencode in" required autofocus autocomplete="klas" />
                 <x-input-error :messages="$errors->get('Klas')" class="mt-2" />
             </div>
             <!-- Registreren Button -->
