@@ -286,3 +286,12 @@ body {
 #save-button:hover {
     background-color: orange; /* Donkerder blauw bij hover */
 }
+
+.api-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: large;
+}
