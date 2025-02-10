@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Mijn Planning') }}
+            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma">Lets-Connect</a> 
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">    <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" class="text-blue-500 underline">Ga naar Xerte</a>
+        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">  
         
         <title>Planning</title>
         <style>
@@ -262,37 +262,26 @@
             }
           
             function drop(ev) {
-    ev.preventDefault();
-    const data = ev.dataTransfer.getData("text");
-    const draggedElement = document.getElementById(data);
-    const targetRound = ev.target.closest(".round");
+                ev.preventDefault();
+                const data = ev.dataTransfer.getData("text");
+                const draggedElement = document.getElementById(data);
+                const targetRound = ev.target.closest(".round");
 
-    if (!targetRound) return;
+                if (!targetRound) return;
 
-    // Controleer of de workshop naar de verkeerde ronde wordt gesleept
-    if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
-        showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
-        return;
-    }
+                // Example: Check if the workshop belongs to the correct round
+                if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
+                    showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
+                    return;
+                }
 
-    if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
-        showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
-        return;
-    }
+                if (!targetRound.contains(draggedElement)) {
+                    targetRound.appendChild(draggedElement);
+                    workshopsInRounds.add(draggedElement.id);
+                    checkRoundsFilled();  // Controleer of de opslaan-knop moet worden weergegeven
+                }
+            }
 
-    if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
-        showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
-        return;
-    }
-
-    if (!targetRound.contains(draggedElement)) {
-        targetRound.appendChild(draggedElement);
-        planningChanged = true;
-        addCloseButton(draggedElement);
-        workshopsInRounds.add(draggedElement.id);
-        checkWorkshopsInRounds();
-    }
-}
 
 // Toon de foutmelding popup
 function showErrorPopup(message) {
@@ -305,16 +294,23 @@ function showErrorPopup(message) {
 
     popup.style.display = "flex"; // Toon de popup
 }
+function checkRoundsFilled() {
+                const rounds = document.querySelectorAll(".round");
+                const isFilled = [...rounds].every(round => round.children.length > 0);
 
-// Sluit de foutmelding popup
-function closeErrorPopup() {
-    const popup = document.getElementById("error-popup");
-    popup.style.display = "none"; // Verberg de popup
-}
+                const saveButtonContainer = document.getElementById("save-button-container");
+                if (isFilled) {
+                    saveButtonContainer.style.display = "block";
+                } else {
+                    saveButtonContainer.style.display = "none";
+                }
+            }
+const isFilled = [...rounds].every(round => round.children.length > 0); // Alle rondes moeten gevuld zijn
 
 
-
-
+document.addEventListener("DOMContentLoaded", () => {
+    checkRoundsFilled(); // Controleer of de opslaan-knop zichtbaar moet zijn bij het laden
+});
         
             function checkWorkshopsInRounds() {
                 if (workshopsInRounds.size === 3) {
