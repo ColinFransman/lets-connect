@@ -177,9 +177,9 @@
 
             let originalWorkshopOrder = [];
             document.addEventListener("DOMContentLoaded", () => {
-    const workshops = document.querySelectorAll(".workshop");
-    originalWorkshopOrder = Array.from(workshops).map(w => w.id);
-});
+                const workshops = document.querySelectorAll(".workshop");
+                originalWorkshopOrder = Array.from(workshops).map(w => w.id);
+            });
 
 
           
@@ -201,26 +201,24 @@
 
             
             function navigateTutorial(direction) {
-    unhighlightElement(tutorialSteps[currentStep].highlight);
+                unhighlightElement(tutorialSteps[currentStep].highlight);
 
-    currentStep += direction;
+                currentStep += direction;
 
-    if (currentStep < tutorialSteps.length) {
-        document.getElementById("tutorial-title").textContent = tutorialSteps[currentStep].title;
-        document.getElementById("tutorial-text").textContent = tutorialSteps[currentStep].text;
+                if (currentStep < tutorialSteps.length) {
+                    document.getElementById("tutorial-title").textContent = tutorialSteps[currentStep].title;
+                    document.getElementById("tutorial-text").textContent = tutorialSteps[currentStep].text;
 
-        highlightElement(tutorialSteps[currentStep].highlight);
+                    highlightElement(tutorialSteps[currentStep].highlight);
 
-       
-        document.getElementById("previous-btn").disabled = currentStep === 0;
-        document.getElementById("next-btn").style.display = currentStep < tutorialSteps.length - 1 ? "inline-block" : "none";
-        document.getElementById("finish-btn").style.display = currentStep === tutorialSteps.length - 1 ? "inline-block" : "none";
-    } else {
-        endTutorial();
-    }
-}
-
-
+                
+                    document.getElementById("previous-btn").disabled = currentStep === 0;
+                    document.getElementById("next-btn").style.display = currentStep < tutorialSteps.length - 1 ? "inline-block" : "none";
+                    document.getElementById("finish-btn").style.display = currentStep === tutorialSteps.length - 1 ? "inline-block" : "none";
+                } else {
+                    endTutorial();
+                }
+            }
 
             function endTutorial() {
                 document.getElementById("tutorial-overlay").style.display = "none";
@@ -261,15 +259,15 @@
 
                
                 if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
-        ev.target.innerHTML = ""; 
-        ev.target.appendChild(draggedElement); 
-        planningChanged = true; 
+                    ev.target.innerHTML = ""; 
+                    ev.target.appendChild(draggedElement); 
+                    planningChanged = true; 
 
-        addCloseButton(draggedElement);
+                    addCloseButton(draggedElement);
 
-       
-        workshopsInRounds.add(draggedElement.id);
-        checkWorkshopsInRounds();
+                
+                    workshopsInRounds.add(draggedElement.id);
+                    checkWorkshopsInRounds();
                 } /*else if (ev.target.id === "4") {
                     // Workshop terugplaatsen in de lijst
                     ev.target.appendChild(draggedElement);
@@ -286,7 +284,6 @@
                 }*/
             }
 
-        
             function checkWorkshopsInRounds() {
                 if (workshopsInRounds.size === 3) {
                     showSavePopup();
@@ -303,7 +300,6 @@
                 const popup = document.getElementById("confirmation-popup");
                 popup.style.display = "none"; 
             }
-
                 
             function confirmSave() {
                 const rounds = [...document.querySelectorAll(".round")].map(round => ({
@@ -322,58 +318,52 @@
                     },
                     body: JSON.stringify(rounds)
                 })
-                    .then(response => response.json())
-                    .then(data => console.log("Planning opgeslagen:", data))
-                    .catch(error => console.error("Opslaan mislukt:", error));
+                .then(response => response.json())
+                .then(data => console.log("Planning opgeslagen:", data))
+                .catch(error => console.error("Opslaan mislukt:", error));
 
                 planningChanged = false; 
                 closeSavePopup();
             }
-
                 
             function cancelSave() {
-    closeSavePopup();
-    document.getElementById("save-button-container").style.display = "block";
-}
-
-
+                closeSavePopup();
+                document.getElementById("save-button-container").style.display = "block";
+            }
          
             function cancelSave() {
-            
                 closeSavePopup();
             }
 
             function addCloseButton(workshop) {
-    if (workshop.querySelector(".close-button")) {
-        return; 
-    }
+                if (workshop.querySelector(".close-button")) {
+                    return; 
+                }
 
-    const closeButton = document.createElement("button");
-    closeButton.classList.add("close-button");
-    closeButton.textContent = "X";
+                const closeButton = document.createElement("button");
+                closeButton.classList.add("close-button");
+                closeButton.textContent = "X";
 
-    closeButton.addEventListener("click", function () {
-        const workshopList = document.getElementById("4");
+                closeButton.addEventListener("click", function () {
+                    const workshopList = document.getElementById("4");
 
-       
-        let index = originalWorkshopOrder.indexOf(workshop.id);
- 
-        if (index !== -1) {
-            let referenceNode = workshopList.children[index] || null;
-            workshopList.insertBefore(workshop, referenceNode);
-        } else {
-            workshopList.appendChild(workshop);
-        }
+                
+                    let index = originalWorkshopOrder.indexOf(workshop.id);
+            
+                    if (index !== -1) {
+                        let referenceNode = workshopList.children[index] || null;
+                        workshopList.insertBefore(workshop, referenceNode);
+                    } else {
+                        workshopList.appendChild(workshop);
+                    }
 
-        workshopsInRounds.delete(workshop.id); 
-        closeButton.remove();
-    });
+                    workshopsInRounds.delete(workshop.id); 
+                    closeButton.remove();
+                });
 
-    workshop.appendChild(closeButton); 
-}
+                workshop.appendChild(closeButton); 
+            }
 
-
-          
             function checkRoundsFilled() {
                 const rounds = document.querySelectorAll(".round");
                 const isFilled = [...rounds].every(round => round.children.length > 0);
@@ -383,14 +373,12 @@
                     showSavePopup();
                 }
             }
-
-       
+      
             let currentZIndex = 1000; 
             function info(event) {
                 const buttonId = event.target.id;
                 const popupId = "popup" + buttonId.match(/\d+/)[0];
                 const popup = document.getElementById(popupId);
-
       
                 const allPopups = document.querySelectorAll(".popup");
                 allPopups.forEach(p => {
@@ -398,8 +386,7 @@
                         p.style.display = "none";
                     }
                 });
-
-         
+        
                 if (popup.style.display === "flex") {
                     popup.style.display = "none";
                 } else {
@@ -424,7 +411,6 @@
                     });
                 }
             });
-
         </script>        
     </body>
     </html>
