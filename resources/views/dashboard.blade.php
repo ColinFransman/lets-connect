@@ -11,7 +11,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
+        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">    <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" class="text-blue-500 underline">Ga naar Xerte</a>
+        
         <title>Planning</title>
         <style>
 
@@ -120,7 +121,14 @@
                 </div>
             </div>
         </div>
-
+        <div id="error-popup" class="error-overlay" style="display:none;">
+            <div class="error-box">
+                <h3 id="error-title">Foutmelding</h3>
+                <p id="error-message">Dit is een foutmelding.</p>
+                <button onclick="closeErrorPopup()">Sluiten</button>
+            </div>
+        </div>
+        
         <!-- Main Content -->
         <div class="main">
             <div class="rounds">
@@ -252,39 +260,60 @@
             function drag(ev) {
                 ev.dataTransfer.setData("text", ev.target.id);
             }
-
-         
+          
             function drop(ev) {
-                ev.preventDefault();
-                const data = ev.dataTransfer.getData("text");
-                const draggedElement = document.getElementById(data);
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(data);
+    const targetRound = ev.target.closest(".round");
 
-               
-                if (ev.target.classList.contains("round") && !ev.target.contains(draggedElement)) {
-        ev.target.innerHTML = ""; 
-        ev.target.appendChild(draggedElement); 
-        planningChanged = true; 
+    if (!targetRound) return;
 
+    // Controleer of de workshop naar de verkeerde ronde wordt gesleept
+    if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
+        showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
+        return;
+    }
+
+    if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
+        showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
+        return;
+    }
+
+    if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
+        showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
+        return;
+    }
+
+    if (!targetRound.contains(draggedElement)) {
+        targetRound.appendChild(draggedElement);
+        planningChanged = true;
         addCloseButton(draggedElement);
-
-       
         workshopsInRounds.add(draggedElement.id);
         checkWorkshopsInRounds();
-                } /*else if (ev.target.id === "4") {
-                    // Workshop terugplaatsen in de lijst
-                    ev.target.appendChild(draggedElement);
-                    planningChanged = true; // Markeer als gewijzigd
+    }
+}
 
-                    // Verwijder workshop uit de Set van gesleepte workshops
-                    workshopsInRounds.delete(draggedElement.id);
+// Toon de foutmelding popup
+function showErrorPopup(message) {
+    const popup = document.getElementById("error-popup");
+    const errorMessage = document.getElementById("error-message");
+    const errorTitle = document.getElementById("error-title");
 
-                    // Verwijder het kruisje
-                    const closeButton = draggedElement.querySelector(".close-button");
-                    if (closeButton) {
-                        closeButton.remove();
-                    }
-                }*/
-            }
+    errorMessage.textContent = message;
+    errorTitle.textContent = "Foutmelding"; // Je kunt hier de titel aanpassen indien nodig
+
+    popup.style.display = "flex"; // Toon de popup
+}
+
+// Sluit de foutmelding popup
+function closeErrorPopup() {
+    const popup = document.getElementById("error-popup");
+    popup.style.display = "none"; // Verberg de popup
+}
+
+
+
 
         
             function checkWorkshopsInRounds() {

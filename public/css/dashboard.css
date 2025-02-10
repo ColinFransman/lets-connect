@@ -286,3 +286,56 @@ body {
 #save-button:hover {
     background-color: orange; /* Donkerder blauw bij hover */
 }
+/* Error overlay */
+.error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Error box styling */
+.error-box {
+    background-color: #F5F4F7;
+    color: black;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: auto;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Error box title */
+.error-box h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Error box content */
+.error-box p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Button styling in error box */
+.error-box button {
+    background-color: #010174;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.error-box button:hover {
+    background-color: #0a28aa;
+}
