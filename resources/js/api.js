@@ -1,7 +1,7 @@
 let workshops;
 
 function loadWorkshops_fetch() {
-    let url = "http://127.0.1.3:4001/getData";
+    let url = "http://localhost:4001/getData";
     fetch(url)
         .catch((e) => {
             workshops = "<div class='api-error'>De data kon niet worden opgehaald :(</div>";
