@@ -293,8 +293,14 @@ body {
 }
 
 .flex{
+    display: flex;
     justify-content: center;
 }
+
+.placeholder {
+    position: absolute;
+}
+
 /* Error overlay */
 .error-overlay {
     position: fixed;

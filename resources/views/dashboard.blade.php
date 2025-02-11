@@ -11,9 +11,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">    <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" class="text-blue-500 underline">Ga naar Xerte</a>
-        
-        <title>Planning</title>
+        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
         <script src="../resources/js/api.js"></script>
         <script src="../resources/js/dragAndDrop.js"></script>
         <script src="../resources/js/errorPopup.js"></script>
@@ -24,7 +22,7 @@
     </head>
     <body>
         <!-- Tutorial Overlay -->
-        <div class="tutorial-overlay" id="tutorial-overlay">
+        {{-- <div class="tutorial-overlay" id="tutorial-overlay">
             <div class="tutorial-box">
                 <h3 id="tutorial-title">Welcome to Mijn Planning</h3>
                 <p id="tutorial-text">This is a drag-and-drop interface where you can plan your workshops.</p>
@@ -34,7 +32,7 @@
                     <button id="finish-btn" onclick="endTutorial()" style="display: none;">Finish</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div id="error-popup" class="error-overlay" style="display:none;">
             <div class="error-box">
                 <h3 id="error-title">Foutmelding</h3>
@@ -46,9 +44,18 @@
         <!-- Main Content -->
         <div class="main">
             <div class="rounds">
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2">Ronde 2</div>
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3">Ronde 3</div>
+                <div class="flex" id="round1">
+                    <p class="round placeholder">Ronde 1</p>
+                    <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1"></div>
+                </div>
+                <div class="flex" id="round2">
+                    <p class="round placeholder">Ronde 2</p>
+                    <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2"></div>
+                </div>
+                <div class="flex" id="round3">
+                    <p class="round placeholder">Ronde 3</p>
+                    <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
+                </div>
             </div>
             <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
                 <?php /* for ($i = 1; $i < 13; $i++) { 
