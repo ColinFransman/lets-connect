@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Mijn Planning') }}
+            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma">Lets-Connect</a> 
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">    <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" class="text-blue-500 underline">Ga naar Xerte</a>
+        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">   
         
         <title>Planning</title>
         <script src="../resources/js/api.js"></script>
@@ -24,7 +24,7 @@
     </head>
     <body>
         <!-- Tutorial Overlay -->
-        <div class="tutorial-overlay" id="tutorial-overlay">
+        {{-- <div class="tutorial-overlay" id="tutorial-overlay">
             <div class="tutorial-box">
                 <h3 id="tutorial-title">Welcome to Mijn Planning</h3>
                 <p id="tutorial-text">This is a drag-and-drop interface where you can plan your workshops.</p>
@@ -34,7 +34,7 @@
                     <button id="finish-btn" onclick="endTutorial()" style="display: none;">Finish</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div id="error-popup" class="error-overlay" style="display:none;">
             <div class="error-box">
                 <h3 id="error-title">Foutmelding</h3>
