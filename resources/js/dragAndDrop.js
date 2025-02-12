@@ -33,6 +33,8 @@ function drop(ev) {
 
     if (!targetRound.contains(draggedElement)) {
         targetRound.appendChild(draggedElement);
+        let title = draggedElement.querySelector(".title");
+        document.getElementById("save" + targetRound.id).value = title.innerText;
         planningChanged = true;
         addCloseButton(draggedElement);
         workshopsInRounds.add(draggedElement.id);

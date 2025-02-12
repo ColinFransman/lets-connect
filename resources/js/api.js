@@ -3,6 +3,11 @@ let workshops;
 function loadWorkshops_fetch() {
     let url = "http://localhost:4001/getData";
     fetch(url)
+        .catch((e) => {
+            workshops = "<div class='api-error'>De data kon niet worden opgehaald :(</div>";
+            document.getElementById(4).innerHTML = workshops;
+            throw new Error("Something went wrong trying to fetch data from the api");
+        })
         .then(data => {
             return data.json();
         })

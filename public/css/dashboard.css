@@ -293,8 +293,14 @@ body {
 }
 
 .flex{
+    display: flex;
     justify-content: center;
 }
+
+.placeholder {
+    position: absolute;
+}
+
 /* Error overlay */
 .error-overlay {
     position: fixed;
@@ -393,4 +399,13 @@ body {
 /* Handle on hover */
 .workshops::-webkit-scrollbar-thumb:hover {
     background: rgb(245, 130, 32); 
+}
+
+.api-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: large;
 }

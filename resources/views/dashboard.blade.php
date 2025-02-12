@@ -11,16 +11,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">   
-        
-        <title>Planning</title>
+        <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
         <script src="../resources/js/api.js"></script>
         <script src="../resources/js/dragAndDrop.js"></script>
         <script src="../resources/js/errorPopup.js"></script>
         <script src="../resources/js/infoPopup.js"></script>
         <script src="../resources/js/confirmPopup.js"></script>
         <script src="../resources/js/tutorial.js"></script>     
-    
     </head>
     <body>
         <!-- Tutorial Overlay -->
@@ -42,13 +39,28 @@
                 <button onclick="closeErrorPopup()">Sluiten</button>
             </div>
         </div>
+
+        @if (session('status') == 'success')
+        <x-success-msg message="{{ session('message') }}" color="green" />
+        @elseif (session('status') == 'failed')
+        <x-success-msg message="{{ session('message') }}" color="red" />
+        @endif
         
         <!-- Main Content -->
         <div class="main">
             <div class="rounds">
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2">Ronde 2</div>
-                <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3">Ronde 3</div>
+                <div class="flex" id="round1">
+                    <p class="round placeholder">Ronde 1</p>
+                    <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1"></div>
+                </div>
+                <div class="flex" id="round2">
+                    <p class="round placeholder">Ronde 2</p>
+                    <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2"></div>
+                </div>
+                <div class="flex" id="round3">
+                    <p class="round placeholder">Ronde 3</p>
+                    <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
+                </div>
             </div>
             <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
                 <?php /* for ($i = 1; $i < 13; $i++) { 
@@ -74,7 +86,13 @@
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
-                    <button onclick="confirmSave()">Ja</button>
+                    <form method="POST" action="{{ url('/save') }}">
+                        @csrf
+                        <input type="hidden" name="save1" id="save1" value="">
+                        <input type="hidden" name="save2" id="save2" value="">
+                        <input type="hidden" name="save3" id="save3" value="">
+                        <input type="submit" value="ja">
+                    </form>
                     <button onclick="cancelSave()">Nee</button>
                 </div>
             </div>
