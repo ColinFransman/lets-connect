@@ -80,25 +80,26 @@
         </div>
         <div class="flex">
             <div id="save-button-container" style="display: none;">
-                <button id="save-button" onclick="showSavePopup()">Opslaan</button>
             </div>
             
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
-                    <form method="POST" action="{{ url('/save') }}">
+                    <form method="POST" action="{{ url('/save') }}" onsubmit="updateHiddenInputs()">
                         @csrf
                         <input type="hidden" name="save1" id="save1" value="">
                         <input type="hidden" name="save2" id="save2" value="">
                         <input type="hidden" name="save3" id="save3" value="">
-                        <input type="submit" value="ja">
+                        <input type="submit" value="Ja">
                     </form>
                     <button onclick="cancelSave()">Nee</button>
                 </div>
             </div>
         </div>
+ 
         <div class="flex">
-            <button id="save-button" onclick="showSavePopup()">Opslaan</button>
+            <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
+
         </div> 
     </body>
     </html>
