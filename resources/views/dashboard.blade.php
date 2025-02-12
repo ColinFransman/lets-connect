@@ -18,7 +18,6 @@
         <script src="../resources/js/infoPopup.js"></script>
         <script src="../resources/js/confirmPopup.js"></script>
         <script src="../resources/js/tutorial.js"></script>     
-    
     </head>
     <body>
         <!-- Tutorial Overlay -->
@@ -40,6 +39,12 @@
                 <button onclick="closeErrorPopup()">Sluiten</button>
             </div>
         </div>
+
+        @if (session('status') == 'success')
+        <x-success-msg message="{{ session('message') }}" color="green" />
+        @elseif (session('status') == 'failed')
+        <x-success-msg message="{{ session('message') }}" color="red" />
+        @endif
         
         <!-- Main Content -->
         <div class="main">
@@ -81,7 +86,13 @@
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
-                    <button onclick="confirmSave()">Ja</button>
+                    <form method="POST" action="{{ url('/save') }}">
+                        @csrf
+                        <input type="hidden" name="save1" id="save1" value="">
+                        <input type="hidden" name="save2" id="save2" value="">
+                        <input type="hidden" name="save3" id="save3" value="">
+                        <input type="submit" value="ja">
+                    </form>
                     <button onclick="cancelSave()">Nee</button>
                 </div>
             </div>

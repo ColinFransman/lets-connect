@@ -1,0 +1,42 @@
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 10;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#error-popup{
+    display: flex;
+    justify-content: center;
+}
+
+#message{
+    margin: 5px;
+    padding: 5px;
+    color: white;
+    border: 2px solid black; 
+    border-radius: 10px;
+    font-weight: bold;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+p#error-popup{
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px; 
+    margin: 0;
+    color: black;
+ }
