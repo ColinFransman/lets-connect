@@ -6,7 +6,7 @@
     </x-slot>
 
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="nl">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +32,19 @@
                 justify-content: center;
                 align-items: center;
                 pointer-events: auto; /* Allows interaction with the tutorial */
+            }
+            .tutorial-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                pointer-events: auto;
             }
 
             .tutorial-box {
@@ -63,16 +76,26 @@
                 justify-content: space-between;
                 margin-top: 20px;
             }
-
-            .tutorial-buttons button {
-                background-color: #0078d7;
-                color: white;
-                border: none;
-                padding: 8px 12px;
-                border-radius: 5px;
-                cursor: pointer;
-                z-index: 1002; /* Interactive buttons */
+            .tutorial-step {
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                width: 300px;
+                z-index: 1001;
+                pointer-events: auto;
             }
+
+                    .tutorial-buttons button {
+                        margin: 5px;
+                        padding: 10px 15px;
+                        border: none;
+                                border-radius: 4px;
+                        background: orange;
+                color: #fff;
+                cursor: pointer;
+                            }
 
             .tutorial-buttons button:hover {
                 background-color: #0056a1;
@@ -106,22 +129,35 @@
                 background: rgb(245, 130, 32); 
             }
         </style>
+            .tutorial-highlight {
+                position: relative;
+                z-index: 1002;
+                outline: 2px solid orange;
+                background: rgba(255, 165, 0, 0.2);
+            }
+
+            .textbox {
+                display: block;
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+        </style>
     </head>
     <body>
-        <!-- Tutorial Overlay -->
-        <div class="tutorial-overlay" id="tutorial-overlay">
-            <div class="tutorial-box">
-                <h3 id="tutorial-title">Welcome to Mijn Planning</h3>
-                <p id="tutorial-text">This is a drag-and-drop interface where you can plan your workshops.</p>
+        <!-- Tutorial -->
+        <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
+            <div class="tutorial-step" id="tutorial-step">
+                <p id="tutorial-text">Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.</p>
                 <div class="tutorial-buttons">
-                    <button id="previous-btn" onclick="navigateTutorial(-1)" disabled>Previous</button>
-                    <button id="next-btn" onclick="navigateTutorial(1)">Next</button>
-                    <button id="finish-btn" onclick="endTutorial()" style="display: none;">Finish</button>
+                    <button onclick="prevStep()">Terug</button>
+                    <button onclick="nextStep()">Volgende</button>
                 </div>
             </div>
         </div>
 
-        <!-- Main Content -->
+        <!-- Hoofdinhoud -->
         <div class="main">
             <div class="rounds">
                 <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1">Ronde 1</div>
@@ -132,7 +168,7 @@
                 <?php /* for ($i = 1; $i < 13; $i++) { 
                     echo " 
                         <div class='workshop' id='workshop" . $i . "' draggable='true' ondragstart='drag(event)'>
-                            <div class='info' onclick='info(event)' id='info" . $i . "' tabindex='0'>i</div>
+                            <div class='info' onclick='info(event)' onclick='info(event)' id='info" . $i . "' tabindex='0'>i</div>
                             <div class='popup' id='popup" . $i . "'>
                                 <button class='close' onclick='closePopup(" . $i . ")'>x</button>
                                 <p>Lokaal: " . $i . "</p>
@@ -154,16 +190,20 @@
                 </div>
             </div>
         </div>
+            <!-- Tekstvak tijdelijk verbergen -->
+            <input type="text" id="myTextbox" class="textbox" placeholder="Voer tekst in...">
+        </div>
+
         <script>
             let planningChanged = false;
             let workshopsInRounds = new Set(); // Houdt bij welke workshops naar een ronde zijn gesleept
 
-            let tutorialSteps = [
-                { title: "Welcome to Mijn Planning", text: "This is a drag-and-drop interface where you can plan your workshops.", highlight: ".round.highlight" },
-                { title: "Workshop Sections", text: "Drag workshops into the rounds to assign them.", highlight: ".workshops" },
-                { title: "Save Button", text: "Click this button to save your planning.", highlight: ".button.save" }
-            ];
-            let currentStep = 0;
+                    const tutorialSteps = [
+                        { text: "Dit is Ronde 1. Sleep een workshop hierheen om het toe te wijzen aan deze ronde.", highlight: ".round:nth-child(1)" },
+                        { text: "Hier is een workshop. Klik en sleep het naar een ronde.", highlight: ".workshop:nth-child(1)" },
+                        { text: "Goed gedaan! Laat de workshop vallen in een ronde om je planning te voltooien.", highlight: ".round:nth-child(1)" }
+                    ];
+                    let currentStep = 0;
 
             // Start tutorial on page load
             document.addEventListener("DOMContentLoaded", () => {
@@ -198,6 +238,39 @@
                     endTutorial();
                 }
             }
+            function showStep(stepIndex) {
+                const overlay = document.getElementById("tutorial-overlay");
+                const textElement = document.getElementById("tutorial-text");
+                const step = tutorialSteps[stepIndex];
+
+                textElement.textContent = step.text;
+
+                // Vorige markeringen verwijderen
+                document.querySelectorAll(".tutorial-highlight").forEach(el => {
+                    el.classList.remove("tutorial-highlight");
+                });
+
+                // Markeer het huidige element
+                const highlightElement = document.querySelector(step.highlight);
+                if (highlightElement) {
+                    highlightElement.classList.add("tutorial-highlight");
+                }
+
+                // Toon overlay
+                overlay.style.display = "flex";
+            }
+
+            function nextStep() {
+                // Verberg de tutorial-overlay en het tekstvak tijdelijk bij volgende stap
+                hideTutorialOverlay();
+
+                if (currentStep < tutorialSteps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                } else {
+                    endTutorial();
+                }
+            }
 
             function endTutorial() {
                 document.getElementById("tutorial-overlay").style.display = "none";
@@ -226,10 +299,49 @@
             function allowDrop(ev) {
                 ev.preventDefault();
             }
+            function prevStep() {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            }
+
+            function endTutorial() {
+                const overlay = document.getElementById("tutorial-overlay");
+                overlay.style.display = "none";
+
+                document.querySelectorAll(".tutorial-highlight").forEach(el => {
+                    el.classList.remove("tutorial-highlight");
+                });
+            }
+
+            function hideTutorialOverlay() {
+                const overlay = document.getElementById("tutorial-overlay");
+                overlay.style.display = "none"; // Verberg tutorial-overlay volledig
+            }
+
+            function showTutorialOverlay() {
+                const overlay = document.getElementById("tutorial-overlay");
+                overlay.style.display = "flex"; // Toon tutorial-overlay opnieuw
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                showStep(currentStep);
+            });
+
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
 
             // Sleep functie (om het workshop ID te verkrijgen)
             function drag(ev) {
                 ev.dataTransfer.setData("text", ev.target.id);
+            }
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+
+                // Verberg de tutorial-overlay en tekstvak tijdens slepen
+                hideTutorialOverlay();
             }
 
             // Drop functie
@@ -399,3 +511,16 @@
     </html>
 </x-app-layout>
 
+                ev.target.appendChild(draggedElement);
+
+                // Toon de tutorial-overlay en tekstvak opnieuw na het slepen
+                showTutorialOverlay();
+
+                // Optioneel het tekstvak weer inschakelen na het loslaten
+                const textbox = document.getElementById("myTextbox");
+                textbox.style.display = "block"; // Zorg ervoor dat tekstvak opnieuw verschijnt na loslaten
+            }
+        </script>
+    </body>
+    </html>
+</x-app-layout>

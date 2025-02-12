@@ -1,26 +1,22 @@
 <?php
-// Fetch data directly within the PHP script
+// Haal gegevens direct op binnen het PHP-script
 $host = 'localhost';
 $dbname = 'lets-connect';
 $username = 'root';
 $password = '';
-
-
-
-    
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workshop Overview</title>
+    <title>Workshop Overzicht</title>
     <style>
-        /* Deltion College Color Theme */
+        /* Deltion College Kleurenthema */
         :root {
-            --primary-orange: rgb(245, 130,32); /* Deltion orange */
-            --secondary-orange:rgb(245, 130,32) ;
+            --primary-orange: rgb(245, 130,32); /* Deltion oranje */
+            --secondary-orange: rgb(245, 130,32);
             --primary-blue: #343469; 
             --secondary-blue: #343469;
             --light-gray: #f4f4f4;
@@ -109,36 +105,36 @@ $password = '';
 <body>
     <header>
         <h1>Deltion College Workshops</h1>
-        <input type="text" id="search-bar" placeholder="Search workshops...">
+        <input type="text" id="search-bar" placeholder="Zoek workshops...">
     </header>
     <main>
         <div class="workshop">
             <div class="workshop-header" onclick="toggleDetails(1)">
-                <span>Workshop 1: Introduction to Coding</span>
+                <span>Workshop 1: Introductie tot Coderen</span>
                 <span class="toggle-icon" id="icon-1">&#9660;</span>
             </div>
             <div id="details-1" class="workshop-details">
-                <p>Learn the basics of programming, including variables, loops, and functions. This workshop is great for beginners!</p>
+                <p>Leer de basisprincipes van programmeren, zoals variabelen, loops en functies. Deze workshop is ideaal voor beginners!</p>
             </div>
         </div>
 
         <div class="workshop">
             <div class="workshop-header" onclick="toggleDetails(2)">
-                <span>Workshop 2: Web Development Basics</span>
+                <span>Workshop 2: Basis van Webontwikkeling</span>
                 <span class="toggle-icon" id="icon-2">&#9660;</span>
             </div>
             <div id="details-2" class="workshop-details">
-                <p>Discover the essentials of building websites using HTML, CSS, and JavaScript. Create your first web page in this session.</p>
+                <p>Ontdek de basisprincipes van het bouwen van websites met HTML, CSS en JavaScript. Maak je eerste webpagina in deze sessie.</p>
             </div>
         </div>
 
         <div class="workshop">
             <div class="workshop-header" onclick="toggleDetails(3)">
-                <span>Workshop 3: Advanced JavaScript</span>
+                <span>Workshop 3: Geavanceerde JavaScript</span>
                 <span class="toggle-icon" id="icon-3">&#9660;</span>
             </div>
             <div id="details-3" class="workshop-details">
-                <p>Take your JavaScript skills to the next level with topics like closures, promises, and asynchronous programming.</p>
+                <p>Verhoog je JavaScript-vaardigheden met onderwerpen zoals closures, promises en asynchroon programmeren.</p>
             </div>
         </div>
     </main>
