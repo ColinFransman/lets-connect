@@ -90,7 +90,7 @@
                         <input type="hidden" name="save1" id="save1" value="">
                         <input type="hidden" name="save2" id="save2" value="">
                         <input type="hidden" name="save3" id="save3" value="">
-                        <input type="submit" value="Ja">
+                        <button onclick="SaveSave()">Ja</button>
                     </form>
                     <button onclick="cancelSave()">Nee</button>
                 </div>
