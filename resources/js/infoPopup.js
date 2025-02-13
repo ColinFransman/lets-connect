@@ -1,4 +1,5 @@
 let currentZIndex = 1000; 
+
 function addCloseButton(workshop) {
     if (workshop.querySelector(".close-button")) {
         return; 
