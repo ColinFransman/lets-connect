@@ -17,7 +17,7 @@ class ScheduleController extends Controller
                 ['round1', 'round2', 'round3']
             )
         ) {
-            return back()->with(['status' => 'success', 'message' => 'Je planning is opgeslagen']);
+            return redirect('/success')->with(['status' => 'success', 'title' => 'Bedankt voor je aanmelding', 'message' => 'Je planning is succesvol opgeslagen. Je ontvangt zo snel mogelijk een mail ter bevestiging van je gekozen planning. Je kan dit scherm nu sluiten.']);
         } else {
             return back()->with(['status' => 'failed', 'message' => 'Er ging iets mis tijdens het opslaan ):']);
         }
