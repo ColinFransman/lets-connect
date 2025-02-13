@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Middleware\Success;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +25,10 @@ Route::post('/save', [ScheduleController::class, 'save'])->middleware(['auth', '
 
 Route::get('/overzicht', function () {
     return view('overzicht');
+});
+
+Route::middleware([Success::class])->get('/success', function () {
+    return view('success');
 });
 
 require __DIR__.'/auth.php';

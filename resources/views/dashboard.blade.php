@@ -50,15 +50,24 @@
         <div class="main">
             <div class="rounds">
                 <div class="flex" id="round1">
-                    <p class="round placeholder">Ronde 1</p>
+                    <div class="flex col round placeholder">
+                        <p>Ronde 1</p>
+                        <p>13:00 - 13:45</p>
+                    </div>
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1"></div>
                 </div>
                 <div class="flex" id="round2">
-                    <p class="round placeholder">Ronde 2</p>
+                    <div class="flex col round placeholder">
+                        <p>Ronde 2</p>
+                        <p>13:45 - 14:30</p>
+                    </div>
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2"></div>
                 </div>
                 <div class="flex" id="round3">
-                    <p class="round placeholder">Ronde 3</p>
+                    <div class="flex col round placeholder">
+                        <p>Ronde 3</p>
+                        <p>15:00 - 15:45</p>
+                    </div>
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
                 </div>
             </div>
