@@ -6,7 +6,7 @@
     </x-slot>
 
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="nl">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,18 +20,16 @@
         <script src="../resources/js/tutorial.js"></script>     
     </head>
     <body>
-        <!-- Tutorial Overlay -->
-        {{-- <div class="tutorial-overlay" id="tutorial-overlay">
-            <div class="tutorial-box">
-                <h3 id="tutorial-title">Welcome to Mijn Planning</h3>
-                <p id="tutorial-text">This is a drag-and-drop interface where you can plan your workshops.</p>
+         <!-- Tutorial -->
+         <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
+            <div class="tutorial-step" id="tutorial-step">
+                <p id="tutorial-text">Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.</p>
                 <div class="tutorial-buttons">
-                    <button id="previous-btn" onclick="navigateTutorial(-1)" disabled>Previous</button>
-                    <button id="next-btn" onclick="navigateTutorial(1)">Next</button>
-                    <button id="finish-btn" onclick="endTutorial()" style="display: none;">Finish</button>
+                    <button onclick="prevStep()">Terug</button>
+                    <button onclick="nextStep()">Volgende</button>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <div id="error-popup" class="error-overlay" style="display:none;">
             <div class="error-box">
                 <h3 id="error-title">Foutmelding</h3>
@@ -50,15 +48,24 @@
         <div class="main">
             <div class="rounds">
                 <div class="flex" id="round1">
-                    <p class="round placeholder">Ronde 1</p>
+                    <div class="flex col round placeholder">
+                        <p>Ronde 1</p>
+                        <p>13:00 - 13:45</p>
+                    </div>
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="1"></div>
                 </div>
                 <div class="flex" id="round2">
-                    <p class="round placeholder">Ronde 2</p>
+                    <div class="flex col round placeholder">
+                        <p>Ronde 2</p>
+                        <p>13:45 - 14:30</p>
+                    </div>
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="2"></div>
                 </div>
                 <div class="flex" id="round3">
-                    <p class="round placeholder">Ronde 3</p>
+                    <div class="flex col round placeholder">
+                        <p>Ronde 3</p>
+                        <p>15:00 - 15:45</p>
+                    </div>
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
                 </div>
             </div>
@@ -66,7 +73,7 @@
                 <?php /* for ($i = 1; $i < 13; $i++) { 
                     echo " 
                         <div class='workshop' id='workshop" . $i . "' draggable='true' ondragstart='drag(event)'>
-                            <div class='info' onclick='info(event)' id='info" . $i . "' tabindex='0'>i</div>
+                            <div class='info' onclick='info(event)' onclick='info(event)' id='info" . $i . "' tabindex='0'>i</div>
                             <div class='popup' id='popup" . $i . "'>
                                 <button class='close' onclick='closePopup(" . $i . ")'>x</button>
                                 <p>Lokaal: " . $i . "</p>

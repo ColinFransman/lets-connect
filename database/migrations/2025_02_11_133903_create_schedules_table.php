@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('userId')->unique()->nullable();
+            $table->string('userId')->unique()->primary();
             $table->string('round1');
             $table->string('round2');
             $table->string('round3');

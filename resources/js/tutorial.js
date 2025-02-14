@@ -1,8 +1,8 @@
 let currentStep = 0;
-let tutorialSteps = [
-    { title: "Welcome to Mijn Planning", text: "This is a drag-and-drop interface where you can plan your workshops.", highlight: ".round.highlight" },
-    { title: "Workshop Sections", text: "Drag workshops into the rounds to assign them.", highlight: ".workshops" },
-    { title: "Save Button", text: "Click this button to save your planning.", highlight: ".button.save" }
+const tutorialSteps = [
+    { text: "Dit is Ronde 1. Sleep een workshop hierheen om het toe te wijzen aan deze ronde.", highlight: ".round:nth-child(1)" },
+    { text: "Hier is een workshop. Klik en sleep het naar een ronde.", highlight: ".workshop:nth-child(1)" },
+    { text: "Goed gedaan! Laat de workshop vallen in een ronde om je planning te voltooien.", highlight: ".round:nth-child(1)" }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -45,8 +45,56 @@ function navigateTutorial(direction) {
     }
 }
 
-function endTutorial() {
-    document.getElementById("tutorial-overlay").style.display = "none";
-    togglePointerEvents("enable");
-    localStorage.setItem("tutorialCompleted", "true");
+function showStep(stepIndex) {
+    const overlay = document.getElementById("tutorial-overlay");
+    const textElement = document.getElementById("tutorial-text");
+    const step = tutorialSteps[stepIndex];
+    textElement.textContent = step.text;
+    // Vorige markeringen verwijderen
+    document.querySelectorAll(".tutorial-highlight").forEach(el => {
+        el.classList.remove("tutorial-highlight");
+    });
+    // Markeer het huidige element
+    const highlightElement = document.querySelector(step.highlight);
+    if (highlightElement) {
+        highlightElement.classList.add("tutorial-highlight");
+    }
+    // Toon overlay
+    overlay.style.display = "flex";
 }
+
+function nextStep() {
+    // Verberg de tutorial-overlay en het tekstvak tijdelijk bij volgende stap
+    hideTutorialOverlay();
+    if (currentStep < tutorialSteps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+    } else {
+        endTutorial();
+    }
+}
+
+// function endTutorial() {
+//     document.getElementById("tutorial-overlay").style.display = "none";
+//     togglePointerEvents("enable");
+//     localStorage.setItem("tutorialCompleted", "true");
+// }
+
+function endTutorial() {
+    const overlay = document.getElementById("tutorial-overlay");
+    overlay.style.display = "none";
+    document.querySelectorAll(".tutorial-highlight").forEach(el => {
+        el.classList.remove("tutorial-highlight");
+    });
+}
+function hideTutorialOverlay() {
+    const overlay = document.getElementById("tutorial-overlay");
+    overlay.style.display = "none"; // Verberg tutorial-overlay volledig
+}
+function showTutorialOverlay() {
+    const overlay = document.getElementById("tutorial-overlay");
+    overlay.style.display = "flex"; // Toon tutorial-overlay opnieuw
+}
+document.addEventListener("DOMContentLoaded", () => {
+    showStep(currentStep);
+});
