@@ -28,11 +28,18 @@
                     :value="old('email')" placeholder="Voer je studentenemail in" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-4">
                 <x-input-label for="klas" :value="__('Klas')" />
-                <x-text-input id="klas" class="block mt-1 w-full" type="text" name="klas" 
-                    :value="old('klas')" placeholder="Voer je klas in" required autofocus autocomplete="klas" />
-                <x-input-error :messages="$errors->get('Klas')" class="mt-2" />
+                <select id="klas" name="klas" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                    <option value="" disabled selected>Kies je klas</option>
+                    <option value="ICT1A" {{ old('klas') == 'ICT1A' ? 'selected' : '' }}>ICT1A</option>
+                    <option value="ICT1B" {{ old('klas') == 'ICT1B' ? 'selected' : '' }}>ICT1B</option>
+                    <option value="ICT2A" {{ old('klas') == 'ICT2A' ? 'selected' : '' }}>ICT2A</option>
+                    <option value="ICT2B" {{ old('klas') == 'ICT2B' ? 'selected' : '' }}>ICT2B</option>
+                    <option value="ICT3A" {{ old('klas') == 'ICT3A' ? 'selected' : '' }}>ICT3A</option>
+                    <option value="ICT3B" {{ old('klas') == 'ICT3B' ? 'selected' : '' }}>ICT3B</option>
+                </select>
+                <x-input-error :messages="$errors->get('klas')" class="mt-2" />
             </div>
             <!-- Registreren Button -->
             <div class="form-actions flex items-center justify-end mt-4">

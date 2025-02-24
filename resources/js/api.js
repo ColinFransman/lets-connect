@@ -1,8 +1,13 @@
 let workshops;
 
 function loadWorkshops_fetch() {
-    let url = "http://127.0.1.3:4001/getData";
+    let url = "http://localhost:4001/getData";
     fetch(url)
+        .catch((e) => {
+            workshops = "<div class='api-error'>De data kon niet worden opgehaald :(</div>";
+            document.getElementById(4).innerHTML = workshops;
+            throw new Error("Something went wrong trying to fetch data from the api");
+        })
         .then(data => {
             return data.json();
         })
@@ -19,7 +24,7 @@ function fJson2Html(json) {
             "<div class='info' onclick='info(event)' id='info" + i + "' tabindex='0'>i</div>" + 
             "<div class='popup' id='popup" + i + "' draggable='false'>" + 
                 "<button class='close' onclick='closePopup(" + i + ")'>x</button>" + 
-                //"<p>Lokaal: " + i + "</p>"
+                "<a href='https://xerte.deltion.nl/play.php?template_id=8708#programma' class='popup-header' target='_blank'>Klik <span class='highlight'>hier</span> voor meer informatie</a>" +  
                 "<div class='description'>" +
                     "<div class='descriptionText'>";
                     for (let d = 0; d < json.Descriptions.length; d++) {
@@ -37,6 +42,8 @@ function fJson2Html(json) {
         "</div>";
     }
     document.getElementById(4).innerHTML = workshops;
-    }
+}
+
+
 
 loadWorkshops_fetch();
