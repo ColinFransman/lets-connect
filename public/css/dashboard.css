@@ -198,7 +198,7 @@ body {
 }
 
 .button:hover {
-    background-color: #0a28aa;
+    background-color: #010174;
 }
 
 /* Bevestigingspopup styling */
@@ -232,7 +232,7 @@ body {
 }
 
 .confpopup button:hover {
-    background-color: #0a28aa;
+    background-color: rgb(245, 130, 32);
 }
 
 /* Tutorial overlay */
@@ -469,6 +469,7 @@ body {
 
 .success-subtitle {
     font-size: 15px;
+
 }.SaveSave{
     margin: 10px;
     padding: 10px 20px;
@@ -477,5 +478,9 @@ body {
     border-radius: 5px;
     cursor: pointer;
     background-color: #010174;
+    
     color: white;
+}
+.SaveSave button:hover {
+       background-color: orange;
 }
