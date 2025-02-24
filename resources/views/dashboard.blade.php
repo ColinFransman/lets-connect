@@ -1,13 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma">Lets-Connect</a> 
+            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" target="_blank" style="display: flex"><p class="deltion-blue">Let's</p><pre> </pre><p class="deltion-orange">Connect</p></a> 
         </h2>
     </x-slot>
 
     <!DOCTYPE html>
     <html lang="nl">
     <head>
+        <title>Let's Connect</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -20,8 +21,8 @@
         <script src="../resources/js/tutorial.js"></script>     
     </head>
     <body>
-         <!-- Tutorial -->
-         <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
+        <!-- Tutorial -->
+        {{-- <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
             <div class="tutorial-step" id="tutorial-step">
                 <p id="tutorial-text">Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.</p>
                 <div class="tutorial-buttons">
@@ -29,7 +30,7 @@
                     <button onclick="nextStep()">Volgende</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div id="error-popup" class="error-overlay" style="display:none;">
             <div class="error-box">
                 <h3 id="error-title">Foutmelding</h3>

@@ -13,6 +13,7 @@ body {
     display: flex;
     margin-top: 50px;
     justify-content: space-around;
+    padding-bottom: 10px;
 }
 
 .rounds {
@@ -119,6 +120,7 @@ body {
 .title {
     width: 100%;
     height: auto;
+    padding: 10px;
     display: flex;
     padding: 8%;
     justify-content: center;
@@ -440,8 +442,6 @@ body {
     text-decoration: underline; 
 }
 
-
-
 .success-page {
     width: 100%;
     height: 100%;
@@ -459,11 +459,11 @@ body {
     padding-top: 20px;
 }
 
-.success-orange {
+.deltion-orange {
     color:rgb(245, 130, 32)
 }
 
-.success-blue {
+.deltion-blue {
     color: #343469;
 }
 

@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->id();
             $table->string('userId')->unique()->primary();
             $table->string('round1');
             $table->string('round2');
