@@ -22,7 +22,7 @@
     </head>
     <body>
         <!-- Tutorial -->
-        {{-- <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
+        <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
             <div class="tutorial-step" id="tutorial-step">
                 <p id="tutorial-text">Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.</p>
                 <div class="tutorial-buttons">
@@ -30,7 +30,9 @@
                     <button onclick="nextStep()">Volgende</button>
                 </div>
             </div>
-        </div> --}}
+        </div>
+
+        <!-- Foutmelding bij workshop ongeldige ronde -->
         <div id="error-popup" class="error-overlay" style="display:none;">
             <div class="error-box">
                 <h3 id="error-title">Foutmelding</h3>
