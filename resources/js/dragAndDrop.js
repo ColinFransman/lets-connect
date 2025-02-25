@@ -36,8 +36,9 @@ function drop(ev) {
         let title = draggedElement.querySelector(".title");
         document.getElementById("save" + targetRound.id).value = title.innerText;
         planningChanged = true;
-        addCloseButton(draggedElement);
+        addCloseButton(draggedElement, targetRound);
         workshopsInRounds.add(draggedElement.id);
         checkWorkshopsInRounds();
     }
+    updateSaveButton();
 }

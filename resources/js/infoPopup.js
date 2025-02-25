@@ -1,6 +1,6 @@
 let currentZIndex = 1000; 
 
-function addCloseButton(workshop) {
+function addCloseButton(workshop, targetRound) {
     if (workshop.querySelector(".close-button")) {
         return; 
     }
@@ -22,10 +22,12 @@ function addCloseButton(workshop) {
         }
 
         workshopsInRounds.delete(workshop.id); 
+        document.getElementById("save" + targetRound.id).value = "";
+        updateSaveButton();
         closeButton.remove();
     });
 
-    workshop.appendChild(closeButton); 
+    workshop.appendChild(closeButton);
 }
 
 function checkRoundsFilled() {
