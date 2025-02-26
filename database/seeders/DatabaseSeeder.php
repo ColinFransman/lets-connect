@@ -18,14 +18,16 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@example.com',
+            'class' => 'SD2A'
             // 'password' => bcrypt('password'),
         ]);
 
         DB::table('users')->insert([
             'name' => 'user',
             'email' => 'user@example.com',
+            'class' => 'SD2A'
         ]);
-        User::factory(10)->create();
+        // User::factory(10)->create();
 
         User::find(1)->addRole('administrator');
         User::find(2)->addRole('user');
