@@ -18,16 +18,16 @@
         <script src="../resources/js/errorPopup.js"></script>
         <script src="../resources/js/infoPopup.js"></script>
         <script src="../resources/js/confirmPopup.js"></script>
-        <script src="../resources/js/tutorial.js"></script>     
+             
     </head>
     <body>
         <!-- Tutorial -->
         <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
             <div class="tutorial-step" id="tutorial-step">
-                <p id="tutorial-text">Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.</p>
+                <p id="tutorial-text"></p>
                 <div class="tutorial-buttons">
-                    <button onclick="prevStep()">Terug</button>
-                    <button onclick="nextStep()">Volgende</button>
+                    <button id="prevButton" onclick="prevStep()" >Terug</button>
+                    <button id="nextButton" onclick="nextStep()">Volgende</button>
                 </div>
             </div>
         </div>
@@ -111,6 +111,8 @@
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
 
         </div> 
+        <!-- loading script after html has loaded because of getElementById -->
+        <script src="../resources/js/tutorial.js"></script>
     </body>
     </html>
 </x-app-layout>
