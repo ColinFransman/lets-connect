@@ -1,4 +1,5 @@
 let currentStepIndex = 0;
+
 // for buttons styling.
 let prevButton = document.getElementById('prevButton');
 let nextButton = document.getElementById('nextButton');
@@ -16,7 +17,8 @@ const tutorialSteps = [
     { text: "Dit is Ronde 1. Sleep een workshop hierheen om het toe te wijzen aan deze ronde.", highlight: ".round:nth-child(1)" },
     { text: "Hier is een workshop. Klik en sleep het naar een ronde.", highlight: ".workshop:nth-child(1)" },
     { text: "Je kunt ook de workshop weer verwijderen met de 'x'.", highlight: ".round:nth-child(1)" },
-    { text: "Goed gedaan! Laat de workshop vallen in een ronde om je planning te voltooien.", highlight: ".round:nth-child(1)" }
+    { text: "Goed gedaan! Laat de workshop vallen in een ronde om je planning te voltooien.", highlight: ".round:nth-child(1)" },
+    { text: "", highlight: ".round:nth-child(1)" }
 ];
 let tutorialLength = tutorialSteps.length - 1;
 
@@ -25,8 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function startTutorial() {
-    const overlay = document.getElementById("tutorial-overlay"); // if ID exists, the popup becomes visible
-    overlay.style.display = "flex";
+    // if ID exists, the popup becomes visible
+    tutOverlay.style.display = "flex";
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
     
     // styling buttons onload.
@@ -50,16 +52,20 @@ function nextStep() {
     // on tutorial round 1.
     if (currentStepIndex === 1) {
         firstStep();
-        // nextButton.disabled = true; // disabling button.
+        nextButton.disabled = true; // disabling button.
     } else if (currentStepIndex === 2) {
         secondStep();
     } else if (currentStepIndex === 3) {
         thirdStep();
+        nextButton.disabled = true;
     } else if (currentStepIndex === 4) {
         fourthStep();
+        nextButton.disabled = true;
+    } else if (currentStepIndex > 5) {
+        fifthStep();
     } else {
         defaultStyling();
-        // nextButton.disabled = false; // enabling button on other steps.
+        nextButton.disabled = false; // enabling button on other steps.
     }
 }
 
@@ -79,16 +85,20 @@ function prevStep() {
     // on tutorial round 1.
     if (currentStepIndex === 1) {
         firstStep();
-        // nextButton.disabled = true;
+        nextButton.disabled = true; // disabling button.
     } else if (currentStepIndex === 2) {
         secondStep();
     } else if (currentStepIndex === 3) {
         thirdStep();
+        nextButton.disabled = true;
     } else if (currentStepIndex === 4) {
         fourthStep();
+        nextButton.disabled = true;
+    } else if (currentStepIndex > 5) {
+        fifthStep();
     } else {
         defaultStyling();
-        // nextButton.disabled = false;
+        nextButton.disabled = false; // enabling button on other steps.
     }
 }
 
@@ -123,11 +133,14 @@ function sendInfoIcon() {
 }
 
 function sendRoundX() {
+    // let roundX = document.querySelector('#round1 .round .workshop .close-button')
+
+    let workshopOne = sendWorkshop();
+
     let roundOneX;
-    if (currentStepIndex === 3) {
-        roundOneX = document.querySelector('#round1 .round .workshop .close-button')
+    if (currentStepIndex && roundOne.contains(workshopOne)) {
+        roundOneX = document.querySelector('#round1 .round .workshop .close-button');
     }
-    console.log(roundOneX)
     return roundOneX;
 }
 
@@ -145,7 +158,9 @@ function defaultStyling() {
     iconOne.style.zIndex = "unset";
 
     let roundOneX = sendRoundX();
-    roundOneX.style.color = "white";
+    if(roundOneX && currentStepIndex !== 4) {
+        roundOneX.style.zIndex = "unset";
+    }
 
     if (roundOne.classList.contains("tutorial-highlight")) {
         roundOne.classList.remove("tutorial-highlight");
@@ -193,6 +208,15 @@ function fourthStep() {
     defaultStyling() // resets previous styling.
 
     let roundOneX = sendRoundX();
+    
+    if (roundOneX) { // Ensure it's not undefined
+        roundOneX.style.zIndex = "1001";
+    }
+}
 
-    roundOneX.style.color = "red";
+function fifthStep() {
+    defaultStyling();
+
+    // hides the overlay.
+    tutOverlay.style.display = "none";
 }
