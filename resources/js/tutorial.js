@@ -22,15 +22,59 @@ const tutorialSteps = [
 ];
 let tutorialLength = tutorialSteps.length - 1;
 
+
 document.addEventListener("DOMContentLoaded", () => {
     startTutorial();
 });
+
+// observers for the extra steps like 'i', drag step or 'x' since defining these have issues globally.
+const observerI = new MutationObserver((mutationsList, observer) => {
+    let iconOne = sendInfoIcon();
+    if (iconOne) {
+        // clicked on 'i' does things.
+        iconOne.addEventListener('click', function () {
+            nextButton.disabled = false;
+            nextStep();
+        });
+        observer.disconnect(); // Stop observing once we find it
+    }
+});
+observerI.observe(document.body, { childList: true, subtree: true });
+
+// dragged workshop.
+const observerDrag = new MutationObserver((mutationsList, observer) => {
+    let roundOneX = sendRoundX();
+    let workshopOne = sendWorkshop();
+    if(roundOneX) {
+        // roundOneX.addEventListener('click', function () {
+        if(roundOne.contains(workshopOne))
+            nextButton.disabled = false;
+            nextStep();
+        // })
+        observer.disconnect();
+    }
+});
+observerDrag.observe(document.body, { childList: true, subtree: true });
+
+// remove workshop.
+const observerX = new MutationObserver((mutationsList, observer) => {
+    let roundOneX = sendRoundX();
+    if (roundOneX) {
+        // clicked on 'i' does things.
+        roundOneX.addEventListener('click', function () {
+            nextButton.disabled = false;
+            nextStep();
+        });
+        observer.disconnect(); // Stop observing once we find it
+    }
+});
+observerX.observe(document.body, { childList: true, subtree: true });
 
 function startTutorial() {
     // if ID exists, the popup becomes visible
     tutOverlay.style.display = "flex";
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
-    
+
     // styling buttons onload.
     if (currentStepIndex === 0) {
         prevButton.style.display = "none";
@@ -50,22 +94,25 @@ function nextStep() {
     }
 
     // on tutorial round 1.
-    if (currentStepIndex === 1) {
-        firstStep();
-        nextButton.disabled = true; // disabling button.
-    } else if (currentStepIndex === 2) {
-        secondStep();
-    } else if (currentStepIndex === 3) {
-        thirdStep();
-        nextButton.disabled = true;
-    } else if (currentStepIndex === 4) {
-        fourthStep();
-        nextButton.disabled = true;
-    } else if (currentStepIndex > 5) {
-        fifthStep();
-    } else {
-        defaultStyling();
-        nextButton.disabled = false; // enabling button on other steps.
+    switch (currentStepIndex) {
+        case 1:
+            firstStep();
+            break;
+        case 2:
+            secondStep();
+            break;
+        case 3:
+            thirdStep();
+            break;
+        case 4:
+            fourthStep();
+            break;
+        case 5:
+            fifthStep();
+            break;
+        default:
+            defaultStyling();
+            break;
     }
 }
 
@@ -83,30 +130,33 @@ function prevStep() {
     }
 
     // on tutorial round 1.
-    if (currentStepIndex === 1) {
-        firstStep();
-        nextButton.disabled = true; // disabling button.
-    } else if (currentStepIndex === 2) {
-        secondStep();
-    } else if (currentStepIndex === 3) {
-        thirdStep();
-        nextButton.disabled = true;
-    } else if (currentStepIndex === 4) {
-        fourthStep();
-        nextButton.disabled = true;
-    } else if (currentStepIndex > 5) {
-        fifthStep();
-    } else {
-        defaultStyling();
-        nextButton.disabled = false; // enabling button on other steps.
+    switch (currentStepIndex) {
+        case 1:
+            firstStep();
+            break;
+        case 2:
+            secondStep();
+            break;
+        case 3:
+            thirdStep()
+            break;
+        case 4:
+            fourthStep()
+            break;
+        case 5:
+            fifthStep()
+            break;
+        default:
+            defaultStyling();
+            break;
     }
 }
 
 // returning steo indexes
 function hidePreviousOverlay() {
     // if index is lower than array length and is '0', the number increases.
-    if(currentStepIndex < tutorialLength || currentStepIndex === 0) {
-        currentStepIndex++
+    if (currentStepIndex < tutorialLength || currentStepIndex === 0) {
+        currentStepIndex++;
     }
     // returning the index to other functions.
     return currentStepIndex;
@@ -114,8 +164,8 @@ function hidePreviousOverlay() {
 
 function showNextOverlay() {
     // if the index is lower than array length and is higher than '0', the number decreases.
-    if(currentStepIndex < tutorialLength && currentStepIndex > 0 || currentStepIndex === tutorialLength) {
-        currentStepIndex--
+    if (currentStepIndex < tutorialLength && currentStepIndex > 0 || currentStepIndex === tutorialLength) {
+        currentStepIndex--;
     }
     return currentStepIndex;
 }
@@ -145,6 +195,9 @@ function sendRoundX() {
 }
 
 function defaultStyling() {
+
+    nextButton.disabled = false;
+
     // rounds style
     tutOverlay.style.alignItems = "center";
     roundOne.style.zIndex = "unset";
@@ -158,7 +211,7 @@ function defaultStyling() {
     iconOne.style.zIndex = "unset";
 
     let roundOneX = sendRoundX();
-    if(roundOneX && currentStepIndex !== 4) {
+    if (roundOneX && currentStepIndex !== 4) {
         roundOneX.style.zIndex = "unset";
     }
 
@@ -173,6 +226,8 @@ function defaultStyling() {
 function firstStep() {
     defaultStyling() // resets previous styling.
 
+    nextButton.disabled = true; // disables next button
+
     let iconOne = sendInfoIcon();
 
     iconOne.style.zIndex = "1001";
@@ -185,12 +240,14 @@ function secondStep() {
     // rounds style
     tutOverlay.style.alignItems = "end";
     roundOne.style.zIndex = "1001";
-    
+
     roundOne.classList.add("tutorial-highlight")
 }
 
 function thirdStep() {
     defaultStyling() // resets previous styling.
+
+    nextButton.disabled = true;
 
     // imported div.
     let workshopOne = sendWorkshop();
@@ -207,8 +264,10 @@ function thirdStep() {
 function fourthStep() {
     defaultStyling() // resets previous styling.
 
+    nextButton.disabled = true;
+
     let roundOneX = sendRoundX();
-    
+
     if (roundOneX) { // Ensure it's not undefined
         roundOneX.style.zIndex = "1001";
     }
