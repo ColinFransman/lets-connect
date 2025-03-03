@@ -48,15 +48,16 @@ function closeSavePopup() {
     popup.style.display = "none"; 
 
    
-    const saveButton = document.getElementById("save-button");
-    saveButton.style.display = "block"; 
+    // const saveButton = document.getElementById("save-button");
+    // saveButton.style.display = "block"; 
 }
+
 function updateSaveButton() {
     const saveButton = document.getElementById("save-button");
     const popup = document.getElementById("confirmation-popup");
     const totalWorkshops = document.querySelectorAll(".round .workshop").length;
 
-    let  save1 = document.getElementById('save1').value;
+    let save1 = document.getElementById('save1').value;
     let save2 = document.getElementById('save2').value;
     let save3 = document.getElementById('save3').value;
 
