@@ -298,7 +298,7 @@ function fourthStep() {
 function fifthStep() {
     defaultStyling();
 
-    // hides the overlay.
+    tutOverlay.style.display = "none";// hides the overlay.
 }
 
 function cookieState() {
