@@ -8,6 +8,8 @@ let tutButtons = document.querySelector('.tutorial-buttons');
 // overlay
 let tutOverlay = document.querySelector('.tutorial-overlay');
 
+let tutStep = document.getElementById('tutorial-step')
+
 // first round
 let roundOne = document.querySelector('#round1 .round:nth-child(2)');
 
@@ -22,9 +24,13 @@ const tutorialSteps = [
 ];
 let tutorialLength = tutorialSteps.length - 1;
 
-
 document.addEventListener("DOMContentLoaded", () => {
-    startTutorial();
+    var cookieSatus = cookieState();
+    
+    if(!cookieSatus) {
+        startTutorial();
+        document.cookie = "render=loaded"
+    }
 });
 
 // observers for the extra steps like 'i', drag step or 'x' since defining these have issues globally.
@@ -47,9 +53,10 @@ const observerDrag = new MutationObserver((mutationsList, observer) => {
     let workshopOne = sendWorkshop();
     if(roundOneX) {
         // roundOneX.addEventListener('click', function () {
-        if(roundOne.contains(workshopOne))
+        if(roundOne.contains(workshopOne)) {
             nextButton.disabled = false;
             nextStep();
+        }
         // })
         observer.disconnect();
     }
@@ -199,7 +206,6 @@ function defaultStyling() {
     nextButton.disabled = false;
 
     // rounds style
-    tutOverlay.style.alignItems = "center";
     roundOne.style.zIndex = "unset";
 
     // imported div.
@@ -214,6 +220,9 @@ function defaultStyling() {
     if (roundOneX && currentStepIndex !== 4) {
         roundOneX.style.zIndex = "unset";
     }
+    if (roundOne.contains(workshopOne) && currentStepIndex !== 4) {
+        roundOneX.click();
+    }
 
     if (roundOne.classList.contains("tutorial-highlight")) {
         roundOne.classList.remove("tutorial-highlight");
@@ -221,6 +230,9 @@ function defaultStyling() {
     if (workshopOne.classList.contains("tutorial-highlight")) {
         workshopOne.classList.remove("tutorial-highlight");
     }
+
+    tutStep.style.position = "unset";
+    tutStep.style.top = "unset";
 }
 
 function firstStep() {
@@ -231,6 +243,9 @@ function firstStep() {
     let iconOne = sendInfoIcon();
 
     iconOne.style.zIndex = "1001";
+
+    tutStep.style.position = "relative";
+    tutStep.style.top = "25%";
 }
 
 // each step with styling.
@@ -238,10 +253,12 @@ function secondStep() {
     defaultStyling() // resets previous styling.
 
     // rounds style
-    tutOverlay.style.alignItems = "end";
     roundOne.style.zIndex = "1001";
 
     roundOne.classList.add("tutorial-highlight")
+
+    tutStep.style.position = "relative";
+    tutStep.style.top = "25%";
 }
 
 function thirdStep() {
@@ -253,12 +270,14 @@ function thirdStep() {
     let workshopOne = sendWorkshop();
 
     // rounds style.
-    tutOverlay.style.alignItems = "end";
     roundOne.style.zIndex = "1001";
 
     // workshop style.
     workshopOne.style.zIndex = "1001";
     workshopOne.classList.add("tutorial-highlight")
+
+    tutStep.style.position = "relative";
+    tutStep.style.top = "25%";
 }
 
 function fourthStep() {
@@ -271,11 +290,23 @@ function fourthStep() {
     if (roundOneX) { // Ensure it's not undefined
         roundOneX.style.zIndex = "1001";
     }
+
+    tutStep.style.position = "relative";
+    tutStep.style.top = "25%";
 }
 
 function fifthStep() {
     defaultStyling();
 
     // hides the overlay.
-    tutOverlay.style.display = "none";
+}
+
+function cookieState() {
+    var cookieSatus = false; // renderLoaded runs on first load, making status false on second load.
+    if(document.cookie.match("render=loaded")) {
+        cookieSatus = true;
+    } else {
+        cookieSatus = false;
+    }
+    return cookieSatus;
 }
