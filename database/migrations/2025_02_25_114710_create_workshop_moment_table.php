@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('workshop_moments', function (Blueprint $table) {
             $table->id();
-            $table->integer('moment_id');
-            $table->integer('workshop_id');
+            $table->unsignedBigInteger('moment_id');
+            $table->unsignedBigInteger('workshop_id');
+            $table->foreign('moment_id')->references('id')->on('moments');
+            $table->foreign('workshop_id')->references('id')->on('workshops');
             $table->timestamps();
         });
     }

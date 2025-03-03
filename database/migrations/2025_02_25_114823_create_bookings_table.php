@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('wm_id');
-            $table->integer('student_id');
+            $table->unsignedBigInteger('wm_id');
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('wm_id')->references('id')->on('workshop_moments');
+            $table->foreign('student_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
