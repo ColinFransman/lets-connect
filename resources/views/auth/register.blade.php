@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <link href="{{ asset('/css/register.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/form.css') }}" rel="stylesheet">
     
     <!-- Logo -->
     <div class="logo">
@@ -44,11 +44,11 @@
             <!-- Registreren Button -->
             <div class="form-actions flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('Al geregistreerd?') }}
                 </a>
 
                 <x-primary-button class="ms-4">
-                    {{ __('Register') }}
+                    {{ __('Registreren') }}
                 </x-primary-button>
             </div>
         </form>
