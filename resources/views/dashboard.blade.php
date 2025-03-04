@@ -21,8 +21,8 @@
         <script src="../resources/js/tutorial.js"></script>     
     </head>
     <body>
-        <!-- Tutorial -->
-        {{-- <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
+         <!-- Tutorial -->
+         {{-- <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
             <div class="tutorial-step" id="tutorial-step">
                 <p id="tutorial-text">Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.</p>
                 <div class="tutorial-buttons">
