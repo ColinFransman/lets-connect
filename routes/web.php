@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Middleware\Success;
 use Illuminate\Support\Facades\Route;
+use App\Models\Workshop;
 
 Route::get('/', function () {
     return redirect()->route('register');
@@ -30,5 +31,11 @@ Route::get('/overzicht', function () {
 Route::middleware([Success::class])->get('/success', function () {
     return view('success');
 });
+
+
+Route::get('/workshop', function () {
+    return Workshop::all();
+});
+
 
 require __DIR__.'/auth.php';
