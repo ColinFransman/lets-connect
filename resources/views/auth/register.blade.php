@@ -52,5 +52,20 @@
                 </x-primary-button>
             </div>
         </form>
+        <div id="dataPopup" style="display: none;">
+            <div class="innerDataTitel">
+                weet je zeker dat deze gegevens kloppen?
+            </div>
+            <div class="innerDataWrapper">
+                <div>
+                    Email:
+                </div>
+                <div></div>
+                <div>
+                    Klas:
+                </div>
+                <div></div>
+            </div>
+        </div>
     </div>
 </x-guest-layout>
