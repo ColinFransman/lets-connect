@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <link href="{{ asset('/css/register.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/form.css') }}" rel="stylesheet">
     
 
     
@@ -65,13 +65,28 @@
             <!-- Registreren Button -->
             <div class="form-actions flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('Al geregistreerd?') }}
                 </a>
 
                 <x-primary-button class="ms-4">
-                    {{ __('Register') }}
+                    {{ __('Registreren') }}
                 </x-primary-button>
             </div>
         </form>
+        <div id="dataPopup" style="display: none;">
+            <div class="innerDataTitel">
+                weet je zeker dat deze gegevens kloppen?
+            </div>
+            <div class="innerDataWrapper">
+                <div>
+                    Email:
+                </div>
+                <div></div>
+                <div>
+                    Klas:
+                </div>
+                <div></div>
+            </div>
+        </div>
     </div>
 </x-guest-layout>
