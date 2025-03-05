@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'ends_with:@st.deltion.nl'],
+            'email' => ['required', 'email', 'ends_with:@st.deltion.nl', 'unique:users,email'],
             'klas' => ['required', 'string', 'max:255'],
         ]);
 
