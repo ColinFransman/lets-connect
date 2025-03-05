@@ -56,7 +56,7 @@
                 <x-input-error :messages="$errors->get('klas')" class="mt-2" />
             </div>
             
-              <script src="../resources/js/register.js"></script>
+            <script src="{{ asset('/js/register.js') }}"></script>
               
                       
                 </select>

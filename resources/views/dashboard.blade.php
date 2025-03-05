@@ -13,12 +13,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <script src="../resources/js/api.js"></script>
-        <script src="../resources/js/dragAndDrop.js"></script>
-        <script src="../resources/js/errorPopup.js"></script>
-        <script src="../resources/js/infoPopup.js"></script>
-        <script src="../resources/js/confirmPopup.js"></script>
-        <script src="../resources/js/tutorial.js"></script>     
+        <script src="{{ asset('/js/api.js') }}"></script>
+        <script src="{{ asset('/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('/js/confirmPopup.js') }}"></script> 
+        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>   
+        <script src="{{ asset('/js/errorPopup.js') }}"></script>
+        <script src="{{ asset('/js/infoPopup.js') }}"></script>
+        <script src="{{ asset('/js/register.js') }}"></script>
     </head>
     <body>
          <!-- Tutorial -->
@@ -93,7 +94,7 @@
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
-                    <form method="POST" action="{{ url('/save') }}" onsubmit="updateHiddenInputs()">
+                    <form method="POST" action="{{ url('/save') }}">
                         @csrf
                         <input type="hidden" name="save1" id="save1" value="">
                         <input type="hidden" name="save2" id="save2" value="">
