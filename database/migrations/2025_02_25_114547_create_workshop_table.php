@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->string('room_name', 20);
+            $table->string('full_description', 1024);
+            $table->string('image_url', 128);
+            // $table->string('room_name', 20);
             $table->integer('capacity');
             $table->timestamps();
         });
