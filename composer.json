@@ -12,6 +12,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+        "phpmailer/phpmailer": "^6.9",
         "santigarcor/laratrust": "^8.3"
     },
     "require-dev": {

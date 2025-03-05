@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Middleware\Success;
+use App\Http\Controllers\MailController;
+use App\Mail\SendMail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,6 +15,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/send-mail', function () {
+    Mail::to('manoncristel37@gmail.com')->send(new SendMail("Test Subject", "This is a test email body"));
+    return view('success');
+});
 
 
 Route::middleware('auth')->group(function () {
