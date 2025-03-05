@@ -1,6 +1,8 @@
 <x-guest-layout>
     <link href="{{ asset('/css/register.css') }}" rel="stylesheet">
     
+
+    
     <!-- Logo -->
     <div class="logo">
         <img src="https://xerte.deltion.nl/USER-FILES/3183-cmartens-site/media/Deltion_College_CMYK_145x57.png" alt="Deltion Logo" class="deltion-logo">
@@ -29,15 +31,34 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
             <div class="form-group mt-4">
-                <x-input-label for="klas" :value="__('Klas')" />
-                <select id="klas" name="klas" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                    <option value="" disabled selected>Kies je klas</option>
-                    <option value="ICT1A" {{ old('klas') == 'ICT1A' ? 'selected' : '' }}>ICT1A</option>
-                    <option value="ICT1B" {{ old('klas') == 'ICT1B' ? 'selected' : '' }}>ICT1B</option>
-                    <option value="ICT2A" {{ old('klas') == 'ICT2A' ? 'selected' : '' }}>ICT2A</option>
-                    <option value="ICT2B" {{ old('klas') == 'ICT2B' ? 'selected' : '' }}>ICT2B</option>
-                    <option value="ICT3A" {{ old('klas') == 'ICT3A' ? 'selected' : '' }}>ICT3A</option>
-                    <option value="ICT3B" {{ old('klas') == 'ICT3B' ? 'selected' : '' }}>ICT3B</option>
+                <label for="opleiding">Opleiding:</label>
+                <select id="opleiding" name="opleiding">
+                    <option value="opleiding1">Sign</option>
+                    <option value="opleiding2">Muscialperformer</option>
+                    <option value="opleiding3">Podium-en Evenemententeckniek</option>
+                    <option value="opleiding4">Acteur</option>
+                    <option value="opleiding5">Mode</option>
+                    <option value="opleiding6">Mediavormgeving</option>
+                    <option value="opleiding7">Av-Specialist</option>
+                    <option value="opleiding8">Fotograaf</option>
+                    <option value="opleiding9">Expert IT systems and devices</option>
+                    <option value="opleiding10">Allround medewerkers IT systems and devices</option>
+                    <option value="opleiding11">Software Developer</option>
+                    <option value="opleiding12">Interieuradviseur</option>
+                    <option value="opleiding13">Creative Development</option>
+                </select> 
+                <br><br>
+            
+                <label for="klas">Kies een klas:</label> 
+                <select id="klas" name="klas">
+                    <option value="">Kies een klas</option>
+                </select>
+                <x-input-error :messages="$errors->get('klas')" class="mt-2" />
+            </div>
+            
+              <script src="../resources/js/register.js"></script>
+              
+                      
                 </select>
                 <x-input-error :messages="$errors->get('klas')" class="mt-2" />
             </div>
