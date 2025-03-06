@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Bookings extends Model
 {
-    public $guarded = [];
+    public $guarded = [
+        'id'
+    ];
 
     public function users(): HasOne
     {

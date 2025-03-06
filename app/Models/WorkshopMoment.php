@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class WorkshopMoment extends Model
 {
-    public $guarded = [];
+    public $guarded = [
+        'id'
+    ];
 
     public function bookings(): HasMany
     {
