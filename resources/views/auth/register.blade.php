@@ -73,20 +73,24 @@
                 </x-primary-button>
             </div>
         </form>
-        <div id="dataPopup" style="display: none;">
-            <div class="innerDataTitel">
-                weet je zeker dat deze gegevens kloppen?
-            </div>
-            <div class="innerDataWrapper">
-                <div>
-                    Email:
+        <div id="dataPopup" style="display: none">
+            <div class="dataWrapperPopup">
+                <div class="innerDataTitel">
+                    Weet je zeker dat deze gegevens kloppen?
                 </div>
-                <div></div>
-                <div>
-                    Klas:
+                <div class="innerDataWrapper">
+                    <div id="userData"></div>
                 </div>
-                <div></div>
+                <div class="buttonWrapper">
+                    <x-secondary-button class="popupButtonNo">
+                        Nee
+                    </x-secondary-button>
+                    <x-primary-button class="popupButtonYes">
+                        Ja
+                    </x-primary-button>
+                </div>
             </div>
-        </div>
     </div>
+
+    <script src="../resources/js/registerConfirm.js"></script>
 </x-guest-layout>
