@@ -44,6 +44,4 @@ function fJson2Html(json) {
     document.getElementById(4).innerHTML = workshops;
 }
 
-
-
 loadWorkshops_fetch();
