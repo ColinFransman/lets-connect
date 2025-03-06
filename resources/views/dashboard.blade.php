@@ -13,11 +13,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
+        <script src="../resources/js/api.js"></script>
         <script src="../resources/js/dragAndDrop.js"></script>
         <script src="../resources/js/errorPopup.js"></script>
         <script src="../resources/js/infoPopup.js"></script>
         <script src="../resources/js/confirmPopup.js"></script>
-        <script src="../resources/js/tutorial.js"></script>
+        <script src="../resources/js/tutorial.js"></script>     
     </head>
     <body>
         <!-- Tutorial -->
@@ -73,7 +74,7 @@
             </div>
             <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
                 @foreach ($workshops as $workshop)
-                    <div class='workshop' id='workshop{{ $workshop->id - 1 }}' draggable='true' ondragstart='drag(event)'> 
+                    <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity='{{ $workshop->capacity}}' draggable='true' ondragstart='drag(event)'> 
                         <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
                         <div class='popup' id='popup{{ $workshop->id - 1 }}' draggable='false'>
                             <button class='close' onclick='closePopup({{ $workshop->id - 1 }})'>x</button> 
