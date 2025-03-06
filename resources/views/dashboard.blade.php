@@ -23,7 +23,7 @@
     </head>
     <body>
         <!-- Tutorial -->
-        {{-- <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
+        <div class="tutorial-overlay" id="tutorial-overlay" style="display: none;">
             <div class="tutorial-step" id="tutorial-step">
                 <p id="tutorial-text"></p>
                 <div class="tutorial-buttons">
@@ -75,7 +75,7 @@
             </div>
             <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
                 @foreach ($workshops as $workshop)
-                    <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity='{{ $workshop->capacity}}' draggable='true' ondragstart='drag(event)'> 
+                    <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity="{{ $workshop->capacity}}" draggable='true' ondragstart='drag(event)'> 
                         <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
                         <div class='popup' id='popup{{ $workshop->id - 1 }}' draggable='false'>
                             <button class='close' onclick='closePopup({{ $workshop->id - 1 }})'>x</button> 

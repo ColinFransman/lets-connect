@@ -7,19 +7,35 @@ use App\Models\Workshop;
 
 class BookingController extends Controller
 {
-    public function bookWorkshop(Request $request, Workshop $workshop)
+    public function bookWorkshop(Request $request)
     {
-        // Check if there is capacity
-        if ($workshop->capacity > 0) {
-            // If booking is successful, decrease capacity by 1
-            $workshop->capacity -= 1;
-            $workshop->save(); // Save the updated capacity
+        // Retrieve workshop names from the request (e.g., save1, save2, save3, etc.)
+        $workshopNames = $request->only(['save1', 'save2', 'save3']);
+        
+        // Initialize an array to hold the workshop objects
+        $workshops = [];
 
-            return response()->json(['status' => 'success', 'message' => 'Workshop booked successfully.']);
+        // Loop through the workshop names
+        foreach ($workshopNames as $workshopName) {
+            // Fetch the workshop by name (assuming 'name' is the field storing the workshop name)
+            $workshops[] = Workshop::where('name', $workshopName)->first();
         }
 
-        // If no capacity available
-        return response()->json(['status' => 'error', 'message' => 'No available spots.'], 400);
+        // Loop through the workshops to check capacity and book
+        foreach ($workshops as $workshop) {
+            // Ensure the workshop exists and has available capacity
+            if ($workshop && $workshop->capacity > 0) {
+                // Decrease capacity for this workshop by 1
+                $workshop->capacity -= 1;
+                $workshop->save(); // Save the updated capacity
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No available spots for some of the workshops.'
+                ], 400);
+            }
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'All workshops booked successfully.']);
     }
 }
-
