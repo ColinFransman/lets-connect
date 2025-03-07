@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::post('/save', [ScheduleController::class, 'save'])->middleware(['auth', 'verified']);
+Route::post('/save', [BookingController::class, 'bookWorkshop'])->middleware(['auth', 'verified']);
 Route::get('/save2', [BookingController::class, 'save'])->middleware(['auth', 'verified']);
 Route::get('/dbtest', [BookingController::class, 'getBookings'])->middleware(['auth', 'verified']);
 
