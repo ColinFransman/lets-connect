@@ -42,4 +42,10 @@ Route::middleware([Success::class])->get('/success', function () {
     return view('success');
 });
 
+
+Route::get('/workshop', function () {
+    return Workshop::all();
+});
+
+
 require __DIR__.'/auth.php';
