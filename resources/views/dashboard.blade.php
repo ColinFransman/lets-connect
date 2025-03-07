@@ -84,7 +84,7 @@
                                 <div class='descriptionImage'><img src='{{ $workshop->image_url }}'></div> 
                             </div>
                          </div>
-                        <div class='title' id='title i +  '>{{$workshop->name }}  </div> 
+                        <div class='title' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div> 
                     </div>
                 @endforeach
             </div>
