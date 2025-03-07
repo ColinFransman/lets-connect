@@ -33,18 +33,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// observers for the extra steps like 'i', drag step or 'x' since defining these have issues globally.
 const observerI = new MutationObserver((mutationsList, observer) => {
     let iconOne = sendInfoIcon();
+
     if (iconOne) {
-        // clicked on 'i' does things.
+        // If the icon exists, attach the click listener and disable the observer.
+        console.log('Icon found:', iconOne); // Check that it logs once
         iconOne.addEventListener('click', function () {
-            nextButton.disabled = false;
-            nextStep();
+            nextButton.disabled = false; // Enable the next button
+            nextStep(); // Proceed to next step
         });
-        observer.disconnect(); // Stop observing once we find it
+
+        // Disconnect the observer once we've attached the event listener
+        observer.disconnect();
     }
 });
+
+// Start observing when the DOM is ready
 observerI.observe(document.body, { childList: true, subtree: true });
 
 // dragged workshop.
