@@ -92,5 +92,5 @@
             </div>
     </div>
 
-    <script src="../resources/js/registerConfirm.js"></script>
+    <script src="{{ asset('/js/registerConfirm.js') }}"></script>
 </x-guest-layout>
