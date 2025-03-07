@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Workshop;
 
 class WorkshopMoment extends Model
 {
@@ -14,16 +14,16 @@ class WorkshopMoment extends Model
 
     public function bookings(): HasMany
     {
-        return $this->hasMany(Bookings::class);
+        return $this->hasMany(Bookings::class, 'wm_id');
     }
 
-    public function workshops(): HasOne
+    public function workshop()
     {
-        return $this->hasOne(Workshop::class);
+        return $this->belongsTo(Workshop::class, "workshop_id");
     }
 
-    public function moments(): HasOne
+    public function moment()
     {
-        return $this->hasOne(Moment::class);
+        return $this->belongsTo(Moment::class, "moment_id");
     }
 }

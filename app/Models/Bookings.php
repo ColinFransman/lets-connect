@@ -11,13 +11,13 @@ class Bookings extends Model
         'id'
     ];
 
-    public function users(): HasOne
+    public function student()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, "student_id");
     }
 
-    public function workshopMoments(): HasOne
+    public function workshopMoments()
     {
-        return $this->hasOne(WorkshopMoment::class);
+        return $this->belongsTo(WorkshopMoment::class, "wm_id");
     }
 }
