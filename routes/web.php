@@ -9,6 +9,8 @@ use App\Http\Controllers\MailController;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Route;
 use App\Models\Workshop;
+use App\Models\Bookings;
+use App\Http\Controllers\WorkshopDashboardController;
 
 Route::get('/', function () {
     return redirect()->route('register');
@@ -44,8 +46,25 @@ Route::middleware([Success::class])->get('/success', function () {
 
 
 Route::get('/workshop', function () {
-    return Workshop::all();
+    return json_encode(Workshop::all());
 });
+
+Route::get('/wdashboard', [WorkshopDashboardController::class, 'index']);
+Route::get('/workshop-moment/{wsm}', [WorkshopDashboardController::class, 'showbookings'])->name('workshop-moment.showbookings');
+
+/*Route::get('/bookings', function () {
+    
+    //return Bookings::with('student','workshopMoment')->get();
+    return json_encode(Bookings::with(['student', 'workshopMoment.workshop', 'workshopMoment.moment'])->get());
+});
+*/
+Route::get('/moments', function () {
+    //return Bookings::with('student','workshopMoment')->get();
+    return json_encode(Moment::get());
+});
+
+
+
 
 
 require __DIR__.'/auth.php';
