@@ -14,7 +14,6 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
         <script src="{{ asset('/js/api.js') }}"></script>
-        <script src="{{ asset('/js/bootstrap.js') }}"></script>
         <script src="{{ asset('/js/confirmPopup.js') }}"></script> 
         <script src="{{ asset('/js/dragAndDrop.js') }}"></script>   
         <script src="{{ asset('/js/errorPopup.js') }}"></script>
@@ -85,7 +84,7 @@
                                 <div class='descriptionImage'><img src='{{ $workshop->image_url }}'></div> 
                             </div>
                          </div>
-                        <div class='title' id='title i +  '>{{$workshop->name }}  </div> 
+                        <div class='title' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div> 
                     </div>
                 @endforeach
             </div>
@@ -114,7 +113,7 @@
 
         </div> 
         <!-- loading script after html has loaded because of getElementById -->
-        <script src="../resources/js/tutorial.js"></script>
+        <script src="{{ asset('/js/tutorial.js') }}"></script>
     </body>
     </html>
 </x-app-layout>
