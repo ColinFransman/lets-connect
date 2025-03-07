@@ -31,13 +31,15 @@ function drop(ev) {
         return;
     }
 
-    if (!targetRound.contains(draggedElement)) {
+    if (!targetRound.hasChildNodes()) {
+        //credits to damian for fixing this (:
         targetRound.appendChild(draggedElement);
         let title = draggedElement.querySelector(".title");
         document.getElementById("save" + targetRound.id).value = title.innerText;
         planningChanged = true;
-        addCloseButton(draggedElement);
+        addCloseButton(draggedElement, targetRound);
         workshopsInRounds.add(draggedElement.id);
         checkWorkshopsInRounds();
     }
+    updateSaveButton();
 }

@@ -13,7 +13,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <script src="../resources/js/api.js"></script>
         <script src="../resources/js/dragAndDrop.js"></script>
         <script src="../resources/js/errorPopup.js"></script>
         <script src="../resources/js/infoPopup.js"></script>
@@ -73,19 +72,20 @@
                 </div>
             </div>
             <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
-                <?php /* for ($i = 1; $i < 13; $i++) { 
-                    echo " 
-                        <div class='workshop' id='workshop" . $i . "' draggable='true' ondragstart='drag(event)'>
-                            <div class='info' onclick='info(event)' onclick='info(event)' id='info" . $i . "' tabindex='0'>i</div>
-                            <div class='popup' id='popup" . $i . "'>
-                                <button class='close' onclick='closePopup(" . $i . ")'>x</button>
-                                <p>Lokaal: " . $i . "</p>
-                                <p>Details over workshop " . $i . "</p>
+                @foreach ($workshops as $workshop)
+                    <div class='workshop' id='workshop{{ $workshop->id - 1 }}' draggable='true' ondragstart='drag(event)'> 
+                        <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
+                        <div class='popup' id='popup{{ $workshop->id - 1 }}' draggable='false'>
+                            <button class='close' onclick='closePopup({{ $workshop->id - 1 }})'>x</button> 
+                            <a href='https://xerte.deltion.nl/play.php?template_id=8708#programma' class='popup-header' target='_blank'>Klik <span class='highlight'>hier</span> voor meer informatie</a>  
+                            <div class='description'>
+                                <div class='descriptionText'>{{ $workshop->full_description }} </div>
+                                <div class='descriptionImage'><img src='{{ $workshop->image_url }}'></div> 
                             </div>
-                            <div class='title' id='title" . $i . "'>" . $i . "</div>
-                        </div>
-                    ";
-                } */ ?>
+                         </div>
+                        <div class='title' id='title i +  '>{{$workshop->name }}  </div> 
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="flex">
