@@ -21,6 +21,6 @@ class Workshop extends Model
     {
         $workshops = DB::table('workshops')->get();
         
-        return json_encode($workshops);
+        return $workshops->toArray();
     }
 }
