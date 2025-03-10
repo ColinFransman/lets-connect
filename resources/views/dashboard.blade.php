@@ -114,6 +114,7 @@
         </div> 
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/tutorial.js') }}"></script>
+        <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
     </body>
     </html>
 </x-app-layout>
