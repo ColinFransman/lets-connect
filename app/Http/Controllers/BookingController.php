@@ -23,26 +23,27 @@ class BookingController extends Controller
             $workshops[] = Workshop::where('name', $workshopName)->first();
         }
 
-        $wm1 = WorkshopMoment::where('workshop_id' , $workshops[0])->where("moment_id",1);
-        $wm2 = WorkshopMoment::where('workshop_id' , $workshops[1])->where("moment_id",2);
-        $wm3 = WorkshopMoment::where('workshop_id' , $workshops[2])->where("moment_id",3);
+        $wm1 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[0]->id)->where("moment_id",1)->first();
+        $wm2 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[1]->id)->where("moment_id",2)->first();
+        $wm3 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[2]->id)->where("moment_id",3)->first();
+
 
         if( $wm1->workshop->capacity > $wm1->bookings->count() &&
              $wm2->workshop->capacity > $wm2->bookings->count() &&
              $wm3->workshop->capacity > $wm3->bookings->count())
         {
-            Booking::create([
+            Bookings::create([
             'wm_id' => $wm1->id,
-            'user_id' => auth()->id(),
+            'student_id' => auth()->id(),
             ]);
     
-            Booking::create([
+            Bookings::create([
                 'wm_id' => $wm2->id,
-                'user_id' => auth()->id(),
+                'student_id' => auth()->id(),
             ]);   
-            Booking::create([
+            Bookings::create([
                 'wm_id' => $wm3->id,
-                'user_id' => auth()->id(),
+                'student_id' => auth()->id(),
             ]);
         }else {
             // If no spots are available, return an error for the specific workshop

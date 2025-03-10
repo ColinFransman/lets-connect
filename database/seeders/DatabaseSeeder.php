@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         Moment::insert(['id' => '2', 'time' => '13:45 - 14:30']);
         Moment::insert(['id' => '3', 'time' => '15:00 - 15:45']);
 
-        WorkshopMoment::insert([
+      /*  WorkshopMoment::insert([
             'moment_id' => '1',
             'workshop_id' => '1',
         ]);
@@ -67,6 +67,6 @@ class DatabaseSeeder extends Seeder
         Bookings::insert([
             'wm_id' => '3',
             'student_id' => '1',
-        ]);
+        ]);*/
     } 
 }

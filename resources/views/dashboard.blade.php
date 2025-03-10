@@ -13,7 +13,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <script src="{{ asset('/js/api.js') }}"></script>
         <script src="{{ asset('/js/confirmPopup.js') }}"></script> 
         <script src="{{ asset('/js/dragAndDrop.js') }}"></script>   
         <script src="{{ asset('/js/errorPopup.js') }}"></script>
