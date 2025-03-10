@@ -17,8 +17,11 @@ class WorkshopDashboardController extends Controller
     public function showbookings(WorkShopMoment $wsm)
     {
         
-        $wsm->load('bookings');
-        return view('dashboard.showbookings',compact('wsm'));
+        //$wsm->load('bookings');
+
+        return view('dashboard.showbookings')->with('wsm', $wsm);
+        
+
     }
 
     
