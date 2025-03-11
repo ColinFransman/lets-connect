@@ -1,13 +1,18 @@
 /* Algemene styling */
-body {
-    position: relative;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html, body{
+height: 100%;
+margin: 0;
+overflow: hidden;
 }
 
-/* Container voor de hoofdinhoud */
+.container {
+    height: 100vh; /* 100% van de schermhoogte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
 .main {
     width: 100%;
     display: flex;
