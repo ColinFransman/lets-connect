@@ -180,7 +180,7 @@ overflow: hidden;
     max-height: 70%;
     overflow: auto;
     overflow-x: hidden; 
-    overflow-y: scroll; 
+    overflow-y: auto; 
 }
 
 
