@@ -30,29 +30,36 @@ class WorkshopDashboardController extends Controller
          $dummyData = [
              'status' => 'success',
              'data' => [
-                 [
-                     'id' => 1,
-                     'name' => 'Workshop 1',
-                     'capacity' => 30,
-                     'wm_id' => 1,
-                     'student_id' => 1,
-                 ],
-                 [
-                     'id' => 2,
-                     'name' => 'Workshop 2',
-                     'capacity' => 50,
-                     'wm_id' => 2,
-                     'student_id' => 3,
-                    
-                 ],
-                 [
-                     'id' => 3,
-                     'name' => 'Workshop 3',
-                     'capacity' => 20,
-                     'wm_id' => 1,
-                     'student_id' => 4,
-                 ]
-             ]
+                [
+                    'id' => 1, //booking id
+                    'moment_id' => 1, //workshop_moment moment_id
+                    'workshop_id' => 1, //workshop_moment workshop_id
+                    'student_id' => 1, //booking student_id
+                    'capacity' => 30, //workshop capacity
+                ],
+                [
+                    'id' => 1, //booking id
+                    'moment_id' => 2, //workshop_moment moment_id
+                    'workshop_id' => 1, //workshop_moment workshop_id
+                    'student_id' => 1, //booking student_id
+                    'capacity' => 25, //workshop capacity
+                ],
+                [
+                    'id' => 2, //booking id
+                    'moment_id' => 2, //workshop_moment moment_id
+                    'workshop_id' => 5, //workshop_moment workshop_id
+                    'student_id' => 1, //booking student_id
+                    'capacity' => 30, //workshop capacity
+                   
+                ],
+                [
+                    'id' => 2, //booking id
+                    'moment_id' => 3, //workshop_moment moment_id
+                    'workshop_id' => 9, //workshop_moment workshop_id
+                    'student_id' => 1, //booking student_id
+                    'capacity' => 30, //workshop capacity
+                ]
+            ]
          ];
  
          // Return the dummy data as a JSON response

@@ -518,3 +518,16 @@ body {
 .SaveSave button:hover {
        background-color: orange;
 }
+
+.hiddenText {
+    display: none !important;
+}
+
+.capacityText {
+    display: none;
+    font-size: smaller;
+}
+
+.showText {
+    display: flex !important;
+}

@@ -85,6 +85,7 @@
                             </div>
                          </div>
                         <div class='title' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div> 
+                        <div class="capacityText" id="capacityText{{ $workshop->id -1}}"></div>
                     </div>
                 @endforeach
             </div>
