@@ -20,6 +20,9 @@ Route::get('/dashboard', function () {
     return view('dashboard')->with("workshops", Workshop::all());
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/viewCapacity', [WorkshopDashboardController::class, 'viewCapacity'])->name('viewCapacity');
+
+
 Route::get('/send-mail', function () {
     Mail::to('manoncristel37@gmail.com')->send(new SendMail("Test Subject", "This is a test email body"));
     return view('success');
