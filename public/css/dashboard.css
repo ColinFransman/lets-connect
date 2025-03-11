@@ -524,3 +524,41 @@ overflow: hidden;
 .SaveSave button:hover {
        background-color: orange;
 }
+
+.confpopup .button-container {
+    display: flex;
+    gap: 15px; /* Afstand tussen de knoppen */
+    justify-content: center; /* Knoppen centreren */
+    margin-top: 15px;
+}
+
+.confpopup .yes-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confpopup .yes-button:hover {
+    background-color: black;
+}
+
+.confpopup .no-button {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.confpopup .no-button:hover {
+    background-color: white;
+
+}
