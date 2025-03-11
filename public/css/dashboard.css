@@ -95,10 +95,10 @@ overflow: hidden;
 
 /* Info knop */
 .info {
+    z-index:9999;
+    position: absolute;
     width: 10%;
-    margin: 10px;
-    padding-left: 12px;
-    padding-right: 12px;
+    top: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,6 +130,7 @@ overflow: hidden;
 
 /* Titel van de workshop */
 .title {
+    margin-top: 20%;
     width: 100%;
     height: auto;
     padding: 10px;
