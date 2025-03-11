@@ -1,44 +1,58 @@
-
+/* Algemene instellingen */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right,  orange 50%, #ffffff 50%); 
+    background: linear-gradient(to bottom right, orange 50%, #ffffff 50%);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.register-container, .login-container {
+/* Container voor registratie- en loginformulieren */
+.register-container, 
+.login-container {
     max-width: 500px;
     width: 100%;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.9); 
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.register-form, .login-form {
+
+.register-form, 
+.login-form {
     width: 100%;
 }
 
-.form-group {
+/* Formuliervelden */
+.form-groupk {
     margin-bottom: 1.5rem;
 }
 
-.form-actions a {
-    margin-right: 1rem;
-    text-decoration: none;
-    color: #555;
-    transition: color 0.3s;
+/* Invoervelden */
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+select {
+    width: 100%;
+    padding: 10px;  /* Gelijke padding voor alle invoervelden */
+    border: 2px solid #343469;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
-.form-actions a:hover {
-    color: #333;
+input:focus, 
+select:focus {
+    border-color: rgb(245, 130, 32);
+    outline: none;
+    box-shadow: 0 0 5px rgba(245, 130, 32, 0.5);
 }
 
-x-primary-button {
+/* Knoppen */
+button {
     padding: 0.8rem 1.2rem;
     font-size: 1rem;
     background-color: orange;
@@ -46,35 +60,37 @@ x-primary-button {
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
-x-primary-button:hover {
-    background-color: orange;
+button:hover {
+    background-color: darkorange;
+    transform: scale(1.05);
 }
 
+/* Logo */
 .logo {
     display: flex;
-    justify-content: center; 
-    position: relative;
-    top: 20px; 
-    z-index: 1; 
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-/* popup */
+/* Popup styling */
 #dataPopup {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 2;
-    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
+/* Inhoud van de popup */
 #dataPopup .dataWrapperPopup {
     display: flex;
     flex-direction: column;
@@ -85,11 +101,67 @@ x-primary-button:hover {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
 }
 
+/* Knoppen in de popup */
 #dataPopup .buttonWrapper {
     width: 100%;
     display: flex;
-    justify-content: end;
-    gap: .5rem;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* Scrollbar voor een mooie look */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #343469;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(245, 130, 32);
+}
+
+/* Styling voor de rij met de velden Opleiding en Klas naast elkaar */
+.form-group-row {
+    align-items: center;
+    display: flex;
+    gap: 20px;  /* Ruimte tussen de velden */
+    margin-bottom: 1.5rem;
+}
+
+#opleiding {
+    margin-right: auto;
+}
+
+.form-groupe, #klas {
+height: 30%;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+
+
+#klas {
+    min-height: 40px;  /* Stel een minimale hoogte in */
+    padding: 10px;
+    border: 2px solid #343469;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 50%;
+    transform-origin: bottom;  /* Zorg ervoor dat het vanaf de onderkant groeit */
+    resize: vertical;  /* Laat de gebruiker het veld verticaal aanpassen */
+    overflow: auto;  /* Zorg ervoor dat de inhoud kan scrollen als de grootte te groot wordt */
+}
+
+#klas:focus {
+    border-color: rgb(245, 130, 32);
+    outline: none;
+    box-shadow: 0 0 5px rgba(245, 130, 32, 0.5);
 }
