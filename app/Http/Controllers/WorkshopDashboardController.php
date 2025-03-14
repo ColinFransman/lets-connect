@@ -23,7 +23,6 @@ class WorkshopDashboardController extends Controller
         
 
     }
-    use Illuminate\Http\Request;
 
 
     public function viewCapacity (Request $request)
