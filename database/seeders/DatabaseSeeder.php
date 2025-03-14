@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'class' => 'SD2A'
         ]);
 
-        User::find(1)->addRole('administrator');
+        User::find(1)->addRole('admin');
         User::find(2)->addRole('user');
 
         Moment::insert(['id' => '1', 'time' => '13:00 - 13:45']);

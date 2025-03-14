@@ -210,7 +210,7 @@ return [
              */
             'abort' => [
                 'code' => 403,
-                'message' => 'User does not have any of the necessary access rights.',
+                'message' => 'Je hebt geen toegang tot deze pagina :(',
             ],
 
             /**
@@ -220,10 +220,10 @@ return [
              * If the message content is empty it won't be added to the redirection.
              */
             'redirect' => [
-                'url' => '/home',
+                'url' => '/dashboard',
                 'message' => [
                     'key' => 'error',
-                    'content' => '',
+                    'content' => 'no access',
                 ],
             ],
         ],
