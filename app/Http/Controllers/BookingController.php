@@ -52,8 +52,7 @@ class BookingController extends Controller
                 'message' => 'No available spots for the workshop: ' . $workshop->name
             ], 400);
         };
-/*
-
+        /*
         // Loop through the workshops to check availability and book
         foreach ($workshops as $workshop) {
             // Ensure the workshop exists
@@ -90,7 +89,8 @@ class BookingController extends Controller
                     // $booking->save();
                 } 
         }
-*/
-        return response()->json(['status' => 'success', 'message' => 'All workshops booked successfully.']);
+        */
+        // return response()->json(['status' => 'success', 'message' => 'All workshops booked successfully.']);
+        return redirect('/send-mail');
     }
 }

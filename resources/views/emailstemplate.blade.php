@@ -43,7 +43,7 @@
 <body>
 
 <div class="container">
-    <h1>Beste Colin,</h1>
+    <h1>Beste {{ auth()->user()->name }},</h1>
     <p>Bedankt voor je aanmelding! Je planning is succesvol opgeslagen. Hier zijn de details:</p>
 
     <table>
