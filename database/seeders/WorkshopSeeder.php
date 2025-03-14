@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Error;
+use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,15 +16,15 @@ class WorkshopSeeder extends Seeder
     public function run(): void
     {
         $pdo = DB::connection()->getPdo();
-
+        $jsonData = "";
         // Read JSON file
         $jsonFile = 'http://localhost:4001/getData';
-        $jsonData = file_get_contents($jsonFile);
-        $workshops = json_decode($jsonData, true);
-
-        if (!$workshops) {
-            die("Error decoding JSON.");
+        try {
+            $jsonData = file_get_contents($jsonFile);
+        } catch(Exception $e) {
+            throw new Error("JSON data not found. Are you sure the scraper is running?");
         }
+        $workshops = json_decode($jsonData, true);
 
         $arrayIds = [];
         // Insert data into the database
