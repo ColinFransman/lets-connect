@@ -90,7 +90,7 @@ class BookingController extends Controller
         $workshops = Workshop::with(['workshopMoments' => function ($query) {
             $query->withCount('bookings');  // Get the count of bookings for each moment
         }])->get();
-
+    
         // Prepare the response data in a structured format
         $data = $workshops->map(function ($workshop) {
             return [
@@ -108,8 +108,19 @@ class BookingController extends Controller
                 })
             ];
         });
-
-        // Return the data as a JSON response
-        return response()->json($data);
-    }
+    
+        // Check if $data is not empty
+        if ($data->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No data available',
+            ], 404); // Return an error message if no data exists
+        }
+    
+        // If data exists, return success with the data
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ]);
+    }    
 }
