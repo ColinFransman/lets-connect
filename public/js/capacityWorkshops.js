@@ -8,9 +8,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     insertData()
 
     inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
-        roundContainer.addEventListener('mouseover', function () {
+        roundContainer.addEventListener('mouseenter', function () {
             var text = roundContainer.querySelector('.title');
+            console.log(text);
+            
             if (text) {
+                text.classList.remove('hiddenText');
                 text.classList.add('showText');
             }
         })
@@ -33,11 +36,13 @@ async function fetchData() {
 async function insertData() {
     var data = await fetchData();
     console.log(data);
+
     var capacityText = document.querySelectorAll('.capacityText');
 
     // Create a map to store workshops by ID
     let workshopMap = {};
 
+    // Populate the workshopMap
     data.data.forEach(workshop => {
         workshop.moments.forEach(entry => {
             if (!workshopMap[entry.workshop_id]) {
@@ -48,20 +53,20 @@ async function insertData() {
     });
     console.log(workshopMap);
 
-
     // Iterate over capacityText elements
-    for (let i = 0; i < capacityText.length; i++) {
-        if (workshopMap[i]) {
-
-            let rounds = workshopMap[i];
+    capacityText.forEach((element, index) => {
+        let workshopId = index + 1; // Assuming workshop IDs start from 1 and align sequentially
+        if (workshopMap[workshopId]) {
+            let rounds = workshopMap[workshopId];
 
             let text = rounds
-                .map((round) => `Ronde ${round.length}: ${round.capacity} plekken over`)
+                .map((round, i) => `Ronde ${i + 1}: ${round.capacity} plekken over`)
                 .join("\n");
 
-            capacityText[i].innerText = text;
+            element.innerText = text;
         }
-    }
+    });
+
 }
 
 async function waitUntilApi() {

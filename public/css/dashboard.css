@@ -91,7 +91,7 @@ body {
 /* Info knop */
 .info {
     width: 10%;
-    margin: 10px;
+    margin: 5px;
     padding-left: 12px;
     padding-right: 12px;
     display: flex;
