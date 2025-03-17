@@ -12,11 +12,11 @@ return [
     'truncate_tables' => true,
 
     'roles_structure' => [
-        'administrator' => [
+        'admin' => [
             'overzicht' => 'r',
         ],
         'user' => [
-            'planning' => 'c,r',
+            'planning' => 'c,r,u',
         ],
     ],
 

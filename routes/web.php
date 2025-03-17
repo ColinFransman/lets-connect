@@ -22,11 +22,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/viewCapacity', [WorkshopDashboardController::class, 'viewCapacity'])->name('viewCapacity');
 
-Route::get('/send-mail', function () {
-    Mail::to('manoncristel37@gmail.com')->send(new SendMail("Test Subject", "This is a test email body"));
-    return view('success');
-});
-
+Route::get('/send-mail', [MailController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,8 +31,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/save', [BookingController::class, 'bookWorkshop'])->middleware(['auth', 'verified']);
-Route::get('/save2', [BookingController::class, 'save'])->middleware(['auth', 'verified']);
-Route::get('/dbtest', [BookingController::class, 'getBookings'])->middleware(['auth', 'verified']);
 
 Route::get('/overzicht', function () {
     return view('overzicht');
@@ -51,7 +45,7 @@ Route::get('/workshop', function () {
     return json_encode(Workshop::all());
 });
 
-Route::get('/wdashboard', [WorkshopDashboardController::class, 'index']);
+Route::get('/wdashboard', [WorkshopDashboardController::class, 'index'])->middleware(['role:admin']);
 Route::get('/workshop-moment/{wsm}', [WorkshopDashboardController::class, 'showbookings'])->name('workshop-moment.showbookings');
 
 /*Route::get('/bookings', function () {

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +15,5 @@ class Workshop extends Model
     {
         return $this->hasMany(WorkshopMoment::class);
     }
-
-    public static  function  all($columns ="*")
-    {
-        $workshops = DB::table('workshops')->get();
-        
-        return $workshops->toArray();
-    }
 }
+
