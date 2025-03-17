@@ -38,7 +38,6 @@ const observerI = new MutationObserver((mutationsList, observer) => {
 
     if (iconOne) {
         // If the icon exists, attach the click listener and disable the observer.
-        console.log('Icon found:', iconOne); // Check that it logs once
         iconOne.addEventListener('click', function () {
             nextButton.disabled = false; // Enable the next button
             nextStep(); // Proceed to next step
