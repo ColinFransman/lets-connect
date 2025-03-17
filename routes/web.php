@@ -5,7 +5,6 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\WorkshopDashboardController;
-use App\Http\Controllers\CapacityController;
 use App\Http\Middleware\Success;
 use App\Http\Controllers\MailController;
 use App\Mail\SendMail;
@@ -23,9 +22,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/viewCapacity', [WorkshopDashboardController::class, 'viewCapacity'])->name('viewCapacity');
-
-
-Route::get('/MomentCapacity', [CapacityController::class, 'MomentCapacity'])->name('MomentCapacity');
 
 Route::get('/send-mail', [MailController::class, 'store']);
 
