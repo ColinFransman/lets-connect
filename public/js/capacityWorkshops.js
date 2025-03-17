@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
     })
 
-    waitUntilApi() 
+    waitUntilApi()
 });
 
 
@@ -32,25 +32,31 @@ async function fetchData() {
 
 async function insertData() {
     var data = await fetchData();
+    console.log(data);
     var capacityText = document.querySelectorAll('.capacityText');
 
     // Create a map to store workshops by ID
     let workshopMap = {};
 
-    data.data.forEach(entry => {
-        if (!workshopMap[entry.workshop_id]) {
-            workshopMap[entry.workshop_id] = [];
-        }
-        workshopMap[entry.workshop_id].push(entry);
+    data.data.forEach(workshop => {
+        workshop.moments.forEach(entry => {
+            if (!workshopMap[entry.workshop_id]) {
+                workshopMap[entry.workshop_id] = [];
+            }
+            workshopMap[entry.workshop_id].push(entry);
+        });
     });
+    console.log(workshopMap);
+
 
     // Iterate over capacityText elements
     for (let i = 0; i < capacityText.length; i++) {
         if (workshopMap[i]) {
+
             let rounds = workshopMap[i];
 
             let text = rounds
-                .map((round) => `Ronde ${round.wm_id}: ${round.capacity} plekken over`)
+                .map((round) => `Ronde ${round.length}: ${round.capacity} plekken over`)
                 .join("\n");
 
             capacityText[i].innerText = text;
