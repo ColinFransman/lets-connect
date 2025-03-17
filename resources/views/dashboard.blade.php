@@ -84,8 +84,9 @@
                                 <div class='descriptionImage'><img src='{{ $workshop->image_url }}'></div> 
                             </div>
                          </div>
-                        <div class='title showText' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div> 
+                        <div class='title showText' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div>
                         <div class="capacityText hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
+                        <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">#</div></div>
                     </div>
                 @endforeach
             </div>

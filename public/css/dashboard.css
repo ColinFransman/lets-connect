@@ -67,7 +67,7 @@ body {
     border-radius: 10px;
     display: flex;
     align-items: center; 
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
     flex-direction: column;
     position: relative; 
@@ -530,5 +530,14 @@ body {
 
 .showText {
     display: flex !important;
-    padding: 8%;
+    padding: 5%;
+}
+
+.locationWorkshop {
+    display: flex;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    gap: 3px;
+    color: #cbcbcb;
 }
