@@ -1,55 +1,22 @@
+const workshopContainers = document.querySelectorAll('.workshops .workshop');
+
+const workshopContainer = document.querySelector('.main .workshops');
+
+const inRoundContainers = document.querySelectorAll('.rounds .round');
 document.addEventListener("DOMContentLoaded", (event) => {
 
     insertData()
 
-    const containers = document.querySelectorAll('.workshops .workshop');
-    const container = document.querySelector('.main .workshops');
-
-    containers.forEach(f => f.addEventListener('mouseover', function () {
-        containers.forEach(e => {
-            var hoveredDiv = e.querySelector('.title');
-            var hoverCapText = e.querySelector('.capacityText')
-            
-            if (hoveredDiv) {
-                hoveredDiv.classList.remove('hiddenText');
-                hoveredDiv.classList.add('showText');
-            }
-
-            if (hoverCapText) {
-                hoverCapText.classList.remove('showText');
-                hoverCapText.classList.add('hiddenText');
+    inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
+        roundContainer.addEventListener('mouseover', function () {
+            var text = roundContainer.querySelector('.title');
+            if (text) {
+                text.classList.add('showText');
             }
         })
-        // Only show the div for the hovered container.
-        var unHoveredDiv = f.querySelector('.title');
-        var unHoverCapText = f.querySelector('.capacityText');
+    })
 
-        if (unHoveredDiv) {
-            unHoveredDiv.classList.remove('showText');
-            unHoveredDiv.classList.add('hiddenText');
-        }
-
-        if (unHoverCapText) {
-            unHoverCapText.classList.remove('hiddenText');
-            unHoverCapText.classList.add('showText');
-        }
-
-        if (container) {  // Check if container exists
-            container.addEventListener('mouseout', function () { // shows the text if hovered out of the container.
-                var titles = container.querySelectorAll('.title'); // Get all matching elements
-                titles.forEach(title => {
-                    title.classList.add('showText');
-                    title.classList.remove('hiddenText');
-                });
-                
-                var capTexts = container.querySelectorAll('.capacityText');
-                capTexts.forEach(capText => {
-                    capText.classList.add('hiddenText');
-                    capText.classList.remove('showText');
-                })
-            });
-        }
-    }));
+    waitUntilApi()
 });
 
 
@@ -66,30 +33,69 @@ async function fetchData() {
 async function insertData() {
     var data = await fetchData();
     var capacityText = document.querySelectorAll('.capacityText');
-    
-    for (let i = 0; i < capacityText.length; i++) {
-        let matched = false;
-    
-        for (let j = 0; j < data.data.length; j++) {
-            if (data.data[j].workshop_id === i) {
-                matched = true;
-                // console.log(`Workshop ID ${data.data[j].workshop_id} at index ${i}, with moment: ${data.data[j].moment_id}`);
 
+    // Create a map to store workshops by ID
+    let workshopMap = {};
 
-                capacityText[i].innerText = "Ronde 1: " + data.data[j].capacity + " plekken over";
-                // capacityText
-                console.log(data.data[j].capacity);
-
-                // for (let k = 0; k < data.data.length; k++) {
-                    
-                //     console.log("rounds: ", k);
-                    
-                // }
-            }
+    data.data.forEach(entry => {
+        if (!workshopMap[entry.workshop_id]) {
+            workshopMap[entry.workshop_id] = [];
         }
-    
-        if (!matched) {
-            // console.log(`Index ${i}: undefined`);
+        workshopMap[entry.workshop_id].push(entry);
+    });
+
+    // Iterate over capacityText elements
+    for (let i = 0; i < capacityText.length; i++) {
+        if (workshopMap[i]) {
+            let rounds = workshopMap[i];
+
+            let text = rounds
+                .map((round, index) => `Ronde ${index + 1}: ${round.capacity} plekken over`)
+                .join("\n");
+
+            capacityText[i].innerText = text;
         }
     }
+}
+
+async function waitUntilApi() {
+    var data = await fetchData();
+    if (data.status === "success") {
+        handleMouseOver()
+    }
+}
+
+function handleMouseOver() {
+
+    workshopContainers.forEach(container => {
+        container.addEventListener("mouseleave", () => {
+            const hoveredDiv = container.querySelector('.title');
+            const hoverCapText = container.querySelector('.capacityText');
+
+            if (hoveredDiv) {
+                hoveredDiv.classList.remove('hiddenText');
+                hoveredDiv.classList.add('showText');
+            }
+
+            if (hoverCapText) {
+                hoverCapText.classList.remove('showText');
+                hoverCapText.classList.add('hiddenText');
+            }
+        });
+
+        container.addEventListener("mouseenter", () => {
+            const hoveredDiv = container.querySelector('.title');
+            const hoverCapText = container.querySelector('.capacityText');
+
+            if (hoveredDiv) {
+                hoveredDiv.classList.remove('showText');
+                hoveredDiv.classList.add('hiddenText');
+            }
+
+            if (hoverCapText) {
+                hoverCapText.classList.remove('hiddenText');
+                hoverCapText.classList.add('showText');
+            }
+        });
+    });
 }

@@ -530,4 +530,5 @@ body {
 
 .showText {
     display: flex !important;
+    padding: 8%;
 }
