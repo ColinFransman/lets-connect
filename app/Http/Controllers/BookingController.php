@@ -65,10 +65,7 @@ class BookingController extends Controller
             }
         } else {
             // If no spots are available, return an error for the specific workshop
-            return response()->json([
-                'status' => 'error',
-                'message' => 'No available spots for the workshop: ' . $workshop->name
-            ], 400);
+            abort(400);
         };
         /*
         // Loop through the workshops to check availability and book
