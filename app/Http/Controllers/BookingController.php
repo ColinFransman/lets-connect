@@ -22,6 +22,7 @@ class BookingController extends Controller
             // Fetch the workshop by name (assuming 'name' is the field storing the workshop name)
             $workshops[] = Workshop::where('name', $workshopName)->first();
         }
+        //dd($workshops);
 
         // Initialize the error message
         $errormessage = "";
@@ -30,13 +31,11 @@ class BookingController extends Controller
         foreach ($workshops as $index => $workshop) {
             // Get the workshop moment for the current index
             $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
-
             // Check if the workshop moment has available spots
             if (!$this->checkWorkshopMomentCapacity($wm)) {
                 $errormessage .= "Workshop " . ($index + 1) . " was unavailable. ";
             }
         }
-
         // If there's an error message, return it
         if ($errormessage) {
             return response()->json([
@@ -58,13 +57,16 @@ class BookingController extends Controller
                 ]);
             }
         } else {
-            // Update existing bookings for each workshop moment
             foreach ($workshops as $index => $workshop) {
+                // Calculate the modulus value
+                $modValue = ($index + 1) % 3;  // This will give 1, 2, 0 for the 3 workshops
+            
                 $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
-                
+            
+                // Update the booking based on the modulus value
                 DB::table('bookings')
                     ->where('student_id', auth()->id())
-                    ->whereRaw("MOD(id, 3) = ?", [$index + 1])
+                    ->whereRaw("MOD(id, 3) = ?", [$modValue])
                     ->update(['wm_id' => $wm->id]);
             }
         }
@@ -97,13 +99,13 @@ class BookingController extends Controller
                 'workshop_name' => $workshop->name, // Return the name of the workshop
                 'moments' => $workshop->workshopMoments->map(function ($moment) use ($workshop) {
                     return [
-                        'workshop_id' => $workshop->id, // Workshop ID
-                        'capacity' => $moment->workshop->capacity, // Workshop capacity
-                        'wm_id' => $moment->id, // Workshop moment ID (wm_id)
+                        'workshop_id' => $workshop->id, 
+                        'capacity' => $moment->workshop->capacity, 
+                        'wm_id' => $moment->id, 
                         'bookings' => $moment->bookings_count,
                         'status' => $moment->bookings_count >= $moment->workshop->capacity
                             ? 'Fully booked' 
-                            : 'Available spots', // Booking status
+                            : 'Available spots', 
                     ];
                 })
             ];
@@ -114,7 +116,7 @@ class BookingController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'No data available',
-            ], 404); // Return an error message if no data exists
+            ], 404); 
         }
     
         // If data exists, return success with the data
