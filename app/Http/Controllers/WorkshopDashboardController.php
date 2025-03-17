@@ -32,14 +32,14 @@ class WorkshopDashboardController extends Controller
             'status' => 'success',
             'data' => [
                 [
-                    'id' => 1,
+                    'workshop_id' => 1,
                     'name' => 'Workshop 1',
                     'capacity' => 30,
                     'wm_id' => 1,
                     'student_id' => 1,
                 ],
                 [
-                    'id' => 2,
+                    'workshop_id' => 2,
                     'name' => 'Workshop 2',
                     'capacity' => 50,
                     'wm_id' => 2,
@@ -47,7 +47,7 @@ class WorkshopDashboardController extends Controller
                    
                 ],
                 [
-                    'id' => 3,
+                    'workshop_id' => 3,
                     'name' => 'Workshop 3',
                     'capacity' => 20,
                     'wm_id' => 1,
