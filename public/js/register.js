@@ -2,19 +2,19 @@ const opleidingSelect = document.getElementById("opleiding");
 const klasSelect = document.getElementById("klas");
 
 const klassen = {
-  opleiding1: ["Klas SIM2A", "Klas SIM2B", "Klas SIS3A", "Klas SIA3A"],
-  opleiding2: ["Klas AR2MP",],
-  opleiding3: ["Klas P2.1", "Klas P2.2", "Klas P2.3"],
-  opleiding4: ["Klas 2ARAC",],
-  opleiding5: ["Klas 2AFT", "Klas 2FC", "Klas 2FR", "Klas 2FDA", "Klas 2FDB"],
-  opleiding6: ["Klas MV2A", "Klas MV2B", "Klas MV2C"],
-  opleiding7: ["Klas AV3A",],
-  opleiding8: ["Klas AV3B",],
-  opleiding9: ["Klas IT2A", "Klas IT2B",],
-  opleiding10: ["Klas MI1A", "Klas MI2A",],
-  opleiding11: ["Klas SD2A", "Klas SD2B", "Klas SD2O"],
-  opleiding12: ["Klas BOW2A", "Klas BOW2B", "Klas BOW2C", "Klas BOW2D", "Klas BOW2V"],
-  opleiding13: ["Klas CD2A", "Klas CD2B"],
+  opleiding1: ["SIM2A", "SIM2B", "SIS3A", "SIA3A"],
+  opleiding2: ["AR2MP",],
+  opleiding3: ["P2.1", "P2.2", "P2.3"],
+  opleiding4: ["2ARAC",],
+  opleiding5: ["2AFT", "2FC", "2FR", "2FDA", "2FDB"],
+  opleiding6: ["MV2A", "MV2B", "MV2C"],
+  opleiding7: ["AV3A",],
+  opleiding8: ["AV3B",],
+  opleiding9: ["IT2A", "IT2B",],
+  opleiding10: ["MI1A", "MI2A",],
+  opleiding11: ["SD2A", "SD2B", "SD2O"],
+  opleiding12: ["BOW2A", "BOW2B", "BOW2C", "BOW2D", "BOW2V"],
+  opleiding13: ["CD2A", "CD2B"],
 };
 
 opleidingSelect.addEventListener("change", function() {
