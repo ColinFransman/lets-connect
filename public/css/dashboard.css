@@ -540,4 +540,11 @@ body {
     bottom: 0;
     gap: 3px;
     color: #cbcbcb;
+    width: 100%;
+    justify-content: center;
+}
+
+.disabledStyle {
+    background: grey !important;
+    cursor: not-allowed !important;
 }
