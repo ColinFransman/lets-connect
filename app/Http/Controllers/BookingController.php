@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Workshop;
 use App\Models\WorkshopMoment;
 use App\Models\Bookings;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -32,20 +33,37 @@ class BookingController extends Controller
              $wm2->workshop->capacity > $wm2->bookings->count() &&
              $wm3->workshop->capacity > $wm3->bookings->count())
         {
-            Bookings::create([
-            'wm_id' => $wm1->id,
-            'student_id' => auth()->id(),
-            ]);
-    
-            Bookings::create([
-                'wm_id' => $wm2->id,
+            if (Bookings::select('*')->where('student_id', auth()->id())->count() < 1) {
+                Bookings::create([
+                'wm_id' => $wm1->id,
                 'student_id' => auth()->id(),
-            ]);   
-            Bookings::create([
-                'wm_id' => $wm3->id,
-                'student_id' => auth()->id(),
-            ]);
-        }else {
+                ]);
+        
+                Bookings::create([
+                    'wm_id' => $wm2->id,
+                    'student_id' => auth()->id(),
+                ]);   
+                Bookings::create([
+                    'wm_id' => $wm3->id,
+                    'student_id' => auth()->id(),
+                ]);
+            } else {
+                DB::table('bookings')
+                ->where('student_id', auth()->id())
+                ->whereRaw("MOD(id, 3) = 1")
+                ->update(['wm_id' => $wm1->id]);
+
+                DB::table('bookings')
+                ->where('student_id', auth()->id())
+                ->whereRaw("MOD(id, 3) = 2")
+                ->update(['wm_id' => $wm2->id]);
+
+                DB::table('bookings')
+                ->where('student_id', auth()->id())
+                ->whereRaw("MOD(id, 3) = 0")
+                ->update(['wm_id' => $wm3->id]);
+            }
+        } else {
             // If no spots are available, return an error for the specific workshop
             return response()->json([
                 'status' => 'error',
