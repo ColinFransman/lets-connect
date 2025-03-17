@@ -21,7 +21,7 @@ Route::get('/dashboard', function () {
     return view('dashboard')->with("workshops", Workshop::all());
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/viewCapacity', [WorkshopDashboardController::class, 'viewCapacity'])->name('viewCapacity');
+Route::get('/viewCapacity', [BookingController::class, 'viewCapacity'])->name('viewCapacity');
 
 Route::get('/send-mail', [MailController::class, 'store']);
 

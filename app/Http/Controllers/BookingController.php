@@ -23,18 +23,16 @@ class BookingController extends Controller
             $workshops[] = Workshop::where('name', $workshopName)->first();
         }
 
+        // Initialize the error message
         $errormessage = "";
 
         // Loop through the workshops and check if there are available spots
         foreach ($workshops as $index => $workshop) {
-            // Get the workshop moment based on the index (assuming moments are 1, 2, 3)
-            $wm = WorkshopMoment::with(['workshop', 'bookings'])
-                ->where('workshop_id', $workshop->id)
-                ->where('moment_id', $index + 1)
-                ->first();
-            
-            // Check if the workshop has available spots
-            if ($wm->workshop->capacity < $wm->bookings->count()) {
+            // Get the workshop moment for the current index
+            $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
+
+            // Check if the workshop moment has available spots
+            if (!$this->checkWorkshopMomentCapacity($wm)) {
                 $errormessage .= "Workshop " . ($index + 1) . " was unavailable. ";
             }
         }
@@ -52,9 +50,7 @@ class BookingController extends Controller
         if (Bookings::where('student_id', auth()->id())->count() < 1) {
             // Create new bookings for each workshop moment
             foreach ($workshops as $index => $workshop) {
-                $wm = WorkshopMoment::where('workshop_id', $workshop->id)
-                    ->where('moment_id', $index + 1)
-                    ->first();
+                $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
                 
                 Bookings::create([
                     'wm_id' => $wm->id,
@@ -64,9 +60,7 @@ class BookingController extends Controller
         } else {
             // Update existing bookings for each workshop moment
             foreach ($workshops as $index => $workshop) {
-                $wm = WorkshopMoment::where('workshop_id', $workshop->id)
-                    ->where('moment_id', $index + 1)
-                    ->first();
+                $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
                 
                 DB::table('bookings')
                     ->where('student_id', auth()->id())
@@ -76,5 +70,46 @@ class BookingController extends Controller
         }
 
         return redirect('/send-mail');
+    }
+
+    private function getWorkshopMoment($workshopId, $momentId)
+    {
+        return WorkshopMoment::with(['workshop', 'bookings'])
+            ->where('workshop_id', $workshopId)
+            ->where('moment_id', $momentId)
+            ->first();
+    }
+    private function checkWorkshopMomentCapacity($wm)
+    {
+        return $wm && $wm->workshop->capacity > $wm->bookings->count();
+    }
+
+    public function viewCapacity()
+    {
+        // Get all workshops along with their moments and bookings count
+        $workshops = Workshop::with(['workshopMoments' => function ($query) {
+            $query->withCount('bookings');  // Get the count of bookings for each moment
+        }])->get();
+
+        // Prepare the response data in a structured format
+        $data = $workshops->map(function ($workshop) {
+            return [
+                'workshop_name' => $workshop->name, // Return the name of the workshop
+                'moments' => $workshop->workshopMoments->map(function ($moment) use ($workshop) {
+                    return [
+                        'workshop_id' => $workshop->id, // Workshop ID
+                        'capacity' => $moment->workshop->capacity, // Workshop capacity
+                        'wm_id' => $moment->id, // Workshop moment ID (wm_id)
+                        'bookings' => $moment->bookings_count,
+                        'status' => $moment->bookings_count >= $moment->workshop->capacity
+                            ? 'Fully booked' 
+                            : 'Available spots', // Booking status
+                    ];
+                })
+            ];
+        });
+
+        // Return the data as a JSON response
+        return response()->json($data);
     }
 }

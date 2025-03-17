@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
     })
 
-    waitUntilApi()
+    waitUntilApi() 
 });
 
 
 async function fetchData() {
-    var response = await fetch("/Group-Projects/lets-connect/public/viewCapacity")
+    var response = await fetch("/viewCapacity")
     const data = await response.json();
 
     if (data.status === "success") {
