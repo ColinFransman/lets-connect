@@ -4,13 +4,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\WorkshopDashboardController;
 use App\Http\Middleware\Success;
 use App\Http\Controllers\MailController;
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Route;
 use App\Models\Workshop;
 use App\Models\Bookings;
-use App\Http\Controllers\WorkshopDashboardController;
+
 
 Route::get('/', function () {
     return redirect()->route('register');
@@ -20,7 +21,7 @@ Route::get('/dashboard', function () {
     return view('dashboard')->with("workshops", Workshop::all());
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/viewCapacity', [WorkshopDashboardController::class, 'viewCapacity'])->name('viewCapacity');
+Route::get('/viewCapacity', [BookingController::class, 'viewCapacity'])->name('viewCapacity');
 
 Route::get('/send-mail', [MailController::class, 'store']);
 

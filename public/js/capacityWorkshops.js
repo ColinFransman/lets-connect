@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
     })
 
-    waitUntilApi()
+    waitUntilApi() 
 });
 
 
