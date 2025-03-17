@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
     })
 
-    waitUntilApi()
+    waitUntilApi() 
 });
 
 
 async function fetchData() {
-    var response = await fetch("/Group-Projects/lets-connect/public/viewCapacity")
+    var response = await fetch("/viewCapacity")
     const data = await response.json();
 
     if (data.status === "success") {
@@ -50,7 +50,7 @@ async function insertData() {
             let rounds = workshopMap[i];
 
             let text = rounds
-                .map((round, index) => `Ronde ${index + 1}: ${round.capacity} plekken over`)
+                .map((round) => `Ronde ${round.wm_id}: ${round.capacity} plekken over`)
                 .join("\n");
 
             capacityText[i].innerText = text;

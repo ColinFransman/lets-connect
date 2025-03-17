@@ -14,7 +14,6 @@ class BookingController extends Controller
     {
         // Retrieve workshop names from the request (e.g., save1, save2, save3, etc.)
         $workshopNames = $request->only(['save1', 'save2', 'save3']);
-      //  dd($workshopNames);
         
         // Initialize an array to hold the workshop objects
         $workshops = [];
@@ -24,88 +23,93 @@ class BookingController extends Controller
             $workshops[] = Workshop::where('name', $workshopName)->first();
         }
 
-        $wm1 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[0]->id)->where("moment_id",1)->first();
-        $wm2 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[1]->id)->where("moment_id",2)->first();
-        $wm3 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[2]->id)->where("moment_id",3)->first();
+        // Initialize the error message
+        $errormessage = "";
 
+        // Loop through the workshops and check if there are available spots
+        foreach ($workshops as $index => $workshop) {
+            // Get the workshop moment for the current index
+            $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
 
-        if( $wm1->workshop->capacity > $wm1->bookings->count() &&
-             $wm2->workshop->capacity > $wm2->bookings->count() &&
-             $wm3->workshop->capacity > $wm3->bookings->count())
-        {
-            if (Bookings::select('*')->where('student_id', auth()->id())->count() < 1) {
+            // Check if the workshop moment has available spots
+            if (!$this->checkWorkshopMomentCapacity($wm)) {
+                $errormessage .= "Workshop " . ($index + 1) . " was unavailable. ";
+            }
+        }
+
+        // If there's an error message, return it
+        if ($errormessage) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $errormessage
+            ], 400);
+        }
+
+        // Proceed with booking if no error
+        // Check if the user has any existing bookings
+        if (Bookings::where('student_id', auth()->id())->count() < 1) {
+            // Create new bookings for each workshop moment
+            foreach ($workshops as $index => $workshop) {
+                $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
+                
                 Bookings::create([
-                'wm_id' => $wm1->id,
-                'student_id' => auth()->id(),
-                ]);
-        
-                Bookings::create([
-                    'wm_id' => $wm2->id,
+                    'wm_id' => $wm->id,
                     'student_id' => auth()->id(),
-                ]);   
-                Bookings::create([
-                    'wm_id' => $wm3->id,
-                    'student_id' => auth()->id(),
                 ]);
-            } else {
-                DB::table('bookings')
-                ->where('student_id', auth()->id())
-                ->whereRaw("MOD(id, 3) = 1")
-                ->update(['wm_id' => $wm1->id]);
-
-                DB::table('bookings')
-                ->where('student_id', auth()->id())
-                ->whereRaw("MOD(id, 3) = 2")
-                ->update(['wm_id' => $wm2->id]);
-
-                DB::table('bookings')
-                ->where('student_id', auth()->id())
-                ->whereRaw("MOD(id, 3) = 0")
-                ->update(['wm_id' => $wm3->id]);
             }
         } else {
-            // If no spots are available, return an error for the specific workshop
-            abort(400);
-        };
-        /*
-        // Loop through the workshops to check availability and book
-        foreach ($workshops as $workshop) {
-            // Ensure the workshop exists
-
-            if ($workshop) {
-                // Fetch the number of bookings for this workshop
-                $currentBookingsCount = Bookings::where('wm_id', $workshop->id)->count();
+            // Update existing bookings for each workshop moment
+            foreach ($workshops as $index => $workshop) {
+                $wm = $this->getWorkshopMoment($workshop->id, $index + 1);
                 
-                // Calculate the current available capacity without modifying the workshop's capacity field
-                $currentCapacity = $workshop->capacity - $currentBookingsCount;
-                
-                if ($currentCapacity > 0) {
-                    // Proceed with the booking
-                    Booking::create([
-                        'wm_id' => $workshop->id,
-                        'user_id' => auth()->id(),
-                    ]);
-                } else {
-                    // If no spots are available, throw an exception
-                    throw new \Exception("No available spots for the workshop: " . $workshop->name);
-                }
-                dd($currentBookingsCount);
-
-                // Check if there is available capacity
-                if ($currentCapacity > 0) {
-                    // The workshop has available spots, so proceed with the booking
-                    // You can add a new booking for the user here
-                    // Booking::create(['workshop_id' => $workshop->id, 'user_id' => auth()->id()]);
-
-                    // Optionally, if you want to store the booking, you could save it like this:
-                    // $booking = new Booking();
-                    // $booking->workshop_id = $workshop->id;
-                    // $booking->user_id = auth()->id();
-                    // $booking->save();
-                } 
+                DB::table('bookings')
+                    ->where('student_id', auth()->id())
+                    ->whereRaw("MOD(id, 3) = ?", [$index + 1])
+                    ->update(['wm_id' => $wm->id]);
+            }
         }
-        */
-        // return response()->json(['status' => 'success', 'message' => 'All workshops booked successfully.']);
+
         return redirect('/send-mail');
+    }
+
+    private function getWorkshopMoment($workshopId, $momentId)
+    {
+        return WorkshopMoment::with(['workshop', 'bookings'])
+            ->where('workshop_id', $workshopId)
+            ->where('moment_id', $momentId)
+            ->first();
+    }
+    private function checkWorkshopMomentCapacity($wm)
+    {
+        return $wm && $wm->workshop->capacity > $wm->bookings->count();
+    }
+
+    public function viewCapacity()
+    {
+        // Get all workshops along with their moments and bookings count
+        $workshops = Workshop::with(['workshopMoments' => function ($query) {
+            $query->withCount('bookings');  // Get the count of bookings for each moment
+        }])->get();
+
+        // Prepare the response data in a structured format
+        $data = $workshops->map(function ($workshop) {
+            return [
+                'workshop_name' => $workshop->name, // Return the name of the workshop
+                'moments' => $workshop->workshopMoments->map(function ($moment) use ($workshop) {
+                    return [
+                        'workshop_id' => $workshop->id, // Workshop ID
+                        'capacity' => $moment->workshop->capacity, // Workshop capacity
+                        'wm_id' => $moment->id, // Workshop moment ID (wm_id)
+                        'bookings' => $moment->bookings_count,
+                        'status' => $moment->bookings_count >= $moment->workshop->capacity
+                            ? 'Fully booked' 
+                            : 'Available spots', // Booking status
+                    ];
+                })
+            ];
+        });
+
+        // Return the data as a JSON response
+        return response()->json($data);
     }
 }

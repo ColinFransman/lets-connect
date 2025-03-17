@@ -208,7 +208,9 @@ function sendRoundX() {
 function defaultStyling() {
 
     nextButton.disabled = false;
-
+    if(nextButton.classList.contains("disabledStyle")) {
+        nextButton.classList.remove("disabledStyle")
+    }
     // rounds style
     roundOne.style.zIndex = "unset";
 
@@ -242,7 +244,9 @@ function defaultStyling() {
 function firstStep() {
     defaultStyling() // resets previous styling.
 
+    
     nextButton.disabled = true; // disables next button
+    nextButton.classList.add("disabledStyle")
 
     let iconOne = sendInfoIcon();
 
@@ -269,6 +273,7 @@ function thirdStep() {
     defaultStyling() // resets previous styling.
 
     nextButton.disabled = true;
+    nextButton.classList.add("disabledStyle")
 
     // imported div.
     let workshopOne = sendWorkshop();
@@ -288,6 +293,8 @@ function fourthStep() {
     defaultStyling() // resets previous styling.
 
     nextButton.disabled = true;
+    
+    nextButton.classList.add("disabledStyle")
 
     let roundOneX = sendRoundX();
 
