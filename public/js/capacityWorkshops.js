@@ -7,19 +7,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     insertData()
 
-    inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
-        roundContainer.addEventListener('mouseenter', function () {
-            var text = roundContainer.querySelector('.title');
-            console.log(text);
-            
-            if (text) {
-                text.classList.remove('hiddenText');
-                text.classList.add('showText');
-            }
-        })
-    })
-
     waitUntilApi()
+
+    whenWorkshopIsFull()
 });
 
 
@@ -35,7 +25,6 @@ async function fetchData() {
 
 async function insertData() {
     var data = await fetchData();
-    console.log(data);
 
     var capacityText = document.querySelectorAll('.capacityText');
 
@@ -51,7 +40,6 @@ async function insertData() {
             workshopMap[entry.workshop_id].push(entry);
         });
     });
-    console.log(workshopMap);
 
     // Iterate over capacityText elements
     capacityText.forEach((element, index) => {
@@ -60,7 +48,10 @@ async function insertData() {
             let rounds = workshopMap[workshopId];
 
             let text = rounds
-                .map((round, i) => `Ronde ${i + 1}: ${round.capacity} plekken over`)
+                .map((round, i) => {
+                    let spotsLeft = round.capacity - round.bookings;
+                    return `Ronde ${i + 1}: ${spotsLeft > 0 ? spotsLeft + " plekken over" : "workshop zit vol!"}`;
+                })
                 .join("\n");
 
             element.innerText = text;
@@ -77,36 +68,72 @@ async function waitUntilApi() {
 }
 
 function handleMouseOver() {
+    var hoverState = true;
+    inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
+        roundContainer.addEventListener('mouseenter', function () {
+            var text = roundContainer.querySelector('.title');
+            if (text) {
+                hoverState = false;
+                text.classList.remove('hiddenText');
+                text.classList.add('showText');
+            }
+        })
+    })
 
     workshopContainers.forEach(container => {
         container.addEventListener("mouseleave", () => {
-            const hoveredDiv = container.querySelector('.title');
-            const hoverCapText = container.querySelector('.capacityText');
+            if (hoverState) {
+                const hoveredDiv = container.querySelector('.title');
+                const hoverCapText = container.querySelector('.capacityText');
 
-            if (hoveredDiv) {
-                hoveredDiv.classList.remove('hiddenText');
-                hoveredDiv.classList.add('showText');
-            }
+                if (hoveredDiv) {
+                    hoveredDiv.classList.remove('hiddenText');
+                    hoveredDiv.classList.add('showText');
+                }
 
-            if (hoverCapText) {
-                hoverCapText.classList.remove('showText');
-                hoverCapText.classList.add('hiddenText');
+                if (hoverCapText) {
+                    hoverCapText.classList.remove('showText');
+                    hoverCapText.classList.add('hiddenText');
+                }
+            } else {
+                hoverState = true;
             }
         });
 
         container.addEventListener("mouseenter", () => {
-            const hoveredDiv = container.querySelector('.title');
-            const hoverCapText = container.querySelector('.capacityText');
+            if (hoverState) {
+                const hoveredDiv = container.querySelector('.title');
+                const hoverCapText = container.querySelector('.capacityText');
 
-            if (hoveredDiv) {
-                hoveredDiv.classList.remove('showText');
-                hoveredDiv.classList.add('hiddenText');
-            }
+                if (hoveredDiv) {
+                    hoveredDiv.classList.remove('showText');
+                    hoveredDiv.classList.add('hiddenText');
+                }
 
-            if (hoverCapText) {
-                hoverCapText.classList.remove('hiddenText');
-                hoverCapText.classList.add('showText');
+                if (hoverCapText) {
+                    hoverCapText.classList.remove('hiddenText');
+                    hoverCapText.classList.add('showText');
+                }
+            } else {
+                hoverState = true;
             }
         });
     });
+}
+
+function whenWorkshopIsFull() {
+    const observer = new MutationObserver((mutationsList, observer) => {
+        if (inRoundContainers) {
+            console.log(inRoundContainers);
+            
+            console.log(inRoundContainers.contains('workshop'));
+            // if (inRoundContainers.contains('.workshop')) {
+            //     console.log("true2");
+            // }
+            console.log("true");
+
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
 }
