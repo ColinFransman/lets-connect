@@ -44,7 +44,6 @@ class BookingController extends Controller
             ], 400);
         }
 
-        // Proceed with booking if no error
         // Check if the user has any existing bookings
         if (Bookings::where('student_id', auth()->id())->count() < 1) {
             // Create new bookings for each workshop moment
@@ -90,13 +89,13 @@ class BookingController extends Controller
     {
         // Get all workshops along with their moments and bookings count
         $workshops = Workshop::with(['workshopMoments' => function ($query) {
-            $query->withCount('bookings');  // Get the count of bookings for each moment
+            $query->withCount('bookings');  
         }])->get();
     
         // Prepare the response data in a structured format
         $data = $workshops->map(function ($workshop) {
             return [
-                'workshop_name' => $workshop->name, // Return the name of the workshop
+                'workshop_name' => $workshop->name,
                 'moments' => $workshop->workshopMoments->map(function ($moment) use ($workshop) {
                     return [
                         'workshop_id' => $workshop->id, 
