@@ -32,10 +32,14 @@ function drop(ev) {
     }
 
     if (!targetRound.hasChildNodes()) {
-        //credits to damian for fixing this (:
         targetRound.appendChild(draggedElement);
         let title = draggedElement.querySelector(".title");
-        document.getElementById("save" + targetRound.id).value = title.innerText;
+        let xpath = `//input[@value="` + title.getAttribute('workshop') + `"]`;
+        let matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        if(matchingElement !== null) {
+            matchingElement.value = "";
+        }
+        document.getElementById("save" + targetRound.id).value = title.getAttribute('workshop');
         planningChanged = true;
         addCloseButton(draggedElement, targetRound);
         workshopsInRounds.add(draggedElement.id);
