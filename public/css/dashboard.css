@@ -594,3 +594,14 @@ overflow: hidden;
     background-color: white;
 
 }
+
+.ghost {
+    color: black;              /* Set text color to black */
+    opacity: 1;                /* Fully opaque */
+    font-weight: 700;          /* Bold font */
+    background-color: black;  /* Make background black */
+    box-shadow: none;          /* Remove any box shadows */
+    border: none;              /* Ensure no border is added */
+    position: absolute;        /* Position it absolutely in the document */
+    z-index: 9999;             /* Ensure it stays on top of other elements */
+}
