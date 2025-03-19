@@ -55,7 +55,9 @@ function drop(ev) {
             let oldXpath = `//input[@value="` + draggedTitle.getAttribute('workshop') + `"]`;
             let oldMatchingElement = document.evaluate(oldXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
             draggedMatchingElement.value = draggedTitle.getAttribute('workshop'); //set oude input van de te swappen workshop naar value van de workshop waarmee je wil swappen
-            oldMatchingElement.value = oldTitle.getAttribute('workshop'); 
+            if (oldMatchingElement) {
+                oldMatchingElement.value = oldTitle.getAttribute('workshop'); 
+            }
             targetRound.replaceChild(draggedElement, oldWorkshop);
             oldRound.appendChild(oldWorkshop);
         }
