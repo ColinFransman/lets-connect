@@ -65,8 +65,6 @@ function updateSaveButton() {
         popup.style.display = "none"; 
         saveButton.style.display = "none"; 
     } else {
-        console.log(popup)
-        console.log(saveButton)
         popup.style.display = "flex";
         saveButton.style.display = "flex"; 
     }
