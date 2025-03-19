@@ -19,7 +19,8 @@ class WorkshopDashboardController extends Controller
         
         //$wsm->load('bookings');
 
-        return view('dashboard.showbookings')->with('wsm', $wsm);
+        return view('dashb
+        oard.showbookings')->with('wsm', $wsm);
         
 
     }

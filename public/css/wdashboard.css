@@ -1,0 +1,70 @@
+.accordion-content {
+    display: none;
+}
+
+/* Knop styling */
+.accordion-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    border-radius: 8px;
+    padding: 12px 18px;
+    color: white;
+}
+
+.accordion-content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Stijl voor de tabel */
+thead {
+    background-color: #f7fafc;
+}
+
+th {
+    text-align: left;
+    padding: 12px 18px;
+    font-weight: 600;
+    color: #4A5568;
+    font-size: 1rem;
+}
+
+td {
+    padding: 12px 18px;
+    font-size: 0.875rem;
+    color: #4A5568;
+}
+
+tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Statuslabels */
+.text-green-600 {
+    color: #38A169;
+}
+
+.text-red-600 {
+    color: #E53E3E;
+}
+
+/* Scrollbare tabel */
+.overflow-x-auto {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Knoppenkleuren */
+.bg-blue-600 {
+    background-color: #010174;
+}
+
+.bg-orange-600 {
+    background-color: #dd6b20;
+}
+
+div.border {
+    margin-bottom: 5px; /* Voeg extra ruimte toe onder elke accordeon */
+}

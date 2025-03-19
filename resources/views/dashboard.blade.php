@@ -13,8 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <script src="{{ asset('/js/confirmPopup.js') }}"></script> 
-        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>   
+        <script src="{{ asset('/js/confirmPopup.js') }}"></script>  
         <script src="{{ asset('/js/errorPopup.js') }}"></script>
         <script src="{{ asset('/js/infoPopup.js') }}"></script>
         <script src="{{ asset('/js/register.js') }}"></script>
@@ -83,7 +82,7 @@
                                 <div class='descriptionImage'><img src='{{ $workshop->image_url }}'></div> 
                             </div>
                          </div>
-                        <div class='title showText' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div>
+                        <div class='title showText' id='title{{ $workshop->id - 1 }}' workshop='{{ $workshop->name }}'>{{$workshop->name }}  </div>
                         <div class="capacityText hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
                         <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">#</div></div>
                     </div>
@@ -93,21 +92,23 @@
         <div class="flex">
             <div id="save-button-container" style="display: none;">
             </div>
-            
-            <div id="confirmation-popup" class="confpopup" style="display: none;">
-                <div class="popup-content">
-                    <p>Wil je dit opslaan?</p>
-                    <form method="POST" action="{{ url('/save') }}">
-                        @csrf
-                        <input type="hidden" name="save1" id="save1" value="">
-                        <input type="hidden" name="save2" id="save2" value="">
-                        <input type="hidden" name="save3" id="save3" value="">
-                        <button onclick="SaveSave()">Ja</button>
-                    </form>
-                    <button onclick="cancelSave()">Nee</button>
-                </div>
-            </div>
-        </div>
+    
+                    <div id="confirmation-popup" class="confpopup" style="display: none;">
+                        <div class="popup-content">
+                            <p>Wil je dit opslaan?</p>
+                            <form method="POST" action="{{ url('/save') }}">
+                                @csrf
+                                <input type="hidden" name="save1" id="save1" value="">
+                                <input type="hidden" name="save2" id="save2" value="">
+                                <input type="hidden" name="save3" id="save3" value="">
+                                <div class="button-container">
+                                    <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
+                                    <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
  
         <div class="flex">
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
@@ -116,6 +117,7 @@
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
         <script src="{{ asset('/js/tutorial.js') }}"></script>
+        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>  
     </body>
     </html>
 </x-app-layout>
