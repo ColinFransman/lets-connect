@@ -54,7 +54,6 @@ function drop(ev) {
             let draggedMatchingElement = document.evaluate(draggedXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; //get hidden input van bovenstaand element
             let oldXpath = `//input[@value="` + draggedTitle.getAttribute('workshop') + `"]`;
             let oldMatchingElement = document.evaluate(oldXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-            console.log("voor het updaten:", draggedMatchingElement); //log oude input van de te swappen workshop
             draggedMatchingElement.value = draggedTitle.getAttribute('workshop'); //set oude input van de te swappen workshop naar value van de workshop waarmee je wil swappen
             oldMatchingElement.value = oldTitle.getAttribute('workshop'); 
             targetRound.replaceChild(draggedElement, oldWorkshop);
