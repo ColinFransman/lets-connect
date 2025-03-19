@@ -1,13 +1,18 @@
 /* Algemene styling */
-body {
-    position: relative;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html, body{
+height: 100%;
+margin: 0;
+overflow: hidden;
 }
 
-/* Container voor de hoofdinhoud */
+.container {
+    height: 100vh; /* 100% van de schermhoogte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
 .main {
     width: 100%;
     display: flex;
@@ -90,10 +95,10 @@ body {
 
 /* Info knop */
 .info {
+    z-index:9999;
+    position: absolute;
     width: 10%;
-    margin: 10px;
-    padding-left: 12px;
-    padding-right: 12px;
+    top: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,6 +130,7 @@ body {
 
 /* Titel van de workshop */
 .title {
+    margin-top: 20%;
     width: 100%;
     height: auto;
     padding: 10px;
@@ -174,7 +180,7 @@ body {
     max-height: 70%;
     overflow: auto;
     overflow-x: hidden; 
-    overflow-y: scroll; 
+    overflow-y: auto; 
 }
 
 
@@ -547,4 +553,42 @@ body {
 .disabledStyle {
     background: grey !important;
     cursor: not-allowed !important;
+}
+
+.confpopup .button-container {
+    display: flex;
+    gap: 15px; /* Afstand tussen de knoppen */
+    justify-content: center; /* Knoppen centreren */
+    margin-top: 15px;
+}
+
+.confpopup .yes-button {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confpopup .yes-button:hover {
+    background-color: black;
+}
+
+.confpopup .no-button {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.confpopup .no-button:hover {
+    background-color: white;
+
 }

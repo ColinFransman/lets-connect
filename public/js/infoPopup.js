@@ -1,8 +1,38 @@
-let currentZIndex = 1000; 
+let currentZIndex = 1000;
+let originalWorkshopPositions = new Map(); 
 
-function addCloseButton(workshop, targetRound) {
+
+function storeOriginalPositions() {
+    const workshopList = document.getElementById("4");
+    Array.from(workshopList.children).forEach((workshop, index) => {
+        originalWorkshopPositions.set(workshop.id, index);
+    });
+}
+
+
+function restoreWorkshopPosition(workshop) {
+    const workshopList = document.getElementById("4");
+    const originalIndex = originalWorkshopPositions.get(workshop.id);
+    const workshops = Array.from(workshopList.children);
+
+    if (originalIndex !== undefined) {
+    
+        let referenceNode = workshops[originalIndex] || null;
+        workshopList.insertBefore(workshop, referenceNode);
+    } else {
+        workshopList.appendChild(workshop);
+    }
+
+
+    const closeButton = workshop.querySelector(".close-button");
+    if (closeButton) {
+        closeButton.remove();
+    }
+}
+
+function addCloseButton(workshop) {
     if (workshop.querySelector(".close-button")) {
-        return; 
+        return;
     }
 
     const closeButton = document.createElement("button");
@@ -10,25 +40,15 @@ function addCloseButton(workshop, targetRound) {
     closeButton.textContent = "X";
 
     closeButton.addEventListener("click", function () {
-        const workshopList = document.getElementById("4");
-
-        let index = originalWorkshopOrder.indexOf(workshop.id);
-
-        if (index !== -1) {
-            let referenceNode = workshopList.children[index] || null;
-            workshopList.insertBefore(workshop, referenceNode);
-        } else {
-            workshopList.appendChild(workshop);
-        }
-
-        workshopsInRounds.delete(workshop.id); 
-        document.getElementById("save" + targetRound.id).value = "";
-        updateSaveButton();
-        closeButton.remove();
+        restoreWorkshopPosition(workshop); 
+        workshopsInRounds.delete(workshop.id);
     });
 
     workshop.appendChild(closeButton);
 }
+
+document.addEventListener("DOMContentLoaded", storeOriginalPositions);
+
 
 function checkRoundsFilled() {
     const rounds = document.querySelectorAll(".round");
