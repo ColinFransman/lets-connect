@@ -16,20 +16,20 @@ function drop(ev) {
 
     if (!targetRound) return;
 
-    if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
-        showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
-        return;
-    }
+    // if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
+    //     showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
+    //     return;
+    // }
 
-    if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
-        showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
-        return;
-    }
+    // if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
+    //     showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
+    //     return;
+    // }
 
-    if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
-        showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
-        return;
-    }
+    // if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
+    //     showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
+    //     return;
+    // }
 
     if (!targetRound.hasChildNodes()) {
         targetRound.appendChild(draggedElement);
