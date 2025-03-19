@@ -11,6 +11,9 @@ function addCloseButton(workshop, targetRound) {
 
     closeButton.addEventListener("click", function () {
         const workshopList = document.getElementById("4");
+        let closeXpath = `//div[@workshop="` + workshop.querySelector(".title").getAttribute("workshop") + `"]`;
+        newLocation = document.evaluate(closeXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.parentNode.parentNode;
+        console.log("new location: ", newLocation);
 
         let index = originalWorkshopOrder.indexOf(workshop.id);
 
@@ -22,7 +25,7 @@ function addCloseButton(workshop, targetRound) {
         }
 
         workshopsInRounds.delete(workshop.id); 
-        document.getElementById("save" + targetRound.id).value = "";
+        document.getElementById("save" + newLocation.id).value = "";
         updateSaveButton();
         closeButton.remove();
     });
