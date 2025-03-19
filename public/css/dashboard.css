@@ -599,12 +599,18 @@ overflow: hidden;
 }
 
 .ghost {
-    color: black;              /* Set text color to black */
-    opacity: 1;                /* Fully opaque */
+    color: white;              /* Set text color to black */
     font-weight: 700;          /* Bold font */
     background-color: black;  /* Make background black */
-    box-shadow: none;          /* Remove any box shadows */
-    border: none;              /* Ensure no border is added */
+    box-shadow: solid blue 2px;          /* Remove any box shadows */
     position: absolute;        /* Position it absolutely in the document */
-    z-index: 9999;             /* Ensure it stays on top of other elements */
+
+    width: 98%;
+    height: 150px;
+    margin: 0;
+    border: 3px solid rgb(1, 1, 116);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+    margin: 3px 3px;
 }
