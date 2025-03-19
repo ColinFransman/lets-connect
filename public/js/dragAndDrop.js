@@ -20,21 +20,20 @@ function drop(ev) {
 
     if (!targetRound) return;
 
-    // Logic to validate if the workshop can be placed in the target round
-    if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
-        showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
-        return;
-    }
+    // if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
+    //     showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
+    //     return;
+    // }
 
-    if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
-        showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
-        return;
-    }
+    // if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
+    //     showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
+    //     return;
+    // }
 
-    if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
-        showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
-        return;
-    }
+    // if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
+    //     showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
+    //     return;
+    // }
 
     // If no children are present, append the dragged element
     if (!targetRound.hasChildNodes()) {
