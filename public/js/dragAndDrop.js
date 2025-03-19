@@ -47,46 +47,19 @@ function drop(ev) {
     } else {
         oldWorkshop = (targetRound.firstChild); //workshopelement waarmee je wil swappen, draggedElement is het te swappen workshopelement
         oldRound = draggedElement.parentNode; //ronde-element waar de workshop terecht komt waarmee je wil swappen, targetRound is het element waar de te swappen workshop terecht komt
-        let oldTitle = oldWorkshop.querySelector(".title");
-        
-        if (targetRound.firstChild.id != "workshop0" && targetRound.firstChild.id != "workshop1" && targetRound.firstChild.id != "workshop2") {
-            let draggedtitle = draggedElement.querySelector(".title");
-            
-            // Ensure draggedtitle has the 'workshop' attribute and log its value
-            let workshopValue = draggedtitle.getAttribute('workshop');
-            console.log("workshop value:", workshopValue);
-            
-            if (!workshopValue) {
-                console.error("Workshop value is missing or invalid.");
-                return; // Exit early if the workshop value is missing.
-            }
-        
-            let draggedXpath = `//input[@value="${workshopValue}"]`;
-            console.log("Generated XPath:", draggedXpath);
-            
-            // Try using querySelector as an alternative to XPath if needed
-            let draggedMatchingElement = document.querySelector(`input[value="${workshopValue}"]`);
-            if (!draggedMatchingElement) {
-                console.error("No matching element found for input with value:", workshopValue);
-                return;
-            }
-        
-            console.log("Found matching input element:", draggedMatchingElement);
-        
-            // Update the input value with the value of the 'oldWorkshop' element
-            draggedMatchingElement.value = oldWorkshop.getAttribute('workshop');
-            console.log("Updated value of the input:", draggedMatchingElement.value);
-            
-            // If oldWorkshop has an updated value
-            console.log("Old workshop element:", oldWorkshop);
-            console.log("Old workshop value:", oldTitle.getAttribute('workshop'));
-        
-            // Proceed to replace and append elements
+        if (targetRound.firstChild.id != "workshop0" && targetRound.firstChild.id != "workshop1" && targetRound.firstChild.id != "workshop2") { //disable swap-acties met theaterworkshops 
+            let draggedTitle = draggedElement.querySelector(".title"); //get title element van de te swappen workshop
+            let oldTitle = oldWorkshop.querySelector(".title"); //get title element van de workshop waarmee je wil swappen
+            let draggedXpath = `//input[@value="` + oldTitle.getAttribute('workshop') + `"]`;
+            let draggedMatchingElement = document.evaluate(draggedXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; //get hidden input van bovenstaand element
+            let oldXpath = `//input[@value="` + draggedTitle.getAttribute('workshop') + `"]`;
+            let oldMatchingElement = document.evaluate(oldXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+            console.log("voor het updaten:", draggedMatchingElement); //log oude input van de te swappen workshop
+            draggedMatchingElement.value = draggedTitle.getAttribute('workshop'); //set oude input van de te swappen workshop naar value van de workshop waarmee je wil swappen
+            oldMatchingElement.value = oldTitle.getAttribute('workshop'); 
             targetRound.replaceChild(draggedElement, oldWorkshop);
             oldRound.appendChild(oldWorkshop);
         }
-        
-        
-        
     }
+    updateSaveButton();
 }

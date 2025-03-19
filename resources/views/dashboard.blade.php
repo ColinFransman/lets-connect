@@ -13,8 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <script src="{{ asset('/js/confirmPopup.js') }}"></script> 
-        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>   
+        <script src="{{ asset('/js/confirmPopup.js') }}"></script>  
         <script src="{{ asset('/js/errorPopup.js') }}"></script>
         <script src="{{ asset('/js/infoPopup.js') }}"></script>
         <script src="{{ asset('/js/register.js') }}"></script>
@@ -116,6 +115,7 @@
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
         <script src="{{ asset('/js/tutorial.js') }}"></script>
+        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>  
     </body>
     </html>
 </x-app-layout>
