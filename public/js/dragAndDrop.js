@@ -74,6 +74,7 @@ function drop(ev) {
 // Custom drag element style and ghost image
 function customDrag(event) {
     let ghostEl;
+    let dragImage;
 
     // Get the dragged element
     const draggedElement = event.target;
@@ -87,33 +88,45 @@ function customDrag(event) {
 
     // Clone only the title element (you could clone the entire content if you wish)
     ghostEl = title.cloneNode(true);  // Clone the title element only
-
-  
-
-    // Remove 'hiddenText' and add 'showText' in the cloned ghost
-    ghostEl.classList.remove('hiddenText');  // Remove the 'hiddenText' class
+    ghostEl.classList.remove('hiddenText');  // Remove the 'hiddenText' class to make the title visible
     ghostEl.classList.add('showText');  // Add the 'showText' class
+
     // Ensure the title element in the ghost is visible
     ghostEl.classList.add("ghost");
 
     // Style the cloned title as needed, like size, width, height, etc.
     ghostEl.style.width = draggedElement.offsetWidth + 'px';
     ghostEl.style.height = draggedElement.offsetHeight + 'px';
+    ghostEl.style.position = "absolute";  // Position it absolutely to follow the mouse cursor
 
-    // Append the cloned title (ghost) to the body
-    document.body.appendChild(ghostEl);
-    console.log('ghostEl:', ghostEl);
+    // Clone another version for the actual drag image
+    dragImage = ghostEl.cloneNode(true);
+    dragImage.style.opacity = 1;  // Ensure drag image is fully visible
+    document.body.appendChild(ghostEl);  // Append ghost element for the drag image
+    document.body.appendChild(dragImage);  // Append drag image element
 
-    // Set the drag image position to the center of the cloned title
-    event.dataTransfer.setDragImage(ghostEl, ghostEl.offsetWidth / 2, ghostEl.offsetHeight / 2);
+    // Set the drag image to be the cloned ghost element
+    event.dataTransfer.setDragImage(dragImage, dragImage.offsetWidth / 2, dragImage.offsetHeight / 2);
 
     // When drag ends
     draggedElement.addEventListener("dragend", () => {
         // Make sure the ghost element is still in the DOM before removing
         if (ghostEl && document.body.contains(ghostEl)) {
             console.log('removing ghost:', ghostEl);
-            document.body.removeChild(ghostEl); // Remove the ghost element after the drag operation is finished
+            document.body.removeChild(ghostEl);  // Remove the ghost element after the drag operation is finished
         }
+
+        // Clean up drag image
+        if (dragImage && document.body.contains(dragImage)) {
+            console.log('removing drag image:', dragImage);
+            document.body.removeChild(dragImage);  // Remove the drag image element after the drag ends
+        }
+    });
+
+    // Update the position of the drag image during the drag
+    document.addEventListener("drag", (event) => {
+        dragImage.style.left = event.pageX + "px";
+        dragImage.style.top = event.pageY + "px";
     });
 }
 
@@ -122,3 +135,4 @@ document.querySelectorAll(".draggable").forEach((element) => {
     element.setAttribute("draggable", true);
     element.addEventListener("dragstart", customDrag);
 });
+

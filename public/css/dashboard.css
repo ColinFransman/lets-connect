@@ -604,7 +604,6 @@ overflow: hidden;
     background-color: black;  /* Make background black */
     box-shadow: solid blue 2px;          /* Remove any box shadows */
     position: absolute;        /* Position it absolutely in the document */
-
     width: 98%;
     height: 150px;
     margin: 0;
