@@ -133,7 +133,7 @@ overflow: hidden;
 
 /* Titel van de workshop */
 .title {
-    margin-top: 20%;
+    margin-top: 30px;
     width: 100%;
     height: auto;
     padding: 10px;
@@ -601,15 +601,14 @@ overflow: hidden;
 .ghost {
     color: white;              /* Set text color to black */
     font-weight: 700;          /* Bold font */
-    background-color: black;  /* Make background black */
+    background-color: #343469;  /* Make background black */
     box-shadow: solid blue 2px;          /* Remove any box shadows */
     position: absolute;        /* Position it absolutely in the document */
-    width: 98%;
-    height: 150px;
     margin: 0;
+    height: 100%;
+    width: 10px;
     border: 3px solid rgb(1, 1, 116);
     border-radius: 10px;
-    overflow: hidden;
     cursor: grab;
     margin: 3px 3px;
 }
