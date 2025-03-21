@@ -599,16 +599,6 @@ overflow: hidden;
 }
 
 .ghost {
-    color: white;              /* Set text color to black */
-    font-weight: 700;          /* Bold font */
-    background-color: #343469;  /* Make background black */
-    box-shadow: solid blue 2px;          /* Remove any box shadows */
-    position: absolute;        /* Position it absolutely in the document */
-    margin: 0;
-    height: 100%;
-    width: 10px;
-    border: 3px solid rgb(1, 1, 116);
     border-radius: 10px;
-    cursor: grab;
-    margin: 3px 3px;
+    border: 3px solid rgb(1, 1, 116);
 }

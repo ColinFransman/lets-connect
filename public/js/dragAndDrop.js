@@ -7,8 +7,8 @@ function allowDrop(ev) {
 
 // Event listener for dragging
 function drag(ev) {
-    ev.target.style.opacity = "1";
     ev.dataTransfer.setData("text", ev.target.id);
+    customDrag(ev)
 }
 
 // Event listener for dropping
@@ -53,4 +53,34 @@ function drop(ev) {
         }
     }
     updateSaveButton();    
+}
+
+function customDrag(event) {
+    let ghostEl;
+
+    const draggedElement = event.target;
+    
+    const title = draggedElement.querySelector('.title');
+
+    ghostEl = event.target.cloneNode(true);
+
+    ghostEl.classList.add("ghost");    
+
+    ghostEl.style.width = draggedElement.offsetWidth + 'px';
+    ghostEl.style.height = draggedElement.offsetHeight + 'px';
+    ghostEl.style.position = "absolute";  
+
+    var i = ghostEl.querySelector('.locationWorkshop')
+    i.style.textAlign = "center";
+
+    document.body.appendChild(ghostEl);
+
+    event.dataTransfer.setDragImage(ghostEl, ghostEl.offsetWidth / 2, ghostEl.offsetHeight / 2);
+
+    // When drag ends
+    draggedElement.addEventListener("dragend", () => {
+        if (ghostEl && document.body.contains(ghostEl)) {
+            document.body.removeChild(ghostEl);
+        }
+    });
 }
