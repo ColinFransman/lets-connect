@@ -60,6 +60,10 @@ function drop(ev) {
             }
             targetRound.replaceChild(draggedElement, oldWorkshop);
             oldRound.appendChild(oldWorkshop);
+            addCloseButton(draggedElement, targetRound)
+            if (oldWorkshop.parentNode.id == 4) {
+                oldWorkshop.querySelector(".close-button").remove();
+            }
         }
     }
     updateSaveButton();
