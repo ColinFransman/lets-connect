@@ -70,7 +70,7 @@
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
                 </div>
             </div>
-            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
+            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" draggable="true" id="4">
                 @foreach ($workshops as $workshop)
                     <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity="{{ $workshop->capacity}}" draggable='true' ondragstart='drag(event)'> 
                         <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
@@ -83,7 +83,7 @@
                             </div>
                          </div>
                         <div class='title showText' id='title{{ $workshop->id - 1 }}' workshop='{{ $workshop->name }}'>{{$workshop->name }}  </div>
-                        <div class="capacityText hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
+                        <div class="capacityText title hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
                         <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">#</div></div>
                     </div>
                 @endforeach
