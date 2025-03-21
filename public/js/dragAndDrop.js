@@ -60,11 +60,9 @@ function customDrag(event) {
 
     const draggedElement = event.target;
     
-    const title = draggedElement.querySelector('.title');
-
     ghostEl = event.target.cloneNode(true);
 
-    ghostEl.classList.add("ghost");    
+    ghostEl.classList.add("ghost");
 
     ghostEl.style.width = draggedElement.offsetWidth + 'px';
     ghostEl.style.height = draggedElement.offsetHeight + 'px';

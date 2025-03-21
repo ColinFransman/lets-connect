@@ -55,7 +55,7 @@ overflow: hidden;
 
 .workshops {
     margin-bottom: 15px;
-    width: 40%;
+    /* width: 40%; */
     max-height: 580px;
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
@@ -85,6 +85,7 @@ overflow: hidden;
     background-color: #343469;
     color: white;
     font-weight: bold;
+    max-width: 240px;
 }
 
 .workshop:hover {
