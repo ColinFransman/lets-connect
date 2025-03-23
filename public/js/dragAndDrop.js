@@ -7,8 +7,8 @@ function allowDrop(ev) {
 
 // Event listener for dragging
 function drag(ev) {
-    customDrag(ev)
     ev.dataTransfer.setData("text", ev.target.id);
+    customDrag(ev)
 }
 
 // Event listener for dropping
@@ -19,21 +19,6 @@ function drop(ev) {
     const targetRound = ev.target.closest(".round");
 
     if (!targetRound) return;
-
-    // if (draggedElement.id === "workshop0" && targetRound.id !== "1") {
-    //     showErrorPopup("Theaterworkshop 1 kan alleen in Ronde 1 geplaatst worden.");
-    //     return;
-    // }
-
-    // if (draggedElement.id === "workshop1" && targetRound.id !== "2") {
-    //     showErrorPopup("Theaterworkshop 2 kan alleen in Ronde 2 geplaatst worden.");
-    //     return;
-    // }
-
-    // if (draggedElement.id === "workshop2" && targetRound.id !== "3") {
-    //     showErrorPopup("Theaterworkshop 3 kan alleen in Ronde 3 geplaatst worden.");
-    //     return;
-    // }
 
     // If no children are present, append the dragged element
     if (!targetRound.hasChildNodes()) {
@@ -76,24 +61,21 @@ function drop(ev) {
     updateSaveButton();    
 }
 
-
-// Custom drag element style and ghost image
 function customDrag(event) {
     let ghostEl;
 
     const draggedElement = event.target;
     
-    const title = draggedElement.querySelector('.title');
-
     ghostEl = event.target.cloneNode(true);
-    ghostEl.classList.remove('hiddenText');
-    ghostEl.classList.add('showText'); 
 
-    ghostEl.classList.add("ghost");    
+    ghostEl.classList.add("ghost");
 
     ghostEl.style.width = draggedElement.offsetWidth + 'px';
     ghostEl.style.height = draggedElement.offsetHeight + 'px';
     ghostEl.style.position = "absolute";  
+
+    var i = ghostEl.querySelector('.locationWorkshop')
+    i.style.textAlign = "center";
 
     document.body.appendChild(ghostEl);
 
