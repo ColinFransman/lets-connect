@@ -137,34 +137,34 @@ function handleMouseOver() {
 
 function whenWorkshopIsFull() {
     const observer = new MutationObserver((mutationsList, observer) => {
-        if (document.cookie.match("workshopWhile=removed")) {
-            if (inRoundContainers) {
-                inRoundContainers.forEach(container => {
-                    let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
 
-                    if (workshopElement) { // if any workshop exists
-                        var capacityElement = workshopElement.querySelector('.capacityText');
-                        if (capacityElement) { // if cap text exists inside workshop.
-                            var text = capacityElement.textContent.trim();
-                            var numberText = text.substring(0, 7).replace(/\D/g, "");
+        var values = [];
+        if (inRoundContainers) {
+            inRoundContainers.forEach(container => {
+                let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
 
-                            roundAmountIds.forEach(count => {
+                if (workshopElement) { // if any workshop exists
+                    var capacityElement = workshopElement.querySelector('.capacityText');
+                    if (capacityElement) { // if cap text exists inside workshop.
+                        var text = capacityElement.textContent.trim();
+                        var numberText = text.substring(0, 7).replace(/\D/g, "");
 
-                                if (numberText === count) {
-                                    if (!text.includes('workshop zit vol!')) {
-                                        return;
-                                    } else {
-                                        showErrorPopup("Deze ronde zit vol!")
-                                        var closeIcon = container.querySelector('.close-button');
-                                        closeIcon.click()
-                                        return;
-                                    }
+                        roundAmountIds.forEach(count => {
+
+                            if (numberText === count) {
+                                if (!text.includes('workshop zit vol!')) {
+                                    return;
+                                } else {
+                                    showErrorPopup("Deze ronde zit vol!")
+                                    var closeIcon = container.querySelector('.close-button');
+                                    closeIcon.click()
+                                    return;
                                 }
-                            })
-                        }
+                            }
+                        })
                     }
-                });
-            }
+                }
+            });
         }
     });
 
