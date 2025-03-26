@@ -90,29 +90,24 @@
             </div>
         </div>
         <div class="flex">
-            <div id="save-button-container" style="display: none;">
-            </div>
-    
-                    <div id="confirmation-popup" class="confpopup" style="display: none;">
-                        <div class="popup-content">
-                            <p>Wil je dit opslaan?</p>
-                            <form method="POST" action="{{ url('/save') }}">
-                                @csrf
-                                <input type="hidden" name="save1" id="save1" value="">
-                                <input type="hidden" name="save2" id="save2" value="">
-                                <input type="hidden" name="save3" id="save3" value="">
-                                <div class="button-container">
-                                    <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
-                                    <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
-                                </div>
-                            </form>
+            <div id="save-button-container" style="display: none;"></div>
+            <div id="confirmation-popup" class="confpopup" style="display: none;">
+                <div class="popup-content">
+                    <p>Wil je dit opslaan?</p>
+                    <form method="POST" action="{{ url('/save') }}">
+                        @csrf
+                        <input type="hidden" name="save1" id="save1" value="">
+                        <input type="hidden" name="save2" id="save2" value="">
+                        <input type="hidden" name="save3" id="save3" value="">
+                        <div class="button-container">
+                            <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
+                            <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
                         </div>
-                    </div>
-
- 
+                    </form>
+                </div>
+            </div> 
         <div class="flex">
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
-
         </div> 
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>

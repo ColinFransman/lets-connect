@@ -16,4 +16,3 @@ class Workshop extends Model
         return $this->hasMany(WorkshopMoment::class);
     }
 }
-

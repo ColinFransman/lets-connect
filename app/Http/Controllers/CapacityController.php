@@ -41,34 +41,29 @@ class CapacityController extends Controller
  
         dd($workshops);
 
-
-         $wm1 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[1]->id)->where("moment_id",1)->first();
-         $wm2 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[2]->id)->where("moment_id",2)->first();
-         $wm3 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[3]->id)->where("moment_id",3)->first();
+        $wm1 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[1]->id)->where("moment_id",1)->first();
+        $wm2 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[2]->id)->where("moment_id",2)->first();
+        $wm3 = WorkshopMoment::with(['workshop', 'bookings'])->where('workshop_id' , $workshops[3]->id)->where("moment_id",3)->first();
  
- 
-         if( $wm1->workshop->capacity < $wm1->bookings->count()) {
+        if( $wm1->workshop->capacity < $wm1->bookings->count()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'No available spots for the workshop: ' . $wm1->name
             ], 400);
-         }
-         if( $wm2->workshop->capacity < $wm2->bookings->count()) {
+        }
+
+        if( $wm2->workshop->capacity < $wm2->bookings->count()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'No available spots for the workshop: ' . $wm2->name
             ], 400);
-         }
-         if( $wm3->workshop->capacity < $wm3->bookings->count()) {
+        }
+        
+        if( $wm3->workshop->capacity < $wm3->bookings->count()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'No available spots for the workshop: ' . $wm3->name
             ], 400);
-         }
-
+        }
     }       
-
-
-
-
 }

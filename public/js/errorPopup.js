@@ -13,8 +13,6 @@ function unhighlightElement(selector) {
     if (element) element.classList.remove("highlight");
 }
 
-
-
 // Toon de foutmelding popup
 function showErrorPopup(message) {
     const popup = document.getElementById("error-popup");

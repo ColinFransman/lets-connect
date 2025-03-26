@@ -33,4 +33,3 @@ opleidingSelect.addEventListener("change", function() {
     });
   }
 });
-
