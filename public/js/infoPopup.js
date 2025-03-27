@@ -40,8 +40,24 @@ function addCloseButton(workshop) {
     closeButton.textContent = "X";
 
     closeButton.addEventListener("click", function () {
+        const workshopList = document.getElementById("4");
+        let closeXpath = `//div[@workshop="` + workshop.querySelector(".title").getAttribute("workshop") + `"]`;
+        newLocation = document.evaluate(closeXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.parentNode.parentNode;
+        console.log("new location: ", newLocation);
+
+        let index = originalWorkshopOrder.indexOf(workshop.id);
+
+        if (index !== -1) {
+            let referenceNode = workshopList.children[index] || null;
+            workshopList.insertBefore(workshop, referenceNode);
+        } else {
+            workshopList.appendChild(workshop);
+        }
         restoreWorkshopPosition(workshop); 
-        workshopsInRounds.delete(workshop.id);
+        workshopsInRounds.delete(workshop.id); 
+        document.getElementById("save" + newLocation.id).value = "";
+        updateSaveButton();
+        closeButton.remove();
     });
 
     workshop.appendChild(closeButton);

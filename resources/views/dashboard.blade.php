@@ -13,8 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet">
-        <script src="{{ asset('/js/confirmPopup.js') }}"></script> 
-        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>   
+        <script src="{{ asset('/js/confirmPopup.js') }}"></script>  
         <script src="{{ asset('/js/errorPopup.js') }}"></script>
         <script src="{{ asset('/js/infoPopup.js') }}"></script>
         <script src="{{ asset('/js/register.js') }}"></script>
@@ -71,7 +70,7 @@
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
                 </div>
             </div>
-            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
+            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" draggable="false" id="4">
                 @foreach ($workshops as $workshop)
                     <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity="{{ $workshop->capacity}}" draggable='true' ondragstart='drag(event)'> 
                         <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
@@ -83,7 +82,9 @@
                                 <div class='descriptionImage'><img src='{{ $workshop->image_url }}'></div> 
                             </div>
                          </div>
-                        <div class='title' id='title{{ $workshop->id - 1 }}'>{{$workshop->name }}  </div> 
+                        <div class='title showText' id='title{{ $workshop->id - 1 }}' workshop='{{ $workshop->name }}'>{{$workshop->name }}  </div>
+                        <div class="capacityText title hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
+                        <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">#</div></div>
                     </div>
                 @endforeach
             </div>
@@ -114,7 +115,9 @@
 
         </div> 
         <!-- loading script after html has loaded because of getElementById -->
+        <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
         <script src="{{ asset('/js/tutorial.js') }}"></script>
+        <script src="{{ asset('/js/dragAndDrop.js') }}"></script>  
     </body>
     </html>
 </x-app-layout>

@@ -43,7 +43,7 @@
 <body>
 
 <div class="container">
-    <h1>Beste Colin,</h1>
+    <h1>Beste {{ auth()->user()->name }},</h1>
     <p>Bedankt voor je aanmelding! Je planning is succesvol opgeslagen. Hier zijn de details:</p>
 
     <table>
@@ -55,18 +55,63 @@
         <tr>
             <td>29-02-2034</td>
             <td>13:00</td>
-            <td>Bewegend verbinden</td>
+            <td>
+                @php
+                    $results = 
+                    DB::table('workshops AS ws')
+                    ->join('workshop_moments AS wm', 'ws.id', '=', 'wm.workshop_id')
+                    ->join('bookings AS bk', 'wm.id', '=', 'bk.wm_id')
+                    ->select('ws.name')
+                    ->where('bk.student_id', '=', auth()->user()->id)
+                    ->where('wm.moment_id', '=', '1')
+                    ->get()->toArray();
+
+                    foreach ($results as $result) {
+                        echo $result->name;
+                    }
+                @endphp
+            </td>
         </tr>
         <tr>
             <td>29-02-2034</td>
             <td>13:45</td>
-            <td>DMI EXPO</td>
+            <td>
+                @php
+                    $results = 
+                    DB::table('workshops AS ws')
+                    ->join('workshop_moments AS wm', 'ws.id', '=', 'wm.workshop_id')
+                    ->join('bookings AS bk', 'wm.id', '=', 'bk.wm_id')
+                    ->select('ws.name')
+                    ->where('bk.student_id', '=', auth()->user()->id)
+                    ->where('wm.moment_id', '=', '2')
+                    ->get()->toArray();
+
+                    foreach ($results as $result) {
+                        echo $result->name;
+                    }
+                @endphp
+            </td>
         </tr>
         <tr>
-          <td>29-02-2034</td>
-          <td>15.00</td>
-          <td>games & chill</td>
-      </tr>
+            <td>29-02-2034</td>
+            <td>15.00</td>
+            <td>
+                @php
+                    $results = 
+                    DB::table('workshops AS ws')
+                    ->join('workshop_moments AS wm', 'ws.id', '=', 'wm.workshop_id')
+                    ->join('bookings AS bk', 'wm.id', '=', 'bk.wm_id')
+                    ->select('ws.name')
+                    ->where('bk.student_id', '=', auth()->user()->id)
+                    ->where('wm.moment_id', '=', '3')
+                    ->get()->toArray();
+
+                    foreach ($results as $result) {
+                        echo $result->name;
+                    }
+                @endphp
+            </td>
+        </tr>
     </table>
 
     <p>Je ontvangt deze e-mail ter bevestiging van je gekozen planning. Mocht je vragen hebben of wijzigingen willen aanbrengen, neem dan contact met ons op.</p>

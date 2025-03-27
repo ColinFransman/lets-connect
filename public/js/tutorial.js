@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if(!cookieSatus) {
         startTutorial();
-        document.cookie = "render=loaded"
+        document.cookie = "render=loaded";
+    } else {
+        document.cookie = "workshopWhile=removed";
     }
 });
 
@@ -38,7 +40,6 @@ const observerI = new MutationObserver((mutationsList, observer) => {
 
     if (iconOne) {
         // If the icon exists, attach the click listener and disable the observer.
-        console.log('Icon found:', iconOne); // Check that it logs once
         iconOne.addEventListener('click', function () {
             nextButton.disabled = false; // Enable the next button
             nextStep(); // Proceed to next step
@@ -207,9 +208,12 @@ function sendRoundX() {
 }
 
 function defaultStyling() {
+    document.cookie = "workshopWhile=removed";
 
     nextButton.disabled = false;
-
+    if(nextButton.classList.contains("disabledStyle")) {
+        nextButton.classList.remove("disabledStyle")
+    }
     // rounds style
     roundOne.style.zIndex = "unset";
 
@@ -243,7 +247,9 @@ function defaultStyling() {
 function firstStep() {
     defaultStyling() // resets previous styling.
 
+    
     nextButton.disabled = true; // disables next button
+    nextButton.classList.add("disabledStyle")
 
     let iconOne = sendInfoIcon();
 
@@ -270,6 +276,7 @@ function thirdStep() {
     defaultStyling() // resets previous styling.
 
     nextButton.disabled = true;
+    nextButton.classList.add("disabledStyle")
 
     // imported div.
     let workshopOne = sendWorkshop();
@@ -288,7 +295,11 @@ function thirdStep() {
 function fourthStep() {
     defaultStyling() // resets previous styling.
 
+    document.cookie = "workshopWhile=tutorial";
+
     nextButton.disabled = true;
+    
+    nextButton.classList.add("disabledStyle")
 
     let roundOneX = sendRoundX();
 
