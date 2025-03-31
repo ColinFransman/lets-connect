@@ -543,6 +543,7 @@ overflow: hidden;
 
 .showText {
     display: flex !important;
+    flex-direction: column;
     padding: 5%;
 }
 
