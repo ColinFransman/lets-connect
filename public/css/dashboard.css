@@ -541,6 +541,7 @@ html, body{
 
 .showText {
     display: flex !important;
+    flex-direction: column;
     padding: 5%;
 }
 
