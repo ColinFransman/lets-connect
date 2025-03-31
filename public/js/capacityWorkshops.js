@@ -11,7 +11,6 @@ inRoundContainers.forEach(container => {
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
-
     insertData()
 
     waitUntilApi()
@@ -63,11 +62,11 @@ async function insertData() {
                     if (roundCount == 0) {
                         roundCount = roundCount + 3;
                     }
-                    return `Ronde ${roundCount}: ${spotsLeft > 0 ? spotsLeft + " plekken over" : "workshop zit vol!"}`;
+                    return `<p> Ronde ${roundCount}: ${spotsLeft > 0 ? spotsLeft + " plek(ken) over" : "workshop zit vol!"} </p>`;
                 })
                 .join("\n");
 
-            element.innerText = text;
+            element.innerHTML = text;
         }
     });
 }
@@ -135,35 +134,40 @@ function handleMouseOver() {
 
 function whenWorkshopIsFull() {
     const observer = new MutationObserver((mutationsList, observer) => {
+        if (!document.cookie.match("workshopWhile=removed")) return;
+        if (!inRoundContainers) return;
 
-        var values = [];
-        if (inRoundContainers) {
-            inRoundContainers.forEach(container => {
-                let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
+        inRoundContainers.forEach(container => {
+            let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
 
-                if (workshopElement) { // if any workshop exists
-                    var capacityElement = workshopElement.querySelector('.capacityText');
-                    if (capacityElement) { // if cap text exists inside workshop.
-                        var text = capacityElement.textContent.trim();
-                        var numberText = text.substring(0, 7).replace(/\D/g, "");
+            if (!workshopElement) return; // if any workshop exists
+            var capacityElement = workshopElement.querySelectorAll('.capacityText p');
 
-                        roundAmountIds.forEach(count => {
+            if (!capacityElement) return; // if cap text exists inside workshop.
 
-                            if (numberText === count) {
-                                if (!text.includes('workshop zit vol!')) {
-                                    return;
-                                } else {
-                                    showErrorPopup("Deze ronde zit vol!")
-                                    var closeIcon = container.querySelector('.close-button');
-                                    closeIcon.click()
-                                    return;
-                                }
-                            }
-                        })
-                    }
+            var closeIcon = container.querySelector('.close-button');
+            var disabledRounds = [];
+
+            capacityElement.forEach(text => {
+                if (!text.textContent) return;
+
+                var numbersText = text.textContent.replace(/\D/g, "");
+
+                if (numbersText.length === 1 && numbersText) {
+                    disabledRounds.push(numbersText)
                 }
-            });
-        }
+            })
+
+            var roundID = container.getAttribute('id')
+
+            if (disabledRounds[0] === roundID) {
+                showErrorPopup("Deze ronde zit vol!")
+                var closeIcon = container.querySelector('.close-button');
+                closeIcon.click()
+                return;
+            }
+        });
+
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
