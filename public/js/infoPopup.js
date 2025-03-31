@@ -1,14 +1,12 @@
 let currentZIndex = 1000;
 let originalWorkshopPositions = new Map(); 
 
-
 function storeOriginalPositions() {
     const workshopList = document.getElementById("4");
     Array.from(workshopList.children).forEach((workshop, index) => {
         originalWorkshopPositions.set(workshop.id, index);
     });
 }
-
 
 function restoreWorkshopPosition(workshop) {
     const workshopList = document.getElementById("4");
@@ -22,7 +20,6 @@ function restoreWorkshopPosition(workshop) {
     } else {
         workshopList.appendChild(workshop);
     }
-
 
     const closeButton = workshop.querySelector(".close-button");
     if (closeButton) {
@@ -38,7 +35,6 @@ function addCloseButton(workshop) {
     const closeButton = document.createElement("button");
     closeButton.classList.add("close-button");
     closeButton.textContent = "X";
-
     closeButton.addEventListener("click", function () {
         const workshopList = document.getElementById("4");
         let closeXpath = `//div[@workshop="` + workshop.querySelector(".title").getAttribute("workshop") + `"]`;
@@ -65,7 +61,6 @@ function addCloseButton(workshop) {
 
 document.addEventListener("DOMContentLoaded", storeOriginalPositions);
 
-
 function checkRoundsFilled() {
     const rounds = document.querySelectorAll(".round");
     const isFilled = [...rounds].every(round => round.children.length > 0);
@@ -79,8 +74,6 @@ function info(event) {
     const buttonId = event.target.id;
     const popupId = "popup" + buttonId.match(/\d+/)[0];
     const popup = document.getElementById(popupId);
-
-
     const allPopups = document.querySelectorAll(".popup");
     allPopups.forEach(p => {
         if (p !== popup) {

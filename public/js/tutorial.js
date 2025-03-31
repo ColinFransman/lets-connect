@@ -244,7 +244,6 @@ function defaultStyling() {
 function firstStep() {
     defaultStyling() // resets previous styling.
 
-    
     nextButton.disabled = true; // disables next button
     nextButton.classList.add("disabledStyle")
 

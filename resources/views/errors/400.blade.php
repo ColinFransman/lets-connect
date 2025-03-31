@@ -88,7 +88,7 @@
 <body>
 
     <div class="message-box">
-        <pre>Je hebt geen toegang tot deze pagina</pre>
+        <pre>"Oeps! Er is iets misgegaan met je aanvraag. Misschien is de pagina verplaatst of heb je een verkeerde link gebruikt.</pre>
         <div class="countdown">
             <pre>Je wordt over&nbsp;</pre>
             <pre id="timer">5</pre>

@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     whenWorkshopIsFull()
 });
 
-
 async function fetchData() {
     var response = await fetch("/viewCapacity")
     const data = await response.json();
@@ -71,7 +70,6 @@ async function insertData() {
             element.innerText = text;
         }
     });
-
 }
 
 async function waitUntilApi() {
