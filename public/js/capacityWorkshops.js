@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     whenWorkshopIsFull()
 });
 
-
 async function fetchData() {
     var response = await fetch("/viewCapacity")
     const data = await response.json();
@@ -70,7 +69,6 @@ async function insertData() {
             element.innerHTML = text;
         }
     });
-
 }
 
 async function waitUntilApi() {
@@ -136,6 +134,7 @@ function handleMouseOver() {
 
 function whenWorkshopIsFull() {
     const observer = new MutationObserver((mutationsList, observer) => {
+      
         if (!document.cookie.match("workshopWhile=removed")) return;
         if (!inRoundContainers) return;
 
@@ -169,7 +168,6 @@ function whenWorkshopIsFull() {
                 return;
             }
         });
-
     });
 
     observer.observe(document.body, { childList: true, subtree: true });

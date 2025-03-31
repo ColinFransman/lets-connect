@@ -46,7 +46,6 @@ function showSavePopup() {
 function closeSavePopup() {
  const popup = document.getElementById("confirmation-popup");
     popup.style.display = "none"; 
-
    
     // const saveButton = document.getElementById("save-button");
     // saveButton.style.display = "block"; 
@@ -69,4 +68,3 @@ function updateSaveButton() {
         saveButton.style.display = "flex"; 
     }
 }
-

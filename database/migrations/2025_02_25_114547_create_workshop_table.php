@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 256)->nullable();
             $table->string('full_description', 2048)->nullable();
-            $table->string('image_url', 128)->nullable();
+            $table->string('image_url', 256)->nullable();
             // $table->string('room_name', 20);
             $table->integer('capacity')->nullable();
             $table->timestamps();

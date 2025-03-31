@@ -29,9 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if(!cookieSatus) {
         startTutorial();
-        document.cookie = "render=loaded";
-    } else {
-        document.cookie = "workshopWhile=removed";
+        document.cookie = "render=loaded"
     }
 });
 
@@ -208,7 +206,6 @@ function sendRoundX() {
 }
 
 function defaultStyling() {
-    document.cookie = "workshopWhile=removed";
 
     nextButton.disabled = false;
     if(nextButton.classList.contains("disabledStyle")) {
@@ -247,7 +244,6 @@ function defaultStyling() {
 function firstStep() {
     defaultStyling() // resets previous styling.
 
-    
     nextButton.disabled = true; // disables next button
     nextButton.classList.add("disabledStyle")
 
@@ -294,8 +290,6 @@ function thirdStep() {
 
 function fourthStep() {
     defaultStyling() // resets previous styling.
-
-    document.cookie = "workshopWhile=tutorial";
 
     nextButton.disabled = true;
     

@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Workshop;
 use App\Models\Bookings;
 
-
 Route::get('/', function () {
     return redirect()->route('register');
 });
@@ -41,7 +40,6 @@ Route::middleware([Success::class])->get('/success', function () {
     return view('success');
 });
 
-
 Route::get('/workshop', function () {
     return json_encode(Workshop::all());
 });
@@ -53,15 +51,11 @@ Route::get('/workshop-moment/{wsm}', [WorkshopDashboardController::class, 'showb
     
     //return Bookings::with('student','workshopMoment')->get();
     return json_encode(Bookings::with(['student', 'workshopMoment.workshop', 'workshopMoment.moment'])->get());
-});
-*/
+});*/
+
 Route::get('/moments', function () {
     //return Bookings::with('student','workshopMoment')->get();
     return json_encode(Moment::get());
 });
-
-
-
-
 
 require __DIR__.'/auth.php';
