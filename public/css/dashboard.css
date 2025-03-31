@@ -79,6 +79,12 @@ html, body{
     overflow: hidden;  
     cursor: grab;
     margin: 3px 3px;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
 }
 
 .workshop {
@@ -141,7 +147,15 @@ html, body{
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: smaller;
+
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centreert verticaal */
+    align-items: center; /* Centreert horizontaal */
+    text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
+ 
+
 }
 
 .description {
@@ -532,11 +546,15 @@ html, body{
 
 .hiddenText {
     display: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centreert verticaal */
+    align-items: center; /* Centreert horizontaal */
+    text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
 }
 
 .capacityText {
     display: none;
-    font-size: smaller;
 }
 
 .showText {
