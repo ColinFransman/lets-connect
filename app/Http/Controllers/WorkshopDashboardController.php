@@ -5,15 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WorkshopMoment;
 use App\Models\Workshop;
+use Spatie\Pdf\Pdf;
 
 class WorkshopDashboardController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {
-        return view('dashboard.workshops')->with('workshopmoments', WorkshopMoment::with(['workshop'], ['bookings'])->get());
-                                        
-        //return view('dashboard.bookings')->with ('bookings',  Bookings::with(['student', 'workshopMoment.workshop', 'workshopMoment.moment'])->get());
+        $workshopmoments = WorkshopMoment::with(['workshop', 'bookings'])->get();
+
+        // Check if user wants a PDF
+        if ($request->query('pdf')) {
+            $pdf = Pdf::loadView('dashboard.workshops-pdf', compact('workshopmoments'));
+            return $pdf->download('workshop_dashboard.pdf');
+        }
+
+        return view('dashboard.workshops', compact('workshopmoments'));
     }
+
+
     public function showbookings(WorkShopMoment $wsm)
     {
         
