@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     whenWorkshopIsFull()
 });
 
+
 async function fetchData() {
     var response = await fetch("/viewCapacity")
     const data = await response.json();
@@ -69,6 +70,7 @@ async function insertData() {
             element.innerHTML = text;
         }
     });
+
 }
 
 async function waitUntilApi() {
@@ -82,6 +84,7 @@ function handleMouseOver() {
     var hoverState = true;
     inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
         roundContainer.addEventListener('mouseenter', function () {
+
             var text = roundContainer.querySelector('.title');
             if (text) {
                 hoverState = false;
@@ -93,6 +96,7 @@ function handleMouseOver() {
 
     workshopContainers.forEach(container => {
         container.addEventListener("mouseleave", () => {
+            
             if (hoverState) {
                 const hoveredDiv = container.querySelector('.title');
                 const hoverCapText = container.querySelector('.capacityText');
@@ -134,11 +138,11 @@ function handleMouseOver() {
 
 function whenWorkshopIsFull() {
     const observer = new MutationObserver((mutationsList, observer) => {
-      
         if (!document.cookie.match("workshopWhile=removed")) return;
         if (!inRoundContainers) return;
 
         inRoundContainers.forEach(container => {
+
             let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
 
             if (!workshopElement) return; // if any workshop exists
@@ -168,6 +172,7 @@ function whenWorkshopIsFull() {
                 return;
             }
         });
+
     });
 
     observer.observe(document.body, { childList: true, subtree: true });

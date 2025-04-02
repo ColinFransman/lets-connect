@@ -87,9 +87,8 @@ function customDrag(event) {
 
     ghostEl = event.target.cloneNode(true);
     ghostEl.classList.remove('hiddenText');
-    ghostEl.classList.add('showText'); 
 
-    ghostEl.classList.add("ghost");    
+    ghostEl.classList.add("ghost");
 
     ghostEl.style.width = draggedElement.offsetWidth + 'px';
     ghostEl.style.height = draggedElement.offsetHeight + 'px';
