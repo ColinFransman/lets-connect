@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WorkshopMoment;
 use App\Models\Workshop;
-use Spatie\Pdf\Pdf;
+use Spatie\LaravelPdf\Facades\Pdf;
+
 
 class WorkshopDashboardController extends Controller
 {
@@ -13,13 +14,12 @@ class WorkshopDashboardController extends Controller
     {
         $workshopmoments = WorkshopMoment::with(['workshop', 'bookings'])->get();
 
-        // Check if user wants a PDF
         if ($request->query('pdf')) {
-            $pdf = Pdf::loadView('dashboard.workshops-pdf', compact('workshopmoments'));
-            return $pdf->download('workshop_dashboard.pdf');
+            $pdf = Pdf::view('dashboard', compact('workshopmoments')); 
+            return $pdf->download('dashboard.pdf');
         }
 
-        return view('dashboard.workshops', compact('workshopmoments'));
+        return view('dashboard', compact('workshopmoments'));
     }
 
 
