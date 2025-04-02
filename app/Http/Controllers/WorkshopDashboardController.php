@@ -25,15 +25,10 @@ class WorkshopDashboardController extends Controller
 
     public function showbookings(WorkShopMoment $wsm)
     {
-        
         //$wsm->load('bookings');
 
-        return view('dashb
-        oard.showbookings')->with('wsm', $wsm);
-        
-
+        return view('dashboard.showbookings')->with('wsm', $wsm);
     }
-
 
     // public function viewCapacity (Request $request)
     // {
@@ -68,7 +63,3 @@ class WorkshopDashboardController extends Controller
     //     return response()->json($dummyData);
     // }
 }
-
-
-    
-

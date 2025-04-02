@@ -21,7 +21,6 @@ body, html {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-
 .register-form, 
 .login-form {
     width: 100%;
@@ -145,8 +144,6 @@ height: 30%;
     border-radius: 8px;
     font-size: 16px;
 }
-
-
 
 #klas {
     min-height: 40px;  /* Stel een minimale hoogte in */

@@ -88,7 +88,7 @@
 <body>
 
     <div class="message-box">
-        <pre>Je hebt geen toegang tot deze pagina</pre>
+        <pre>Oeps! Deze pagina bestaat niet.</pre>
         <div class="countdown">
             <pre>Je wordt over&nbsp;</pre>
             <pre id="timer">5</pre>

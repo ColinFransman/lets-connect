@@ -36,6 +36,7 @@ class BookingController extends Controller
                 $errormessage .= "Workshop " . ($index + 1) . " was unavailable. ";
             }
         }
+        
         // If there's an error message, return it
         if ($errormessage) {
             return response()->json([

@@ -70,7 +70,7 @@
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
                 </div>
             </div>
-            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="4">
+            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" draggable="true" id="4">
                 @foreach ($workshops as $workshop)
                     <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity="{{ $workshop->capacity}}" draggable='true' ondragstart='drag(event)'> 
                         <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
@@ -83,36 +83,31 @@
                             </div>
                          </div>
                         <div class='title showText' id='title{{ $workshop->id - 1 }}' workshop='{{ $workshop->name }}'>{{$workshop->name }}  </div>
-                        <div class="capacityText hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
+                        <div class="capacityText title hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
                         <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">#</div></div>
                     </div>
                 @endforeach
             </div>
         </div>
         <div class="flex">
-            <div id="save-button-container" style="display: none;">
-            </div>
-    
-                    <div id="confirmation-popup" class="confpopup" style="display: none;">
-                        <div class="popup-content">
-                            <p>Wil je dit opslaan?</p>
-                            <form method="POST" action="{{ url('/save') }}">
-                                @csrf
-                                <input type="hidden" name="save1" id="save1" value="">
-                                <input type="hidden" name="save2" id="save2" value="">
-                                <input type="hidden" name="save3" id="save3" value="">
-                                <div class="button-container">
-                                    <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
-                                    <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
-                                </div>
-                            </form>
+            <div id="save-button-container" style="display: none;"></div>
+            <div id="confirmation-popup" class="confpopup" style="display: none;">
+                <div class="popup-content">
+                    <p>Wil je dit opslaan?</p>
+                    <form method="POST" action="{{ url('/save') }}">
+                        @csrf
+                        <input type="hidden" name="save1" id="save1" value="">
+                        <input type="hidden" name="save2" id="save2" value="">
+                        <input type="hidden" name="save3" id="save3" value="">
+                        <div class="button-container">
+                            <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
+                            <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
                         </div>
-                    </div>
-
- 
+                    </form>
+                </div>
+            </div> 
         <div class="flex">
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
-
         </div> 
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
