@@ -14,20 +14,20 @@ let tutStep = document.getElementById('tutorial-step')
 let roundOne = document.querySelector('#round1 .round:nth-child(2)');
 
 const tutorialSteps = [
-    { text: "Welkom op het dashboard! Laten we leren hoe je deze pagina gebruikt.", highlight: ".round:nth-child(1)" },
-    { text: "Klik op het 'i' tje om meer info te krijgen over een workshop zelf.", highlight: ".round:nth-child(1)" },
-    { text: "Dit is Ronde 1. Sleep een workshop hierheen om het toe te wijzen aan deze ronde.", highlight: ".round:nth-child(1)" },
-    { text: "Hier is een workshop. Klik en sleep het naar een ronde.", highlight: ".workshop:nth-child(1)" },
-    { text: "Je kunt ook de workshop weer verwijderen met de 'x'.", highlight: ".round:nth-child(1)" },
-    { text: "Goed gedaan! Laat de workshop vallen in een ronde om je planning te voltooien.", highlight: ".round:nth-child(1)" },
+    { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
+    { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
+    { text: "Dit is een ronde. Hier voeg je straks je workshops toe om de volgorde van jouw workshops in te stellen.", highlight: ".round:nth-child(1)" },
+    { text: "Hier is een workshop! Sleep deze workshop naar een ronde om je planning te starten.", highlight: ".workshop:nth-child(1)" },
+    { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
+    { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
     { text: "", highlight: ".round:nth-child(1)" }
 ];
 let tutorialLength = tutorialSteps.length - 1;
 
 document.addEventListener("DOMContentLoaded", () => {
     var cookieSatus = cookieState();
-    
-    if(!cookieSatus) {
+
+    if (!cookieSatus) {
         startTutorial();
         document.cookie = "render=loaded";
     } else {
@@ -57,9 +57,9 @@ observerI.observe(document.body, { childList: true, subtree: true });
 const observerDrag = new MutationObserver((mutationsList, observer) => {
     let roundOneX = sendRoundX();
     let workshopOne = sendWorkshop();
-    if(roundOneX) {
+    if (roundOneX) {
         // roundOneX.addEventListener('click', function () {
-        if(roundOne.contains(workshopOne)) {
+        if (roundOne.contains(workshopOne)) {
             nextButton.disabled = false;
             nextStep();
         }
@@ -120,8 +120,8 @@ function nextStep() {
         case 4:
             fourthStep();
             break;
-        case 5:
-            fifthStep();
+        case 6:
+            sixthStep()
             break;
         default:
             defaultStyling();
@@ -156,8 +156,8 @@ function prevStep() {
         case 4:
             fourthStep()
             break;
-        case 5:
-            fifthStep()
+        case 6:
+            sixthStep()
             break;
         default:
             defaultStyling();
@@ -211,7 +211,7 @@ function defaultStyling() {
     document.cookie = "workshopWhile=removed";
 
     nextButton.disabled = false;
-    if(nextButton.classList.contains("disabledStyle")) {
+    if (nextButton.classList.contains("disabledStyle")) {
         nextButton.classList.remove("disabledStyle")
     }
     // rounds style
@@ -247,7 +247,7 @@ function defaultStyling() {
 function firstStep() {
     defaultStyling() // resets previous styling.
 
-    
+
     nextButton.disabled = true; // disables next button
     nextButton.classList.add("disabledStyle")
 
@@ -298,7 +298,7 @@ function fourthStep() {
     document.cookie = "workshopWhile=tutorial";
 
     nextButton.disabled = true;
-    
+
     nextButton.classList.add("disabledStyle")
 
     let roundOneX = sendRoundX();
@@ -311,7 +311,7 @@ function fourthStep() {
     tutStep.style.top = "25%";
 }
 
-function fifthStep() {
+function sixthStep() {
     defaultStyling();
 
     tutOverlay.style.display = "none";// hides the overlay.
@@ -319,7 +319,7 @@ function fifthStep() {
 
 function cookieState() {
     var cookieSatus = false; // renderLoaded runs on first load, making status false on second load.
-    if(document.cookie.match("render=loaded")) {
+    if (document.cookie.match("render=loaded")) {
         cookieSatus = true;
     } else {
         cookieSatus = false;
