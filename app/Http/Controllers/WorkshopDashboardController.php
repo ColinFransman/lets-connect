@@ -20,7 +20,7 @@ class WorkshopDashboardController extends Controller
     
         if ($request->query('pdf')) {
             $pdf = Pdf::view('dashboard.showbookings', compact('workshopmoments')); 
-            return $pdf->download('dashboard.pdf');
+            return $pdf->download('boekingen.pdf');
         }
     
         return view('dashboard.showbookings', compact('workshopmoments'));
