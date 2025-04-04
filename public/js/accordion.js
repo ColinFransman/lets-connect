@@ -20,3 +20,23 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.accordion-btn span:last-child').forEach(span => span.textContent = '-');
     document.querySelectorAll('.accordion-btn').forEach(btn => btn.classList.add('bg-orange-600', 'text-white'));
 });
+
+let collapsed = true;
+
+function toggleAccordionAll(elem) {
+    if (collapsed) {
+        document.querySelectorAll('.accordion-content').forEach(div => div.style.display = 'none');
+        document.querySelectorAll('.accordion-btn span:last-child').forEach(span => span.textContent = '+');
+        document.querySelectorAll('.accordion-btn').forEach(btn => btn.classList.remove('bg-orange-600'));
+        document.querySelectorAll('.accordion-btn').forEach(btn => btn.classList.add('bg-blue-600'));
+        elem.innerText = "Alles Uitklappen";
+        collapsed = false;
+    } else {
+        document.querySelectorAll('.accordion-content').forEach(div => div.style.display = 'block');
+        document.querySelectorAll('.accordion-btn span:last-child').forEach(span => span.textContent = '-');
+        document.querySelectorAll('.accordion-btn').forEach(btn => btn.classList.remove('bg-blue-600'));
+        document.querySelectorAll('.accordion-btn').forEach(btn => btn.classList.add('bg-orange-600'));
+        elem.innerText = "Alles Inklappen";
+        collapsed = true;
+    }
+}
