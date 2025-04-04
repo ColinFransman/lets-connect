@@ -45,6 +45,7 @@ Route::get('/workshop', function () {
 });
 
 Route::get('/wdashboard', [WorkshopDashboardController::class, 'index'])->middleware(['role:admin']);
+Route::get('/pdashboard', [WorkshopDashboardController::class, 'pdf'])->middleware(['role:admin']);
 Route::get('/workshop-moment/{wsm}', [WorkshopDashboardController::class, 'showbookings'])->name('workshop-moment.showbookings');
 
 /*Route::get('/bookings', function () {
