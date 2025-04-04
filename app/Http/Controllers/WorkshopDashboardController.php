@@ -8,19 +8,20 @@ use App\Models\Workshop;
 use Spatie\LaravelPdf\Facades\Pdf;
 
 
-class WorkshopDashboardController extends Controller
+class WorkshopDashboardController extends Controller 
 {
     public function index(Request $request) 
     {
-        $workshopmoments = WorkshopMoment::with(['workshop', 'bookings'])->get();
-
+        $workshopmoments = WorkshopMoment::with(['workshop', 'bookings.student', 'moment'])->get();
+    
         if ($request->query('pdf')) {
-            $pdf = Pdf::view('dashboard', compact('workshopmoments')); 
+            $pdf = Pdf::view('dashboard.showbookings', compact('workshopmoments')); 
             return $pdf->download('dashboard.pdf');
         }
-
-        return view('dashboard', compact('workshopmoments'));
+    
+        return view('dashboard.showbookings', compact('workshopmoments'));
     }
+    
 
 
     public function showbookings(WorkShopMoment $wsm)
