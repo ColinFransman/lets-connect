@@ -1,23 +1,42 @@
-function onPageResize() {
-    var rounds = document.querySelectorAll('.rounds .round')
+var rounds = document.querySelectorAll('.rounds .round')
+var workshopsContainer = document.querySelector('.main .workshops');
 
-    console.log(window.innerWidth);
+var workshops = document.querySelectorAll('.workshops .workshop');
 
-    console.log(window.innerWidth < 500)
+document.addEventListener("DOMContentLoaded", () => {    
+    clickHandlers()
+});
+
+function roundClick(round) {
+    if (!round) return;
+
+    workshop = workshopClick();
+
+    console.log("end result: ", workshop, "and", round);
+    
+    
+}
+
+function workshopClick(workshop) {
+    if (!workshop) return;
+
+    return workshop;
+}
+
+function clickHandlers() {
     rounds.forEach(round => {
-        const handleClick = () => {
-            console.log("er is geklikt in: ", round);
-        }
-
-        if (window.innerWidth < 500) {
-            round.addEventListener("click", handleClick);
+        if (window.innerWidth < 800) {
+            round.addEventListener("click", () => roundClick(round));
         } else {
-            console.log("remove");
-            
-            round.removeEventListener("click", handleClick);
+            round.removeEventListener("click", () => roundClick(round));
+        }
+    })
+
+    workshops.forEach(workshop => {
+        if (window.innerWidth < 800) {
+            workshop.addEventListener("click", () => workshopClick(workshop));
+        } else {
+            workshop.removeEventListener("click", () => workshopClick(workshop));
         }
     })
 }
-
-//  moonPageResize()
-window.addEventListener("resize", onPageResize);
