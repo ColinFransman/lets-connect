@@ -1,39 +1,45 @@
 <x-guest-layout>
     <link href="{{ asset('/css/form.css') }}" rel="stylesheet">
-    
-    <!-- Logo -->
-    <div class="logo">
-        <img src="https://xerte.deltion.nl/USER-FILES/3183-cmartens-site/media/Deltion_College_CMYK_145x57.png" alt="Deltion Logo" class="deltion-logo">
-    </div>
-
-    <!-- Achtergrond -->
-    <div class="full-page-background"></div>
 
     <!-- Registratieformulier -->
     <div class="register-container">
         <form method="POST" action="{{ route('register') }}" class="register-form">
             @csrf
+
+            <!-- Logo en tekst naast elkaar -->
+            <div class="logo-container" style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <!-- Logo -->
+                <div class="logo" style="margin-right: 10px;">
+                    <img src="{{ asset('/images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}" alt="Logo" class="logo-image" style="width: 150px; height: auto;">
+                </div>
+                
+                <!-- "Let's Connect" tekst naast de afbeelding -->
+                <div class="logo-text" style="font-size: 24px; display: flex; align-items: center; justify-content: center;">
+                    <span style="color: rgb(245, 130, 32); font-weight: bold; margin-right: 5px;">Let's</span>
+                    <span style="color: #343469; font-weight: bold;">Connect</span>
+                </div>
+            </div>
+
             <div class="forms">
-                <div class="form-group">
+                <!-- Naam invoeren -->
+                <div class="form-group" style="margin-bottom: 5px;">
                     <x-input-label for="name" :value="__('Naam')" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" 
-                        :value="old('name')" placeholder="Voer je volledige naam in" required autofocus autocomplete="name" />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Voer je volledige naam in" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
-                <!-- Email Address -->
-                <div class="form-groupl">
+                <!-- E-mailadres invoeren -->
+                <div class="form-group" style="margin-bottom: 5px;">
                     <x-input-label for="email" :value="__('Email')" />
-                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" 
-                        :value="old('email')" placeholder="Voer je studentenemail in" required autocomplete="username" />
+                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Voer je studentenemail in" required autocomplete="username" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <!-- Opleiding en Klas -->
-                <label for="opleiding">Opleiding:</label>
-                <div class="form-group-row">
+                <label for="opleiding" style="margin-bottom: 5px;">Opleiding:</label>
+                <div class="form-group-row" style="margin-bottom: 5px;">
                     <div class="form-groupe">
-                        <select id="opleiding" name="opleiding">
+                        <select id="opleiding" name="opleiding" style="margin-bottom: 5px;">
                             <option value="opleiding1">Sign</option>
                             <option value="opleiding2">Musicalperformer</option>
                             <option value="opleiding3">Podium-en Evenemententechniek</option>
@@ -50,11 +56,9 @@
                         </select>
                     </div>
 
-                   
-                        <select id="klas" name="klas">
-                            <option value="">Kies een klas</option>
-                        </select>
-                    </div>
+                    <select id="klas" name="klas" style="margin-bottom: 5px;">
+                        <option value="">Kies een klas</option>
+                    </select>
                 </div>
 
                 <!-- Registreren Button -->
@@ -88,6 +92,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
     <script src="{{ asset('/js/register.js') }}"></script>
     <script src="{{ asset('/js/registerConfirm.js') }}"></script>
