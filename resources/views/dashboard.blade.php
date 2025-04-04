@@ -1,7 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" target="_blank" style="display: flex"><p class="deltion-blue">Let's</p><pre> </pre><p class="deltion-orange">Connect</p></a> 
+            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma">
+                <div class="image-container">
+                    <img src="{{ asset('images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}" alt="Klik hier">
+                    <div class="image-title">Let's</div>
+                </div>
+            </a> 
         </h2>
     </x-slot>
 

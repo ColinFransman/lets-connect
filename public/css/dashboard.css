@@ -630,3 +630,21 @@ html, body{
     cursor: grab;
     margin: 3px 3px;
 }
+.image-container {
+    display: flex;
+    align-items: center; /* Align text with image */
+    gap: 10px; /* Add space between image and text */
+}
+
+.image-container img {
+    width: 100px; 
+    height: auto;
+}
+
+.image-title {
+    font-size: 24px; /* Bigger text */
+    font-weight: bold;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+
