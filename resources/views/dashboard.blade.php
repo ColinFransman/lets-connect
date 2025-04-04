@@ -114,6 +114,7 @@
         <script src="{{ asset('/js/tutorial.js') }}"></script>
         <script src="{{ asset('/js/dragAndDrop.js') }}"></script>
         <script src="{{ asset('/js/sameWorkshop.js') }}"></script>  
+        <script src="{{ asset('/js/mobileClickRound.js') }}"></script>  
     </body>
     </html>
 </x-app-layout>

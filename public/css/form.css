@@ -162,3 +162,20 @@ height: 30%;
     outline: none;
     box-shadow: 0 0 5px rgba(245, 130, 32, 0.5);
 }
+
+@media (max-width: 500px) { 
+    .form-group-row {
+        gap: 15px;
+    }
+
+    #klas, #opleiding {
+        width: 100%;
+        padding-right: 20px;
+    }
+
+    select {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
