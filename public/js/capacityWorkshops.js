@@ -217,7 +217,7 @@ function ifEmptyRound() {
                 var roundID = container.getAttribute('id')
                 
                 if (round.toString() === roundID) { // disables the round based on                     
-                    showErrorPopup("Deze workshop heeft niet deze ronde!")
+                    showErrorPopup("De geselecteerde workshop heeft niet deze ronde!")
                     var closeIcon = container.querySelector('.close-button');
                     closeIcon.click()
                     return;

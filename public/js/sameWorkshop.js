@@ -1,11 +1,6 @@
 
 const observer = new MutationObserver((mutationsList, observer) => {
-    var dupes = checkDupe();
-    console.log(dupes);
-    
-
-
-    console.log("Duplicates found")
+    checkDupe();
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
@@ -22,13 +17,20 @@ function checkDupe() {
 
         if (!text) return;
 
-        var truncatedText = text.substring(0, 13); // Removes the second element
+        var truncatedText = text.substring(0, 13);
 
         allTitles.push(truncatedText)
     })
-    const hasDuplicates = allTitles.some((item, index) => allTitles.indexOf(item) !== index);
 
-    if (!hasDuplicates) return;
-
-    return hasDuplicates;
+    const hasDuplicates = allTitles.some((item, index) => {
+        const firstIndex = allTitles.indexOf(item);
+        if (firstIndex !== index) {
+            var closeIcon = workshops[index].querySelector('.close-button');
+            if (!closeIcon) return;
+            
+            showErrorPopup("Je hebt deze workshop al in een andere workshop geselecteerd!")
+            closeIcon.click()
+        }
+        return false;
+    });
 }
