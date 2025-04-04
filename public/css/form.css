@@ -162,3 +162,9 @@ height: 30%;
     outline: none;
     box-shadow: 0 0 5px rgba(245, 130, 32, 0.5);
 }
+.logo img {
+    width: 250px;  
+    display: block;
+    margin: 0 auto 20px; /* Zentereer het logo en geef het een beetje marge onderaan */
+
+}
