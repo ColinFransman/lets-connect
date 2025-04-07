@@ -14,15 +14,18 @@ class BookingController extends Controller
     {
         // Retrieve workshop names from the request (e.g., save1, save2, save3, etc.)
         $workshopNames = $request->only(['save1', 'save2', 'save3']);
-        
+        //var_dump($workshopNames);
         // Initialize an array to hold the workshop objects
         $workshops = [];
+
         // Loop through the workshop names to fetch workshop data
         foreach ($workshopNames as $workshopName) {
             // Fetch the workshop by name (assuming 'name' is the field storing the workshop name)
             $workshops[] = Workshop::where('name', $workshopName)->first();
+            //dd(Workshop::pluck('name'));
         }
         //dd($workshops);
+
 
         // Initialize the error message
         $errormessage = "";

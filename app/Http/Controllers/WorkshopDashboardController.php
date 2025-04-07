@@ -15,6 +15,8 @@ class WorkshopDashboardController extends Controller
         return view('dashboard.workshops')->with('workshopmoments', WorkshopMoment::with(['workshop'], ['bookings'])->get());
       
     }
+
+    
     public function pdf(Request $request){
         $workshopmoments = WorkshopMoment::with(['workshop', 'bookings.student', 'moment'])->get();
     

@@ -32,8 +32,7 @@ class WorkshopSeeder extends Seeder
             // Insert workshop into the 'workshops' table
             $stmt = $pdo->prepare("INSERT INTO workshops (name) VALUES (:name)");
             $stmt->execute([
-                'name' => $workshop
-                
+                'name' => $workshop      
             ]);
             array_push($arrayIds, $pdo->lastInsertId());
         }
