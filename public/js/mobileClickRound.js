@@ -14,12 +14,14 @@ async function roundClick(round) {
 
     const popup = document.getElementById("workshopsPopup");
     popup.style.display = "flex";
-    
     if(!popup) return;
+    var loader = popup.querySelector('.loader');
+    loader.style.display = "inline-block";
     
     try {
         var data = await fetchData();
         console.log(data);
+        loader.style.display = "none";
     } catch {
 
     }

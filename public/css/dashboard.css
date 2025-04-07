@@ -640,6 +640,29 @@ body {
     z-index: 1001;
 }
 
+/* loader animation */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid black;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: none;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @media (max-width: 500px) {
     .main {
         margin-top: 25px;
@@ -667,7 +690,8 @@ body {
     }
 }
 
-@media (max-width: 800px) { 
+@media (max-width: 800px) {
+
     /* workshop popup */
     .description {
         flex-direction: column-reverse;

@@ -113,6 +113,7 @@
             <div id="workshopsPopup">
                 <div class="popupWrapper">
                     <p>Kies je workshop.</p>
+                    <p class="loader"></p>
                 </div>
             </div>
         </div>
