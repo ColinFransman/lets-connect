@@ -7,6 +7,19 @@ var clickedWorkshop = document.querySelector('.clickedWorkshop');
 
 document.addEventListener("DOMContentLoaded", () => {
     clickedRound()
+
+    
+    window.addEventListener('click', function (e) {
+        const popup = document.getElementById('workshopsPopup');
+        const styles = window.getComputedStyle(popup);
+        console.log(styles.display);
+        
+        if (popup && popup.contains(e.target) && styles.display === "flex") {
+            console.log('inside');
+        } else {
+            console.log('outside');
+        }
+    });
 });
 
 async function roundClick(round) {
@@ -16,27 +29,27 @@ async function roundClick(round) {
 
     const popup = document.getElementById("workshopsPopup");
     popup.style.display = "flex";
-    if(!popup) return;
+    if (!popup) return;
     var loader = popup.querySelector('.loader');
     loader.style.display = "inline-block";
-    
+
     try {
         var data = await fetchUserData();
         console.log(data);
         loader.style.display = "none";
-        
+
         const filtered = data
-        .map(workshop => {
-          const moment = workshop.moments.find(m => m.ronde === roundNumber);
-          if (moment) {
-            return {
-              workshop_name: workshop.workshop_name,
-              ...moment
-            };
-          }
-          return null;
-        })
-        .filter(Boolean);
+            .map(workshop => {
+                const moment = workshop.moments.find(m => m.ronde === roundNumber);
+                if (moment) {
+                    return {
+                        workshop_name: workshop.workshop_name,
+                        ...moment
+                    };
+                }
+                return null;
+            })
+            .filter(Boolean);
 
         console.log(`Workshops for round ${roundNumber}:`, filtered);
         return filtered;
@@ -68,5 +81,5 @@ async function fetchUserData() {
 async function insertIntoElements() {
     var workshops = await fetchUserData();
 
-        
+
 }
