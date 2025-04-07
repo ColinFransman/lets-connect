@@ -93,7 +93,7 @@
                          </div>
                         <div class='title showText' id='title{{ $workshop->id - 1 }}' workshop='{{ $workshop->name }}'>{{$workshop->name }}  </div>
                         <div class="capacityText title hiddenText" id="capacityText{{ $workshop->id -1}}"></div>
-                        <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">#</div></div>
+                        <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">{{ $workshop->location }}</div></div>
                     </div>
                 @endforeach
             </div>

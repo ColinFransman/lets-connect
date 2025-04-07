@@ -5,6 +5,7 @@
         $workshopsByName = $workshopmoments->groupBy('workshop.name');
     @endphp
 
+    <button class="toggleAccordionAll" onclick="toggleAccordionAll(this)">Alles Inklappen</button>
     @foreach ($workshopsByName as $workshopName => $workshopMoments)
         <div class="border border-black-300 rounded-lg mb-2">
             <button class="w-full text-left p-6 bg-blue-600 text-white font-semibold flex justify-between items-center transition-all duration-300 accordion-btn"

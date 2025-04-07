@@ -53,13 +53,20 @@ class WorkshopSeeder extends Seeder
                 $maxPersonen = 0;
             }
 
+            if (preg_match('/((?<=Deze.workshop.vindt.plaats.in:.)\S+)/imu', $completeOmschrijving, $matches2)) {
+                $locatie = $matches2[1];
+            } else {
+                $locatie = null;
+            }
+
             // var_dump($matches);
 
-            $stmt = $pdo->prepare("UPDATE  workshops SET full_description=:co , capacity=:capacity WHERE id=:workshop_id");
+            $stmt = $pdo->prepare("UPDATE  workshops SET full_description=:co , capacity=:capacity , location=:location WHERE id=:workshop_id");
             $stmt->execute([
                 ':workshop_id' => $arrayIds[$i],
                 ':co' => $completeOmschrijving,
-                ':capacity' =>  $maxPersonen
+                ':capacity' =>  $maxPersonen,
+                ':location' => $locatie
             ]);
             $i++;
         }
