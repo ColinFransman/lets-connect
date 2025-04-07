@@ -1,42 +1,49 @@
-var rounds = document.querySelectorAll('.rounds .round')
-var workshopsContainer = document.querySelector('.main .workshops');
+// var rounds = document.querySelectorAll('.rounds .round')
+// var workshopsContainer = document.querySelector('.main .workshops');
 
-var workshops = document.querySelectorAll('.workshops .workshop');
+// var workshops = document.querySelectorAll('.workshops .workshop');
 
-document.addEventListener("DOMContentLoaded", () => {    
-    clickHandlers()
-});
+// var clickedWorkshop = document.querySelector('.clickedWorkshop');
 
-function roundClick(round) {
-    if (!round) return;
+// document.addEventListener("DOMContentLoaded", () => {
+//     clickHandlers()
+// });
 
-    workshop = workshopClick();
+// const onClickOutside = (element, callback) => {
+//     // if (!clickedWorkshop) return;
+//     document.addEventListener('click', e => {
+//         if (!element.contains(e.target) && !workshops.contains(e.target)) callback();
+//     });
+// };
 
-    console.log("end result: ", workshop, "and", round);
-    
-    
-}
+// onClickOutside(workshopsContainer, () => console.log('Hello'));
 
-function workshopClick(workshop) {
-    if (!workshop) return;
+// function roundClick(round) {
+//     if (!round) return;
 
-    return workshop;
-}
+//     console.log("end result: ", "and", round);
+// }
 
-function clickHandlers() {
-    rounds.forEach(round => {
-        if (window.innerWidth < 800) {
-            round.addEventListener("click", () => roundClick(round));
-        } else {
-            round.removeEventListener("click", () => roundClick(round));
-        }
-    })
+// function workshopClick(workshop) {
+//     if (!workshop) return;
 
-    workshops.forEach(workshop => {
-        if (window.innerWidth < 800) {
-            workshop.addEventListener("click", () => workshopClick(workshop));
-        } else {
-            workshop.removeEventListener("click", () => workshopClick(workshop));
-        }
-    })
-}
+//     workshop.classList.add('clickedWorkshop');
+// }
+
+// function clickHandlers() {
+//     rounds.forEach(round => {
+//         if (window.innerWidth < 800) {
+//             round.addEventListener("click", () => roundClick(round));
+//         } else {
+//             round.removeEventListener("click", () => roundClick(round));
+//         }
+//     })
+
+//     workshops.forEach(workshop => {
+//         if (window.innerWidth < 800) {
+//             workshop.addEventListener("click", () => workshopClick(workshop));
+//         } else {
+//             workshop.removeEventListener("click", () => workshopClick(workshop));
+//         }
+//     })
+// }
