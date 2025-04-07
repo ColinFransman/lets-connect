@@ -109,6 +109,13 @@
         <div class="flex">
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
         </div> 
+        <div class="flex">
+            <div id="workshopsPopup">
+                <div class="popupWrapper">
+                    <p>Kies je workshop.</p>
+                </div>
+            </div>
+        </div>
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
         <script src="{{ asset('/js/tutorial.js') }}"></script>

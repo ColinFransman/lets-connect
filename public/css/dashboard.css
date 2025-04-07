@@ -613,20 +613,49 @@ body {
     background: #343469;
 }
 
+#workshopsPopup {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1001;
+}
+
+.popupWrapper {
+    background-color: #F5F4F7;
+    color: black;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: auto;
+    /* max-width: 400px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1001;
+}
+
 @media (max-width: 500px) {
     .main {
         margin-top: 25px;
+        justify-content: center;
     }
 
     /* rounds */
     .round {
-        width: 110px;
-        height: 120px;
+        height: 110px;
+        width: 230px;
     }
 
     /* workshops */
     .workshops {
         grid-template-columns: repeat(1, 1fr);
+        display: none;
     }
 
     .workshops .workshop {

@@ -1,49 +1,46 @@
-// var rounds = document.querySelectorAll('.rounds .round')
-// var workshopsContainer = document.querySelector('.main .workshops');
+var rounds = document.querySelectorAll('.rounds .round')
+var workshopsContainer = document.querySelector('.main .workshops');
 
-// var workshops = document.querySelectorAll('.workshops .workshop');
+var workshops = document.querySelectorAll('.workshops .workshop');
 
-// var clickedWorkshop = document.querySelector('.clickedWorkshop');
+var clickedWorkshop = document.querySelector('.clickedWorkshop');
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     clickHandlers()
-// });
+document.addEventListener("DOMContentLoaded", () => {
+    clickedRound()
+});
 
-// const onClickOutside = (element, callback) => {
-//     // if (!clickedWorkshop) return;
-//     document.addEventListener('click', e => {
-//         if (!element.contains(e.target) && !workshops.contains(e.target)) callback();
-//     });
-// };
+async function roundClick(round) {
+    if (!round) return;
 
-// onClickOutside(workshopsContainer, () => console.log('Hello'));
+    const popup = document.getElementById("workshopsPopup");
+    popup.style.display = "flex";
+    
+    if(!popup) return;
+    
+    try {
+        var data = await fetchData();
+        console.log(data);
+    } catch {
 
-// function roundClick(round) {
-//     if (!round) return;
+    }
+}
 
-//     console.log("end result: ", "and", round);
-// }
+function clickedRound() {
+    rounds.forEach(round => {
+        if (window.innerWidth < 800) {
+            round.addEventListener("click", () => roundClick(round));
+        } else {
+            round.removeEventListener("click", () => roundClick(round));
+        }
+    })
+}
 
-// function workshopClick(workshop) {
-//     if (!workshop) return;
+async function fetchData() {
+    var response = await fetch("/Capacity")
+    const data = await response.json();
 
-//     workshop.classList.add('clickedWorkshop');
-// }
-
-// function clickHandlers() {
-//     rounds.forEach(round => {
-//         if (window.innerWidth < 800) {
-//             round.addEventListener("click", () => roundClick(round));
-//         } else {
-//             round.removeEventListener("click", () => roundClick(round));
-//         }
-//     })
-
-//     workshops.forEach(workshop => {
-//         if (window.innerWidth < 800) {
-//             workshop.addEventListener("click", () => workshopClick(workshop));
-//         } else {
-//             workshop.removeEventListener("click", () => workshopClick(workshop));
-//         }
-//     })
-// }
+    if (data.status === "success") {
+        return data;
+    }
+    return;
+}
