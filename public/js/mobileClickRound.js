@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function roundClick(round) {
     if (!round) return;
+    var roundNumber = round.getAttribute('id')
+    roundNumber = Number(roundNumber)
 
     const popup = document.getElementById("workshopsPopup");
     popup.style.display = "flex";
@@ -19,11 +21,27 @@ async function roundClick(round) {
     loader.style.display = "inline-block";
     
     try {
-        var data = await fetchData();
+        var data = await fetchUserData();
         console.log(data);
         loader.style.display = "none";
-    } catch {
+        
+        const filtered = data
+        .map(workshop => {
+          const moment = workshop.moments.find(m => m.ronde === roundNumber);
+          if (moment) {
+            return {
+              workshop_name: workshop.workshop_name,
+              ...moment
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
 
+        console.log(`Workshops for round ${roundNumber}:`, filtered);
+        return filtered;
+    } catch {
+        return;
     }
 }
 
@@ -37,12 +55,18 @@ function clickedRound() {
     })
 }
 
-async function fetchData() {
+async function fetchUserData() {
     var response = await fetch("/Capacity")
     const data = await response.json();
 
     if (data.status === "success") {
-        return data;
+        return data.data;
     }
     return;
+}
+
+async function insertIntoElements() {
+    var workshops = await fetchUserData();
+
+        
 }

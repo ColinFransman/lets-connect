@@ -20,8 +20,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 async function fetchData() {
+    workshopContainers.forEach(workshop => {
+        var text = workshop.querySelector('.capacityText');
+
+        text.classList.add('whiteLoader')
+    })
     var response = await fetch("/viewCapacity")
     const data = await response.json();
+    
+    workshopContainers.forEach(workshop => {
+        var text = workshop.querySelector('.capacityText');
+
+        text.classList.remove('whiteLoader')
+    })
 
     if (data.status === "success") {
         return data;
@@ -74,9 +85,12 @@ async function insertData() {
 }
 
 async function waitUntilApi() {
+
+    handleMouseOver()
+
+
     var data = await fetchData();
     if (data.status === "success") {
-        handleMouseOver()
     }
 }
 
@@ -215,7 +229,7 @@ function ifEmptyRound() {
                 // Do something if one or more values from exampleFullRounds are missing
 
                 var roundID = container.getAttribute('id')
-                
+
                 if (round.toString() === roundID) { // disables the round based on                     
                     showErrorPopup("De geselecteerde workshop heeft niet deze ronde!")
                     var closeIcon = container.querySelector('.close-button');
