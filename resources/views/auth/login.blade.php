@@ -8,13 +8,11 @@
         <div class="logo-container" style="display: flex; align-items: center; justify-content: center; ">
             <!-- Logo -->
             <div class="logo" style="margin-right: 5px;">
-                <img src="{{ asset('/images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}" alt="Logo" class="logo-image" style="width: 150px;">
+                <img src="{{ asset('/images/Letsconnect2.0.jpeg') }}" alt="Logo" class="logo-image" style="width: 250px;">
             </div>
 
             <!-- "Let's Connect" tekst -->
             <div class="logo-text" style="font-size: 20px; display: flex; align-items: center;">
-                <span style="color: #FF5733; font-weight: bold; margin-right: 3px;">Let's</span>
-                <span style="color: #343469; font-weight: bold;">Connect</span>
             </div>
         </div>
 

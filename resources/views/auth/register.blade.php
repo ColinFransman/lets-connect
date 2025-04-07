@@ -2,44 +2,40 @@
     <link href="{{ asset('/css/form.css') }}" rel="stylesheet">
 
     <!-- Registratieformulier -->
-    <div class="register-container">
+    <div class="register-container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
         <form method="POST" action="{{ route('register') }}" class="register-form">
             @csrf
 
             <!-- Logo en tekst naast elkaar -->
-            <div class="logo-container" style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                <!-- Logo -->
-                <div class="logo" style="margin-right: 10px;">
-                    <img src="{{ asset('/images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}" alt="Logo" class="logo-image" style="width: 150px; height: auto;">
+            <div class="logo-container" style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px; text-align: center;">
+                <div class="logo">
+                    <img src="{{ asset('/images/Letsconnect2.0.jpeg') }}" alt="Logo" class="logo-image" style="max-width: 250px; height: auto; margin-bottom: 0;">
                 </div>
-                
-                <!-- "Let's Connect" tekst naast de afbeelding -->
-                <div class="logo-text" style="font-size: 24px; display: flex; align-items: center; justify-content: center;">
-                    <span style="color: rgb(245, 130, 32); font-weight: bold; margin-right: 5px;">Let's</span>
-                    <span style="color: #343469; font-weight: bold;">Connect</span>
+                <div class="logo-text" style="margin-left: 10px; font-size: 20px; font-weight: bold;">
+        
                 </div>
             </div>
 
             <div class="forms">
                 <!-- Naam invoeren -->
-                <div class="form-group" style="margin-bottom: 5px;">
+                <div class="form-group" style="margin-bottom: 10px;">
                     <x-input-label for="name" :value="__('Naam')" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Voer je volledige naam in" required autofocus autocomplete="name" />
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Voer je volledige naam in" required autofocus autocomplete="name" style="width: 100%; max-width: 550px;" />
+                    <x-input-error :messages="$errors->get('name')" class="mt-1" />
                 </div>
 
                 <!-- E-mailadres invoeren -->
-                <div class="form-group" style="margin-bottom: 5px;">
+                <div class="form-group" style="margin-bottom: 10px;">
                     <x-input-label for="email" :value="__('Email')" />
-                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Voer je studentenemail in" required autocomplete="username" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Voer je studentenemail in" required autocomplete="username" style="width: 100%; max-width: 550px;" />
+                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
                 </div>
 
                 <!-- Opleiding en Klas -->
                 <label for="opleiding" style="margin-bottom: 5px;">Opleiding:</label>
-                <div class="form-group-row" style="margin-bottom: 5px;">
-                    <div class="form-groupe">
-                        <select id="opleiding" name="opleiding" style="margin-bottom: 5px;">
+                <div class="form-group-row" style="margin-bottom: 10px; display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1;">
+                        <select id="opleiding" name="opleiding" style="width: 100%; max-width: 280px;">
                             <option value="opleiding1">Sign</option>
                             <option value="opleiding2">Musicalperformer</option>
                             <option value="opleiding3">Podium-en Evenemententechniek</option>
@@ -55,14 +51,15 @@
                             <option value="opleiding13">Creative Development</option>
                         </select>
                     </div>
-
-                    <select id="klas" name="klas" style="margin-bottom: 5px;">
-                        <option value="">Kies een klas</option>
-                    </select>
+                    <div class="form-group" style="flex: 1;">
+                        <select id="klas" name="klas" style="width: 100%; max-width: 280px;">
+                            <option value="">Kies een klas</option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Registreren Button -->
-                <div class="form-actions flex items-center justify-end mt-4">
+                <div class="form-actions flex items-center justify-end mt-2">
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                         {{ __('Al geregistreerd?') }}
                     </a>

@@ -3,11 +3,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma">
                 <div class="image-container">
-                    <img src="{{ asset('images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}" alt="Klik hier">
+                    <img src="{{ asset('images/Letsconnect2.0.jpeg') }}" alt="Klik hier">
                     <div class="image-title">
-                        <!-- Let's Connect met "Let's" blauw en "Connect" oranje -->
-                        <span style="color: #343469; font-weight: bold;">Let's</span>
-                        <span style="color: rgb(245, 130, 32); font-weight: bold;">Connect</span>
                     </div>
                 </div>
             </a> 
