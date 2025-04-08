@@ -157,7 +157,7 @@ body {
 
 /* Popup styling */
 .popup {
-    z-index: 8;
+    z-index: 1002;
     display: none;
     position: fixed;
     top: 50%;
@@ -618,12 +618,13 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
+    width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.7);
     z-index: 1001;
+    overflow: auto;
 }
 
 .popupWrapper {
@@ -638,6 +639,7 @@ body {
     flex-direction: column;
     transition: opacity 0.3s ease-in-out;
     z-index: 1001;
+    position: fixed;
 }
 
 /* loader animation */
@@ -651,6 +653,7 @@ body {
     /* display: inline-block; */
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+    margin: 10px;
 }
 
 .whiteLoader {
@@ -688,13 +691,16 @@ body {
     }
 
     /* workshops */
-    .workshops {
+    #workshopsContainer {
         grid-template-columns: repeat(1, 1fr);
-        display: none;
+    }
+
+    .workshops {
+        max-height: 460px;
     }
 
     .workshops .workshop {
-        height: max-content;
+        height: auto;
     }
 
     .locationWorkshop {

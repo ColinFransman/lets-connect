@@ -70,7 +70,7 @@
                     <div class="round" ondrop="drop(event, this)" ondragover="allowDrop(event)" id="3"></div>
                 </div>
             </div>
-            <div class="workshops" ondrop="drop(event, this)" ondragover="allowDrop(event)" draggable="true" id="4">
+            <div class="workshops" id="workshopsContainer" ondrop="drop(event, this)" ondragover="allowDrop(event)" draggable="true" id="4">
                 @foreach ($workshops as $workshop)
                     <div class='workshop' id='workshop{{ $workshop->id - 1 }}' capacity="{{ $workshop->capacity}}" draggable='true' ondragstart='drag(event)'> 
                         <div class='info' onclick='info(event)' id='info{{ $workshop->id - 1 }}' tabindex='0'>i</div> 
@@ -122,7 +122,7 @@
         <script src="{{ asset('/js/tutorial.js') }}"></script>
         <script src="{{ asset('/js/dragAndDrop.js') }}"></script>
         <script src="{{ asset('/js/sameWorkshop.js') }}"></script>  
-        <script src="{{ asset('/js/mobileClickRound.js') }}"></script>  
+        <script src="{{ asset('/js/mobileClickRound.js') }} "></script>  
     </body>
     </html>
 </x-app-layout>

@@ -138,9 +138,13 @@ class BookingController extends Controller
                 'workshop_name' => $workshop->name,
                 'moments' => $workshop->workshopMoments->map(function ($moment) use ($workshop) {
                     return [
+                        'workshop_id' => $workshop->id,
                         'ronde' => $moment->moment_id,
                         'capacity' => $workshop->capacity, // Add capacity for each moment
                         'bookings_count' => $moment->bookings_count, // bookings count from withCount()
+                        'full_description' => $workshop->full_description,
+                        'image_url' => $workshop->image_url,
+                        'location' => $workshop->location
                     ];
                 })
             ];
