@@ -88,7 +88,6 @@ async function waitUntilApi() {
 
     handleMouseOver()
 
-
     var data = await fetchData();
     if (data.status === "success") {
     }
@@ -229,8 +228,9 @@ function ifEmptyRound() {
                 // Do something if one or more values from exampleFullRounds are missing
 
                 var roundID = container.getAttribute('id')
-
-                if (round.toString() === roundID) { // disables the round based on                     
+                if (window.innerWidth < 800) return;
+                
+                if (round.toString() === roundID) {                   
                     showErrorPopup("De geselecteerde workshop heeft niet deze ronde!")
                     var closeIcon = container.querySelector('.close-button');
                     closeIcon.click()

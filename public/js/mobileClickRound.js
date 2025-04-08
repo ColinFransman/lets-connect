@@ -11,11 +11,13 @@ var workshops = document.querySelectorAll('.workshops .workshop');
 
 var clickedWorkshop = document.querySelector('.clickedWorkshop');
 
+var popupWrapper = document.getElementById('workshopsPopup');
+var selectedPopupWrapper = document.getElementById('selectedWorkshopPopup');
+
 document.addEventListener("DOMContentLoaded", () => {
     clickedRound()
 
     window.addEventListener('click', function (e) {
-        var popupWrapper = document.getElementById('workshopsPopup');
         var popup = document.querySelector('.popupWrapper');
         var mainElement = document.querySelector('.main');
 
@@ -25,17 +27,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (styles.display === "none") return;
 
         // Check if clicked outside of popup and outside main container
-        if (!popup.contains(e.target) && !mainElement.contains(e.target)) {
+        if (!popup.contains(e.target) && !mainElement.contains(e.target) && !selectedPopupWrapper.contains(e.target)) {
             popupWrapper.style.display = "none";
+            clearPreviousWorkshops()
         }
     });
 
 });
 
-async function roundClick(round) {    
+async function roundClick(round) {
     if (!round) return;
+    if (round.querySelector('div')) return;
+
     var roundNumber = round.getAttribute('id')
     roundNumber = Number(roundNumber)
+
+    var roundString = document.querySelector('.roundWorkshop');
+    roundString.innerText = roundNumber;
 
     const popup = document.getElementById("workshopsPopup");
     if (!popup) return;
@@ -68,11 +76,13 @@ async function roundClick(round) {
 
 function clickedRound() {
     rounds.forEach(round => {
-        if (window.innerWidth < 800) {
-            round.addEventListener("click", () => roundClick(round));
-        } else {
-            round.removeEventListener("click", () => roundClick(round));
-        }
+        if (window.innerWidth > 800) return;
+
+        round.addEventListener("click", (e) => {
+            if (e.target === round) {
+                roundClick(round);
+            }
+        });
     })
 }
 
@@ -112,13 +122,11 @@ async function createWorkshops(filtered, round) {
         </div>
         `;
 
-        
+
 
         divs.push(divStructure);
     })
 
-
-    console.log(divs, "test");
     insertWorkshops(divs, round);
 }
 
@@ -135,17 +143,83 @@ function insertWorkshops(divs, round) {
 
 function clickedWorkshopToRound(round) {
     var workshops = document.querySelectorAll('.workshops .workshop');
+    var mainElement = document.querySelector('.main')
 
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
-            
+
+            if (mainElement.contains(e.target)) return;
             if (iconInfo.contains(e.target)) return;
             if (infoPopup.contains(e.target)) return;
-            
-            console.log(round);
+
+            confirmationPopup(workshop, round)
         });
     });
-    console.log("ttre");
+}
+
+function closeWorkshops() {
+    if (!popupWrapper) return;
+    popupWrapper.style.display = "none";
+}
+
+function clearPreviousWorkshops() {
+    if (!popupWrapper) return;
+    popupWrapper.innerHTML = "";
+}
+
+function confirmationPopup(workshop, round) {
+    if (!selectedPopupWrapper) return;
+
+    selectedPopupWrapper.style.display = "flex";
+
+    var yesButton = document.querySelector('#selectedWorkshopPopup .yes-button')
+    yesButton.addEventListener('click', function () {
+        addConfirmedWorkshop(workshop, round)
+        selectedPopupWrapper.style.display = "none";
+    }, { once: true })
+}
+
+function removeConfirm() {
+    if (!selectedPopupWrapper) return;
+
+    selectedPopupWrapper.style.display = "none";
+    return
+}
+
+function addConfirmedWorkshop(workshop, round) {
+    if (!round) return;
+
+    const targetRound = round.classList.contains("round") ? round : round.closest(".round");
+    if (!targetRound) return;
+
+    const draggedElement = workshop;
+
+    if (!targetRound.hasChildNodes()) {
+        targetRound.appendChild(draggedElement);
+        // ... rest of your logic ...
+
+        let title = draggedElement.querySelector(".title");
+        let xpath = `//input[@value="` + title.getAttribute('workshop') + `"]`;
+        let matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        if (matchingElement !== null) {
+            matchingElement.value = "";
+        }
+        document.getElementById("save" + targetRound.id).value = title.getAttribute('workshop');
+        addCloseButton(draggedElement, targetRound);
+    }
+
+    updateSaveButton();
+    
+    popupWrapper.style.display = "none";
+}
+
+function clearMobileFunction() {
+    var popup = document.querySelector('.popupWrapper');
+    popup.querySelector('.workshops')
+    popup.remove()
+
+    closeWorkshops()
+    removeConfirm()
 }

@@ -112,11 +112,24 @@
         <div class="flex">
             <div id="workshopsPopup">
                 <div class="popupWrapper">
-                    <p>Kies je workshop.</p>
+                    <div class="close-button" onclick="closeWorkshops()">X</div>
+                    <div class="chosenRound">Kies je workshop voor ronde: <div class="roundWorkshop"></div></div>
                     <p class="loader"></p>
                 </div>
             </div>
         </div>
+
+        <div class="flex">
+            <div id="selectedWorkshopPopup">
+                <div class="selectedWrapper">
+                    <p>Wil je deze ronde bewaren?</p>
+                    <div class="button-container">
+                        <button class="yes-button" onclick="addConfirmedWorkshop()">Ja</button>
+                        <button class="no-button" onclick="removeConfirm()">Nee</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
         <script src="{{ asset('/js/tutorial.js') }}"></script>

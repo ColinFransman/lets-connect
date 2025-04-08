@@ -564,7 +564,8 @@ body {
     cursor: not-allowed !important;
 }
 
-.confpopup .button-container {
+/* .confpopup .button-container */
+.button-container {
     display: flex;
     gap: 15px;
     /* Afstand tussen de knoppen */
@@ -573,7 +574,7 @@ body {
     margin-top: 15px;
 }
 
-.confpopup .yes-button {
+.yes-button {
     background-color: black;
     color: white;
     padding: 10px 20px;
@@ -583,11 +584,11 @@ body {
     cursor: pointer;
 }
 
-.confpopup .yes-button:hover {
+.yes-button:hover {
     background-color: black;
 }
 
-.confpopup .no-button {
+.no-button {
     background-color: white;
     color: black;
     padding: 10px 20px;
@@ -599,7 +600,7 @@ body {
     border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
-.confpopup .no-button:hover {
+.no-button:hover {
     background-color: white;
 
 }
@@ -613,7 +614,8 @@ body {
     background: #343469;
 }
 
-#workshopsPopup {
+/* popups */
+#workshopsPopup, #selectedWorkshopPopup {
     display: none;
     position: absolute;
     top: 0;
@@ -627,14 +629,13 @@ body {
     overflow: auto;
 }
 
-.popupWrapper {
+.popupWrapper, .selectedWrapper {
     background-color: #F5F4F7;
     color: black;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
     width: auto;
-    /* max-width: 400px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     flex-direction: column;
     transition: opacity 0.3s ease-in-out;
@@ -650,7 +651,6 @@ body {
     border-bottom-color: transparent;
     border-radius: 50%;
     display: none;
-    /* display: inline-block; */
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
     margin: 10px;
@@ -663,7 +663,6 @@ body {
     border-bottom-color: transparent;
     border-radius: 50%;
     display: none;
-    /* display: inline-block; */
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
 }
@@ -706,6 +705,14 @@ body {
     .locationWorkshop {
         margin-top: 5px;
     }
+
+    .chosenRound {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin: 5px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -720,6 +727,10 @@ body {
     }
 
     .popup-header {
+        width: 85%;
+    }
+
+    .popup {
         width: 85%;
     }
 }

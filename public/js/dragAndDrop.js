@@ -7,7 +7,9 @@ function allowDrop(ev) {
 
 // Event listener for dragging
 function drag(ev) {
-    customDrag(ev)
+    if (window.innerWidth > 800) {
+        customDrag(ev)
+    }
     ev.dataTransfer.setData("text", ev.target.id);
 }
 
@@ -73,9 +75,8 @@ function drop(ev) {
             }
         }
     }
-    updateSaveButton();    
+    updateSaveButton();
 }
-
 
 // Custom drag element style and ghost image
 function customDrag(event) {
