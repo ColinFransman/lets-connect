@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+
 });
 
 async function roundClick(round) {
@@ -51,9 +52,13 @@ async function roundClick(round) {
     var loader = popup.querySelector('.loader');
     loader.style.display = "inline-block";
 
+    var popupTitle = document.querySelector('.chosenRound');
+    popupTitle.innerText = "Laden ronde: "
+
     try {
         var data = await fetchUserData();
         loader.style.display = "none";
+        popupTitle.innerText = "Kies je workshop voor ronde: "
 
         const filtered = data
             .map(workshop => {
@@ -119,6 +124,8 @@ async function createWorkshops(filtered, round) {
             <div class='title showText' id='title${workshop.workshop_id - 1}' workshop='${workshop.workshop_name}'>${workshop.workshop_name}  </div>
             <div class="capacityText title hiddenText" id="capacityText${workshop.workshop_id - 1}"></div>
             <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">${workshop.location}</div></div>
+
+            <div class="emptyDataDiv">${workshop.capacity - workshop.bookings_count}</div>
         </div>
         `;
 
@@ -134,25 +141,31 @@ function insertWorkshops(divs, round) {
     var popup = document.querySelector('.popupWrapper');
 
     // Append each div individually
-    divs.forEach(div => {
-        popup.appendChild(div);
-    });
+
+    if (!popup.querySelector('.workshops')) {
+        divs.forEach(div => {
+            popup.appendChild(div);
+        });
+    }
 
     clickedWorkshopToRound(round)
 }
 
 function clickedWorkshopToRound(round) {
-    var workshops = document.querySelectorAll('.workshops .workshop');
-    var mainElement = document.querySelector('.main')
+    let workshops = document.querySelectorAll('.popupWrapper > .workshops .workshop');
+    // let mainElement = document.querySelector('.main')
 
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
+
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
 
-            if (mainElement.contains(e.target)) return;
+            // if (mainElement.contains(e.target)) return;
             if (iconInfo.contains(e.target)) return;
             if (infoPopup.contains(e.target)) return;
+            if (round.contains(e.target)) return;
+            if (workshop.getAttribute("has-been-selected") === "true") return;
 
             confirmationPopup(workshop, round)
         });
@@ -172,8 +185,15 @@ function clearPreviousWorkshops() {
 function confirmationPopup(workshop, round) {
     if (!selectedPopupWrapper) return;
 
+    
     selectedPopupWrapper.style.display = "flex";
-
+    
+    var innerTitle = document.querySelector('.workshopNameInfo')
+    innerTitle.innerHTML = workshop.querySelector('.title').innerText;
+    
+    var innerCapacity = document.getElementById('viewCapacityRound');
+    innerCapacity.innerHTML = workshop.querySelector('.emptyDataDiv').innerHTML;
+    
     var yesButton = document.querySelector('#selectedWorkshopPopup .yes-button')
     yesButton.addEventListener('click', function () {
         addConfirmedWorkshop(workshop, round)
@@ -198,6 +218,7 @@ function addConfirmedWorkshop(workshop, round) {
 
     if (!targetRound.hasChildNodes()) {
         targetRound.appendChild(draggedElement);
+        draggedElement.setAttribute("has-been-selected", "true");
         // ... rest of your logic ...
 
         let title = draggedElement.querySelector(".title");
@@ -211,15 +232,6 @@ function addConfirmedWorkshop(workshop, round) {
     }
 
     updateSaveButton();
-    
+
     popupWrapper.style.display = "none";
-}
-
-function clearMobileFunction() {
-    var popup = document.querySelector('.popupWrapper');
-    popup.querySelector('.workshops')
-    popup.remove()
-
-    closeWorkshops()
-    removeConfirm()
 }

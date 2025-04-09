@@ -11,11 +11,13 @@ inRoundContainers.forEach(container => {
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    insertData()
-
-    waitUntilApi()
-
-    workshopCheckRules()
+    if (window.innerWidth < 800) {
+        insertData()
+        
+        waitUntilApi()
+        
+        workshopCheckRules()
+    }
 });
 
 
@@ -167,10 +169,9 @@ function ifFullWorkshop() {
     inRoundContainers.forEach(container => {
 
         let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
-
         if (!workshopElement) return; // if any workshop exists
-        var capacityElement = workshopElement.querySelectorAll('.capacityText p');
 
+        var capacityElement = workshopElement.querySelectorAll('.capacityText p');
         if (!capacityElement) return; // if cap text exists inside workshop.
 
         var closeIcon = container.querySelector('.close-button');

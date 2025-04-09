@@ -54,6 +54,7 @@ function addCloseButton(workshop) {
         document.getElementById("save" + newLocation.id).value = "";
         updateSaveButton();
         closeButton.remove();
+        setTimeout(() => workshop.removeAttribute("has-been-selected"), 500);
     });
 
     workshop.appendChild(closeButton);

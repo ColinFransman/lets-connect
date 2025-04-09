@@ -113,7 +113,10 @@
             <div id="workshopsPopup">
                 <div class="popupWrapper">
                     <div class="close-button" onclick="closeWorkshops()">X</div>
-                    <div class="chosenRound">Kies je workshop voor ronde: <div class="roundWorkshop"></div></div>
+                    <div class="flex">
+                        <div class="chosenRound"> </div>
+                        <div class="roundWorkshop"></div>
+                    </div>
                     <p class="loader"></p>
                 </div>
             </div>
@@ -122,7 +125,10 @@
         <div class="flex">
             <div id="selectedWorkshopPopup">
                 <div class="selectedWrapper">
-                    <p>Wil je deze ronde bewaren?</p>
+                    <p>Wil je deze workshop bewaren?</p>
+                    <p class="workshopNameInfo"></p>
+                    <p>Plekken over:</p>
+                    <p id="viewCapacityRound"></p>
                     <div class="button-container">
                         <button class="yes-button" onclick="addConfirmedWorkshop()">Ja</button>
                         <button class="no-button" onclick="removeConfirm()">Nee</button>

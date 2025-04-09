@@ -733,4 +733,14 @@ body {
     .popup {
         width: 85%;
     }
+
+    .emptyDataDiv {
+        display: none;
+    }
+
+    .roundWorkshop {
+        align-items: center;
+        display: flex;
+        padding-right: 30px;
+    }
 }
