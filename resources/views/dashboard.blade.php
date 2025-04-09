@@ -16,7 +16,6 @@
         <script src="{{ asset('/js/confirmPopup.js') }}"></script>  
         <script src="{{ asset('/js/errorPopup.js') }}"></script>
         <script src="{{ asset('/js/infoPopup.js') }}"></script>
-        <script src="{{ asset('/js/register.js') }}"></script>
     </head>
     <body>
         <!-- Tutorial -->
@@ -39,9 +38,7 @@
             </div>
         </div>
 
-        @if (session('status') == 'success')
-        <x-success-msg message="{{ session('message') }}" color="green" />
-        @elseif (session('status') == 'failed')
+        @if (session('status') == 'failed')
         <x-success-msg message="{{ session('message') }}" color="red" />
         @endif
         
