@@ -13,16 +13,32 @@ let tutStep = document.getElementById('tutorial-step')
 // first round
 let roundOne = document.querySelector('#round1 .round:nth-child(2)');
 
-const tutorialSteps = [
-    { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
-    { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
-    { text: "Dit is een ronde. Hier voeg je straks je workshops toe om de volgorde van jouw workshops in te stellen.", highlight: ".round:nth-child(1)" },
-    { text: "Hier is een workshop! Sleep deze workshop naar een ronde om je planning te starten.", highlight: ".workshop:nth-child(1)" },
-    { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
-    { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
-    { text: "", highlight: ".round:nth-child(1)" }
-];
-let tutorialLength = tutorialSteps.length - 1;
+let tutorialSteps;
+if (window.innerWidth > 800) {
+    tutorialSteps = [
+        { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
+        { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
+        { text: "Dit is een ronde. Hier voeg je straks je workshops toe om de volgorde van jouw workshops in te stellen.", highlight: ".round:nth-child(1)" },
+        { text: "Hier is een workshop! Sleep deze workshop naar een ronde om je planning te starten.", highlight: ".workshop:nth-child(1)" },
+        { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
+        { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
+        { text: "", highlight: ".round:nth-child(1)" }
+    ];
+    var tutorialLength = tutorialSteps.length - 1;
+}
+
+if (window.innerWidth < 800) {
+    tutorialSteps = [
+        { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
+        { text: "Dit is een ronde. Klik erop om de workshops te bekijken.", highlight: ".round:nth-child(1)" },
+        { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
+        { text: "Hier is een workshop! Klik erop om je planning te starten.", highlight: ".workshop:nth-child(1)" },
+        { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
+        { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
+        { text: "", highlight: ".round:nth-child(1)" }
+    ];
+    var tutorialLength = tutorialSteps.length - 1;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     var cookieSatus = cookieState();
@@ -86,6 +102,7 @@ observerX.observe(document.body, { childList: true, subtree: true });
 function startTutorial() {
     // if ID exists, the popup becomes visible
     tutOverlay.style.display = "flex";
+
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
 
     // styling buttons onload.
@@ -191,7 +208,14 @@ function sendWorkshop() {
 
 function sendInfoIcon() {
     // first icon
-    let iconOne = document.getElementById('info0');
+    var iconOne;
+    if (window.innerWidth > 800) {
+        iconOne = document.getElementById('info0');
+    }
+    // if (window.innerWidth < 800) {
+    //     var popup = document.getElementById('workshopsPopup')
+    //     iconOne = popup.querySelector('#workshopsPopup .workshops')
+    // }
     return iconOne;
 }
 
@@ -217,27 +241,34 @@ function defaultStyling() {
     // rounds style
     roundOne.style.zIndex = "unset";
 
-    // imported div.
-    let workshopOne = sendWorkshop();
-    // workshop style.
-    workshopOne.style.zIndex = "unset";
+    if (window.innerWidth > 800) {
+        // imported div.
+        let workshopOne = sendWorkshop();
+        // workshop style.
+        workshopOne.style.zIndex = "unset";
 
-    let iconOne = sendInfoIcon();
-    iconOne.style.zIndex = "unset";
+        let iconOne = sendInfoIcon();
+        iconOne.style.zIndex = "unset";
 
-    let roundOneX = sendRoundX();
-    if (roundOneX && currentStepIndex !== 4) {
-        roundOneX.style.zIndex = "unset";
-    }
-    if (roundOne.contains(workshopOne) && currentStepIndex !== 4) {
-        roundOneX.click();
-    }
+        let roundOneX = sendRoundX();
+        if (roundOneX && currentStepIndex !== 4) {
+            roundOneX.style.zIndex = "unset";
+        }
+        if (roundOne.contains(workshopOne) && currentStepIndex !== 4) {
+            roundOneX.click();
+        }
 
-    if (roundOne.classList.contains("tutorial-highlight")) {
-        roundOne.classList.remove("tutorial-highlight");
+        if (roundOne.classList.contains("tutorial-highlight")) {
+            roundOne.classList.remove("tutorial-highlight");
+        }
+        if (workshopOne.classList.contains("tutorial-highlight")) {
+            workshopOne.classList.remove("tutorial-highlight");
+        }
     }
-    if (workshopOne.classList.contains("tutorial-highlight")) {
-        workshopOne.classList.remove("tutorial-highlight");
+    if (window.innerWidth < 800) {
+        if (roundOne.classList.contains("tutorial-highlight")) {
+            roundOne.classList.remove("tutorial-highlight");
+        }
     }
 
     tutStep.style.position = "unset";
@@ -251,25 +282,45 @@ function firstStep() {
     nextButton.disabled = true; // disables next button
     nextButton.classList.add("disabledStyle")
 
-    let iconOne = sendInfoIcon();
+    if (window.innerWidth > 800) {
+        let iconOne = sendInfoIcon();
 
-    iconOne.style.zIndex = "1001";
+        iconOne.style.zIndex = "1001";
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+    }
+    if (window.innerWidth < 800) {
+        roundOne.style.zIndex = "1004";
+
+        roundOne.classList.add("tutorial-highlight")
+
+        roundOne.addEventListener('click', function() {
+            nextButton.disabled = false;
+            nextStep();
+        })
+    }
 }
 
 // each step with styling.
 function secondStep() {
     defaultStyling() // resets previous styling.
 
-    // rounds style
-    roundOne.style.zIndex = "1001";
+    if (window.innerWidth > 800) {
+        // rounds style
+        roundOne.style.zIndex = "1001";
 
-    roundOne.classList.add("tutorial-highlight")
+        roundOne.classList.add("tutorial-highlight")
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+    }
+    if (window.innerWidth < 800) {
+        var workshop = document.getElementById('workshopsPopup');
+        var iconOne = workshop.querySelector('.popupWrapper .workshops')
+        console.log(workshop, iconOne);
+        
+    }
 }
 
 function thirdStep() {
@@ -278,37 +329,47 @@ function thirdStep() {
     nextButton.disabled = true;
     nextButton.classList.add("disabledStyle")
 
-    // imported div.
-    let workshopOne = sendWorkshop();
+    if (window.innerWidth > 800) {
+        // imported div.
+        let workshopOne = sendWorkshop();
 
-    // rounds style.
-    roundOne.style.zIndex = "1001";
+        // rounds style.
+        roundOne.style.zIndex = "1001";
 
-    // workshop style.
-    workshopOne.style.zIndex = "1001";
-    workshopOne.classList.add("tutorial-highlight")
+        // workshop style.
+        workshopOne.style.zIndex = "1001";
+        workshopOne.classList.add("tutorial-highlight")
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+    }
+    if (window.innerWidth < 800) {
+
+    }
 }
 
 function fourthStep() {
     defaultStyling() // resets previous styling.
 
-    document.cookie = "workshopWhile=tutorial";
+    if (window.innerWidth > 800) {
+        document.cookie = "workshopWhile=tutorial";
 
-    nextButton.disabled = true;
+        nextButton.disabled = true;
 
-    nextButton.classList.add("disabledStyle")
+        nextButton.classList.add("disabledStyle")
 
-    let roundOneX = sendRoundX();
+        let roundOneX = sendRoundX();
 
-    if (roundOneX) { // Ensure it's not undefined
-        roundOneX.style.zIndex = "1001";
+        if (roundOneX) { // Ensure it's not undefined
+            roundOneX.style.zIndex = "1001";
+        }
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
     }
+    if (window.innerWidth < 800) {
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+    }
 }
 
 function sixthStep() {

@@ -72,7 +72,7 @@ async function roundClick(round) {
                 return null;
             })
             .filter(Boolean);
-
+            
         createWorkshops(filtered, round);
     } catch {
         return;
@@ -110,6 +110,9 @@ async function createWorkshops(filtered, round) {
     divStructure.style.display = "grid";
     var divs = [];
     filtered.forEach(workshop => {
+        const emptySpots = workshop.capacity - workshop.bookings_count;
+        const emptyText = emptySpots === 0 ? "<div class='emptyDataDiv'>Workshop zit vol!</div>" : `<div class='emptyDataDiv'>${emptySpots}</div>`;
+
         divStructure.innerHTML += `
         <div class='workshop' id='workshop${workshop.workshop_id - 1}' capacity="${workshop.capacity}" draggable='true' ondragstart='drag(event)'> 
             <div class='info' onclick='info(event)' id='info${workshop.workshop_id - 1}' tabindex='0'>i</div> 
@@ -125,14 +128,12 @@ async function createWorkshops(filtered, round) {
             <div class="capacityText title hiddenText" id="capacityText${workshop.workshop_id - 1}"></div>
             <div class="locationWorkshop">Deze workshop vind plaats in: <div id="location">${workshop.location}</div></div>
 
-            <div class="emptyDataDiv">${workshop.capacity - workshop.bookings_count}</div>
+            ${emptyText}
         </div>
         `;
 
-
-
         divs.push(divStructure);
-    })
+    })    
 
     insertWorkshops(divs, round);
 }
@@ -234,4 +235,23 @@ function addConfirmedWorkshop(workshop, round) {
     updateSaveButton();
 
     popupWrapper.style.display = "none";
+
+    ifWorkshopFull()
+}
+
+function ifWorkshopFull() {
+    var roundsCheck = document.querySelectorAll('.rounds .round:nth-child(2)')    
+    
+    roundsCheck.forEach(round => {        
+        var capacity = round.querySelector('.workshop .emptyDataDiv');
+        if (!capacity) return;
+        var closeButton = round.querySelector('.close-button');
+        if (!closeButton) return;
+        
+        if (capacity.innerText.trim() === 'Workshop zit vol!') {            
+            showErrorPopup("Deze ronde zit vol!")
+            closeButton.click()
+            return;
+        }
+    })
 }

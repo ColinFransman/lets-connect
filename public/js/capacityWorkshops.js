@@ -10,8 +10,8 @@ inRoundContainers.forEach(container => {
     roundAmountIds.push(id)
 })
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    if (window.innerWidth < 800) {
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.innerWidth > 800) {
         insertData()
         
         waitUntilApi()
@@ -165,7 +165,7 @@ function workshopCheckRules() {
     observer.observe(document.body, { childList: true, subtree: true });
 }
 
-function ifFullWorkshop() {
+function ifFullWorkshop() {    
     inRoundContainers.forEach(container => {
 
         let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
