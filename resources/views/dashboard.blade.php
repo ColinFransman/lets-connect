@@ -37,10 +37,6 @@
                 <button onclick="closeErrorPopup()">Sluiten</button>
             </div>
         </div>
-
-        @if (session('status') == 'failed')
-        <x-success-msg message="{{ session('message') }}" color="red" />
-        @endif
         
         <!-- Main Content -->
         <div class="main">
