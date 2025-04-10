@@ -148,15 +148,16 @@ body {
     align-items: center;
     text-align: center;
 
+    font-size: smaller;
+
+
     display: flex;
     display: flex;
     flex-direction: column;
     justify-content: center; /* Centreert verticaal */
     align-items: center; /* Centreert horizontaal */
     text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
- 
-
-}
+ }
 
 .description {
     display: flex;
