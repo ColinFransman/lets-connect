@@ -13,6 +13,8 @@ let tutStep = document.getElementById('tutorial-step')
 // first round
 let roundOne = document.querySelector('#round1 .round:nth-child(2)');
 
+var rounds = document.querySelector('.rounds .round');
+
 let tutorialSteps;
 if (window.innerWidth > 800) {
     tutorialSteps = [
@@ -51,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+if (window.innerWidth > 800) {    
 const observerI = new MutationObserver((mutationsList, observer) => {
     let iconOne = sendInfoIcon();
 
@@ -98,6 +101,7 @@ const observerX = new MutationObserver((mutationsList, observer) => {
     }
 });
 observerX.observe(document.body, { childList: true, subtree: true });
+}
 
 if (window.innerWidth < 800) {
     const mobileTutObserver = new MutationObserver((mutationsList, mobileObserver) => {
@@ -106,8 +110,10 @@ if (window.innerWidth < 800) {
         if (roundOne && window.getComputedStyle(tutOverlay).display === "flex") {
             // clicked on 'i' does things.
             roundOne.addEventListener('click', function () {
-                nextButton.disabled = false;
-                nextStep();
+                if (currentStepIndex === 1) {                    
+                    nextButton.disabled = false;
+                    nextStep();
+                }
             })
             mobileObserver.disconnect(); // Stop observing once we find it
         }
@@ -270,6 +276,8 @@ async function defaultStyling() {
     }
     // rounds style
     roundOne.style.zIndex = "unset";
+    
+    if (tutOverlay) tutOverlay.style.pointerEvents = "auto"
 
     if (window.innerWidth > 800) {
         // imported div.
@@ -342,6 +350,9 @@ function firstStep() {
         roundOne.style.zIndex = "1004";
 
         roundOne.classList.add("tutorial-highlight")
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "10%";
     }
 
 
@@ -380,6 +391,8 @@ async function secondStep() {
         popup.style.alignItems = "unset";
         popupWrapper.style.top = "40px";
         workshops.style.maxHeight = "250px"
+
+        if (tutOverlay) tutOverlay.style.pointerEvents = "none"
     }
 }
 

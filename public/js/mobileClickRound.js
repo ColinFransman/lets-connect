@@ -23,20 +23,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         var tutOverlay = document.querySelector('.tutorial-overlay');
 
-        const tut = window.getComputedStyle(tutOverlay);
-        if (tut.display === "flex") return;
-
         if (!popupWrapper || !popup || !mainElement || !tutOverlay) return;
+        const tut = window.getComputedStyle(tutOverlay);
+        if (tut.display === "flex") {
+            console.log("test")
+            return;
+        }
 
         const styles = window.getComputedStyle(popupWrapper);
         if (!styles.display === "flex") return;
+
+        rounds.forEach(round => {
+            round.removeEventListener('click', function() {})
+        })
 
         // Check if clicked outside of popup and outside main container
         if (!popup.contains(e.target) &&
             !mainElement.contains(e.target) &&
             !selectedPopupWrapper.contains(e.target) &&
             !tutOverlay.contains(e.target)) {
+
             popupWrapper.style.display = "none";
+            console.log("click");
+
         }
     });
 });
@@ -58,7 +67,7 @@ async function roundClick(round) {
     loader.style.display = "inline-block";
 
     var popupTitle = document.querySelector('.chosenRound');
-    popupTitle.innerText = "Laden ronde: "
+    popupTitle.innerText = "Laden ronde: ";
 
     try {
         var data = await fetchUserData();
@@ -90,6 +99,8 @@ function clickedRound() {
 
         round.addEventListener("click", (e) => {
             if (e.target === round) {
+                console.log("click");
+                
                 roundClick(round);
             }
         });
@@ -160,15 +171,15 @@ function insertWorkshops(divs, round) {
 function clickedWorkshopToRound(round) {
     let workshops = document.querySelectorAll('.popupWrapper > .workshops .workshop');
     // let mainElement = document.querySelector('.main')
-    
+
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
 
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
 
-            var popupStyle = window.getComputedStyle(popupWrapper)  
-                   
+            var popupStyle = window.getComputedStyle(popupWrapper)
+
             if (popupStyle.display === "flex") return;
 
             // if (mainElement.contains(e.target)) return;
@@ -176,7 +187,7 @@ function clickedWorkshopToRound(round) {
             if (infoPopup.contains(e.target)) return;
             if (round.contains(e.target)) return;
             if (workshop.getAttribute("has-been-selected") === "true") return;
-            
+
             confirmationPopup(workshop, round)
         });
     });

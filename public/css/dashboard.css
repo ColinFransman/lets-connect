@@ -290,7 +290,6 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1002;
-    pointer-events: none;
 }
 
 .tutorial-step {
@@ -686,6 +685,23 @@ body {
     }
 }
 
+.image-container {
+    display: flex;
+    align-items: center; /* Align text with image */
+    gap: 10px; /* Add space between image and text */
+}
+
+.image-container img {
+    width: 115px; 
+    height: auto;
+}
+
+.image-title {
+    font-size: 24px; /* Bigger text */
+    font-weight: bold;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
 @media (max-width: 500px) {
     .main {
         margin-top: 25px;
@@ -753,22 +769,12 @@ body {
         position: absolute;
         bottom: 0;
     }
-}
 
-.image-container {
-    display: flex;
-    align-items: center; /* Align text with image */
-    gap: 10px; /* Add space between image and text */
-}
+    .tutorial-overlay {
+        pointer-events: auto;
+    }
 
-.image-container img {
-    width: 115px; 
-    height: auto;
+    .round {
+        z-index: 1;
+    }
 }
-
-.image-title {
-    font-size: 24px; /* Bigger text */
-    font-weight: bold;
-    white-space: nowrap; /* Prevents text from wrapping */
-}
-
