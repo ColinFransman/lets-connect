@@ -81,12 +81,6 @@ body {
     overflow: hidden;
     cursor: grab;
     margin: 3px 3px;
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
 }
 
 .workshop {
@@ -761,7 +755,6 @@ body {
     }
 }
 
-}
 .image-container {
     display: flex;
     align-items: center; /* Align text with image */
