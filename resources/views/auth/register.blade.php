@@ -36,6 +36,7 @@
                 <div class="form-group-row" style="margin-bottom: 10px; display: flex; gap: 10px;">
                     <div class="form-group" style="flex: 1;">
                         <select id="opleiding" name="opleiding" style="width: 100%; max-width: 280px;">
+                            <option value="">Kies een opleiding</option>
                             <option value="opleiding1">Sign</option>
                             <option value="opleiding2">Musicalperformer</option>
                             <option value="opleiding3">Podium-en Evenemententechniek</option>
@@ -54,6 +55,19 @@
                     <div class="form-group" style="flex: 1;">
                         <select id="klas" name="klas" style="width: 100%; max-width: 280px;">
                             <option value="">Kies een klas</option>
+                            <option value="opleiding1">Sign</option>
+                            <option value="opleiding2">Musicalperformer</option>
+                            <option value="opleiding3">Podium-en Evenemententechniek</option>
+                            <option value="opleiding4">Acteur</option>
+                            <option value="opleiding5">Mode</option>
+                            <option value="opleiding6">Mediavormgeving</option>
+                            <option value="opleiding7">Av-Specialist</option>
+                            <option value="opleiding8">Fotograaf</option>
+                            <option value="opleiding9">Expert IT systems and devices</option>
+                            <option value="opleiding10">Allround medewerkers IT systems and devices</option>
+                            <option value="opleiding11">Software Developer</option>
+                            <option value="opleiding12">Interieuradviseur</option>
+                            <option value="opleiding13">Creative Development</option>
                         </select>
                     </div>
                 </div>
