@@ -8,7 +8,6 @@ body {
 
 .container {
     height: 100vh;
-    /* 100% van de schermhoogte */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,8 +58,7 @@ body {
 
 .workshops {
     margin-bottom: 15px;
-    /* width: 40%; */
-    max-height: 580px;
+    max-height: 500px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -633,7 +631,7 @@ body {
 }
 
 .image-container img {
-    width: 100px; 
+    width: 115px; 
     height: auto;
 }
 
