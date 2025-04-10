@@ -8,7 +8,6 @@ body {
 
 .container {
     height: 100vh;
-    /* 100% van de schermhoogte */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,8 +58,7 @@ body {
 
 .workshops {
     margin-bottom: 15px;
-    /* width: 40%; */
-    max-height: 580px;
+    max-height: 500px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -147,16 +145,8 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-
+  
     font-size: smaller;
-
-
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centreert verticaal */
-    align-items: center; /* Centreert horizontaal */
-    text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
  }
 
 .description {
@@ -770,3 +760,22 @@ body {
         bottom: 0;
     }
 }
+
+}
+.image-container {
+    display: flex;
+    align-items: center; /* Align text with image */
+    gap: 10px; /* Add space between image and text */
+}
+
+.image-container img {
+    width: 115px; 
+    height: auto;
+}
+
+.image-title {
+    font-size: 24px; /* Bigger text */
+    font-weight: bold;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+

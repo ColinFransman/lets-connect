@@ -179,3 +179,9 @@ height: 30%;
         text-overflow: ellipsis;
     }
 }
+.logo img {
+    width: 250px;  
+    display: block;
+    margin: 0 auto 20px; /* Zentereer het logo en geef het een beetje marge onderaan */
+
+}

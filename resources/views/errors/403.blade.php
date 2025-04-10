@@ -85,7 +85,9 @@
     </style>
 </head>
 <body>
+@extends('errors.layout')
 
+@section('message')
     <div class="message-box">
         <pre>Je hebt geen toegang tot deze pagina</pre>
         <div class="countdown">
@@ -116,3 +118,5 @@
 
 </body>
 </html>
+    <img class="background-container" src="{{ asset('/images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}">
+@endsection
