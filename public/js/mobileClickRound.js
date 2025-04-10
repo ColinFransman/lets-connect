@@ -21,19 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
         var popup = document.querySelector('.popupWrapper');
         var mainElement = document.querySelector('.main');
 
-        if (!popupWrapper || !popup || !mainElement) return;
+        var tutOverlay = document.querySelector('.tutorial-overlay');
+
+        const tut = window.getComputedStyle(tutOverlay);
+        if (tut.display === "flex") return;
+
+        if (!popupWrapper || !popup || !mainElement || !tutOverlay) return;
 
         const styles = window.getComputedStyle(popupWrapper);
-        if (styles.display === "none") return;
+        if (!styles.display === "flex") return;
 
         // Check if clicked outside of popup and outside main container
-        if (!popup.contains(e.target) && !mainElement.contains(e.target) && !selectedPopupWrapper.contains(e.target)) {
+        if (!popup.contains(e.target) &&
+            !mainElement.contains(e.target) &&
+            !selectedPopupWrapper.contains(e.target) &&
+            !tutOverlay.contains(e.target)) {
             popupWrapper.style.display = "none";
-            clearPreviousWorkshops()
         }
     });
-
-
 });
 
 async function roundClick(round) {
@@ -72,7 +77,7 @@ async function roundClick(round) {
                 return null;
             })
             .filter(Boolean);
-            
+
         createWorkshops(filtered, round);
     } catch {
         return;
@@ -133,7 +138,7 @@ async function createWorkshops(filtered, round) {
         `;
 
         divs.push(divStructure);
-    })    
+    })
 
     insertWorkshops(divs, round);
 }
@@ -155,19 +160,23 @@ function insertWorkshops(divs, round) {
 function clickedWorkshopToRound(round) {
     let workshops = document.querySelectorAll('.popupWrapper > .workshops .workshop');
     // let mainElement = document.querySelector('.main')
-
+    
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
 
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
 
+            var popupStyle = window.getComputedStyle(popupWrapper)  
+                   
+            if (popupStyle.display === "flex") return;
+
             // if (mainElement.contains(e.target)) return;
             if (iconInfo.contains(e.target)) return;
             if (infoPopup.contains(e.target)) return;
             if (round.contains(e.target)) return;
             if (workshop.getAttribute("has-been-selected") === "true") return;
-
+            
             confirmationPopup(workshop, round)
         });
     });
@@ -178,23 +187,18 @@ function closeWorkshops() {
     popupWrapper.style.display = "none";
 }
 
-function clearPreviousWorkshops() {
-    if (!popupWrapper) return;
-    popupWrapper.innerHTML = "";
-}
-
 function confirmationPopup(workshop, round) {
     if (!selectedPopupWrapper) return;
 
-    
+
     selectedPopupWrapper.style.display = "flex";
-    
+
     var innerTitle = document.querySelector('.workshopNameInfo')
     innerTitle.innerHTML = workshop.querySelector('.title').innerText;
-    
+
     var innerCapacity = document.getElementById('viewCapacityRound');
     innerCapacity.innerHTML = workshop.querySelector('.emptyDataDiv').innerHTML;
-    
+
     var yesButton = document.querySelector('#selectedWorkshopPopup .yes-button')
     yesButton.addEventListener('click', function () {
         addConfirmedWorkshop(workshop, round)
@@ -240,15 +244,15 @@ function addConfirmedWorkshop(workshop, round) {
 }
 
 function ifWorkshopFull() {
-    var roundsCheck = document.querySelectorAll('.rounds .round:nth-child(2)')    
-    
-    roundsCheck.forEach(round => {        
+    var roundsCheck = document.querySelectorAll('.rounds .round:nth-child(2)')
+
+    roundsCheck.forEach(round => {
         var capacity = round.querySelector('.workshop .emptyDataDiv');
         if (!capacity) return;
         var closeButton = round.querySelector('.close-button');
         if (!closeButton) return;
-        
-        if (capacity.innerText.trim() === 'Workshop zit vol!') {            
+
+        if (capacity.innerText.trim() === 'Workshop zit vol!') {
             showErrorPopup("Deze ronde zit vol!")
             closeButton.click()
             return;

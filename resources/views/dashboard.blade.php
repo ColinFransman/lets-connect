@@ -114,7 +114,7 @@
                 <div class="popupWrapper">
                     <div class="close-button" onclick="closeWorkshops()">X</div>
                     <div class="flex">
-                        <div class="chosenRound"> </div>
+                        <div class="chosenRound"></div>
                         <div class="roundWorkshop"></div>
                     </div>
                     <p class="loader"></p>

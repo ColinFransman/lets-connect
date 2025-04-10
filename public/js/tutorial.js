@@ -1,4 +1,4 @@
-let currentStepIndex = 0;
+var currentStepIndex = 0;
 
 // for buttons styling.
 let prevButton = document.getElementById('prevButton');
@@ -99,6 +99,39 @@ const observerX = new MutationObserver((mutationsList, observer) => {
 });
 observerX.observe(document.body, { childList: true, subtree: true });
 
+if (window.innerWidth < 800) {
+    const mobileTutObserver = new MutationObserver((mutationsList, mobileObserver) => {
+        var tutOverlay = document.querySelector('.tutorial-overlay');
+
+        if (roundOne && window.getComputedStyle(tutOverlay).display === "flex") {
+            // clicked on 'i' does things.
+            roundOne.addEventListener('click', function () {
+                nextButton.disabled = false;
+                nextStep();
+            })
+            mobileObserver.disconnect(); // Stop observing once we find it
+        }
+    });
+    mobileTutObserver.observe(document.body, { childList: true, subtree: true });
+
+    const mobileInfoObserver = new MutationObserver((mutationsList, mobileObserver) => {
+        var infoIcons = document.querySelectorAll('#workshopsPopup .workshop .info');
+
+        if (infoIcons) {
+            // clicked on 'i' does things.
+            infoIcons.forEach(infoIcon => {
+                infoIcon.addEventListener('click', function () {
+                    nextButton.disabled = false;
+                    nextStep();
+                })
+                mobileObserver.disconnect(); // Stop observing once we find it
+            })
+        }
+
+    });
+    mobileInfoObserver.observe(document.body, { childList: true, subtree: true });
+}
+
 function startTutorial() {
     // if ID exists, the popup becomes visible
     tutOverlay.style.display = "flex";
@@ -114,7 +147,7 @@ function startTutorial() {
 
 function nextStep() {
     // gets the index out of a function and displays the right json on the index number.
-    let currentStepIndex = hidePreviousOverlay();
+    currentStepIndex = hidePreviousOverlay();
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
 
     // styling buttons
@@ -147,7 +180,8 @@ function nextStep() {
 }
 
 function prevStep() {
-    let currentStepIndex = showNextOverlay();
+    currentStepIndex = showNextOverlay();
+
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
 
     // styling buttons
@@ -212,10 +246,6 @@ function sendInfoIcon() {
     if (window.innerWidth > 800) {
         iconOne = document.getElementById('info0');
     }
-    // if (window.innerWidth < 800) {
-    //     var popup = document.getElementById('workshopsPopup')
-    //     iconOne = popup.querySelector('#workshopsPopup .workshops')
-    // }
     return iconOne;
 }
 
@@ -231,7 +261,7 @@ function sendRoundX() {
     return roundOneX;
 }
 
-function defaultStyling() {
+async function defaultStyling() {
     document.cookie = "workshopWhile=removed";
 
     nextButton.disabled = false;
@@ -265,9 +295,27 @@ function defaultStyling() {
             workshopOne.classList.remove("tutorial-highlight");
         }
     }
+
     if (window.innerWidth < 800) {
         if (roundOne.classList.contains("tutorial-highlight")) {
             roundOne.classList.remove("tutorial-highlight");
+        }
+
+        tutOverlay.style.background = "rgba(0, 0, 0, 0.7)";
+        var popupWrapper = document.querySelector('.popupWrapper');
+        var workshops = document.querySelector('.popupWrapper .workshops')
+        if (popupWrapper) popupWrapper.style.top = "unset";
+        if (workshops) workshops.style.maxHeight = "unset";
+
+        var popup = document.getElementById('workshopsPopup');
+
+        if (popup) popup.style.background = "rgba(0, 0, 0, 0.7)";
+
+        var workshopsWrapper = popup.querySelector('.popupWrapper .workshops')
+        if (workshopsWrapper) {
+            
+            workshopsWrapper.style.background = "none";
+            workshopsWrapper.style.maxHeight = "250px";
         }
     }
 
@@ -285,7 +333,7 @@ function firstStep() {
     if (window.innerWidth > 800) {
         let iconOne = sendInfoIcon();
 
-        iconOne.style.zIndex = "1001";
+        iconOne.style.zIndex = "1004";
 
         tutStep.style.position = "relative";
         tutStep.style.top = "25%";
@@ -294,21 +342,20 @@ function firstStep() {
         roundOne.style.zIndex = "1004";
 
         roundOne.classList.add("tutorial-highlight")
-
-        roundOne.addEventListener('click', function() {
-            nextButton.disabled = false;
-            nextStep();
-        })
     }
+
+
+    var closeIcon = document.querySelector('#workshopsPopup .close-button')
+    if (closeIcon) closeIcon.click()
 }
 
 // each step with styling.
-function secondStep() {
+async function secondStep() {
     defaultStyling() // resets previous styling.
 
     if (window.innerWidth > 800) {
         // rounds style
-        roundOne.style.zIndex = "1001";
+        roundOne.style.zIndex = "1004";
 
         roundOne.classList.add("tutorial-highlight")
 
@@ -316,10 +363,23 @@ function secondStep() {
         tutStep.style.top = "25%";
     }
     if (window.innerWidth < 800) {
-        var workshop = document.getElementById('workshopsPopup');
-        var iconOne = workshop.querySelector('.popupWrapper .workshops')
-        console.log(workshop, iconOne);
+        await fetchData();
+
+        nextButton.disabled = true;
+        nextButton.classList.add("disabledStyle")
+
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+
+        var popup = document.getElementById('workshopsPopup');
+        var popupWrapper = popup.querySelector('.popupWrapper');
+        var workshops = popup.querySelector('.workshops');
         
+        popup.style.background = "unset";
+        popup.style.alignItems = "unset";
+        popupWrapper.style.top = "40px";
+        workshops.style.maxHeight = "250px"
     }
 }
 
@@ -334,10 +394,10 @@ function thirdStep() {
         let workshopOne = sendWorkshop();
 
         // rounds style.
-        roundOne.style.zIndex = "1001";
+        roundOne.style.zIndex = "1004";
 
         // workshop style.
-        workshopOne.style.zIndex = "1001";
+        workshopOne.style.zIndex = "1004";
         workshopOne.classList.add("tutorial-highlight")
 
         tutStep.style.position = "relative";
@@ -345,6 +405,20 @@ function thirdStep() {
     }
     if (window.innerWidth < 800) {
 
+        nextButton.disabled = true;
+        nextButton.classList.add("disabledStyle")
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+
+        var popup = document.getElementById('workshopsPopup');
+
+        var workshops = popup.querySelector('.workshops');
+
+        popup.style.background = "unset";
+        popup.style.alignItems = "unset";
+        popupWrapper.style.top = "40px";
+        workshops.style.maxHeight = "250px"
     }
 }
 
@@ -361,21 +435,30 @@ function fourthStep() {
         let roundOneX = sendRoundX();
 
         if (roundOneX) { // Ensure it's not undefined
-            roundOneX.style.zIndex = "1001";
+            roundOneX.style.zIndex = "1004";
         }
 
         tutStep.style.position = "relative";
         tutStep.style.top = "25%";
     }
     if (window.innerWidth < 800) {
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";        
 
+        var removeIcon = roundOne.querySelector('.workshop .close-button')
+        if (removeIcon) removeIcon.style.zIndex = "1004";
+
+        removeIcon.addEventListener('click', function () {
+            nextButton.disabled = false;
+            nextStep();
+        })
     }
 }
 
 function sixthStep() {
     defaultStyling();
 
-    tutOverlay.style.display = "none";// hides the overlay.
+    tutOverlay.style.display = "none"; // hides the overlay.
 }
 
 function cookieState() {
@@ -386,4 +469,14 @@ function cookieState() {
         cookieSatus = false;
     }
     return cookieSatus;
+}
+
+async function fetchData() {
+    var response = await fetch("/viewCapacity")
+    const data = await response.json();
+
+    if (data.status === "success") {
+        return data;
+    }
+    return;
 }
