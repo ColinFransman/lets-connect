@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width= , initial-scale=1.0">
     <title>Geen Toegang</title>
     <style>
        .body {
@@ -29,7 +29,6 @@
             width: 100%; 
             z-index: 0;  
         }
-
 
         .background-container::before {
             content: '';
@@ -96,7 +95,6 @@
         </div>
     </div>
 
-   
     <img class="background-container" src="{{ asset('/images/24213_SAVETHEDATE_LETS_CONNECT_01.jpg') }}">
 
     <script>
@@ -109,9 +107,8 @@
 
             if (countdown === 0) {
                 clearInterval(interval);
-
                 setTimeout(() => {
-                    window.location.href = 'http://localhost/letsconnect/public/dashboard';  
+                    window.location.href = "{{ url('/dashboard') }}";  
                 }, 1000);
             }
         }, 1000);

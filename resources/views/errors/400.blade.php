@@ -111,7 +111,7 @@
                 clearInterval(interval);
 
                 setTimeout(() => {
-                    window.location.href = 'http://localhost/letsconnect/public/dashboard';  
+                    window.location.href = "{{ url('/dashboard') }}";  
                 }, 1000);
             }
         }, 1000);
