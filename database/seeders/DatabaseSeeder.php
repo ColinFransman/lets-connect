@@ -26,14 +26,7 @@ class DatabaseSeeder extends Seeder
             'class' => 'SD2A'
         ]);
 
-        DB::table('users')->insert([
-            'name' => 'user',
-            'email' => 'user@example.com',
-            'class' => 'SD2A'
-        ]);
-
         User::find(1)->addRole('admin');
-        User::find(2)->addRole('user');
 
         Moment::insert(['id' => '1', 'time' => '13:00 - 13:45']);
         Moment::insert(['id' => '2', 'time' => '13:45 - 14:30']);
@@ -65,21 +58,5 @@ class DatabaseSeeder extends Seeder
             }
             $index++;
         }
-    
-        //foreach hiervoor maken
-        Bookings::insert([
-            'wm_id' => '1',
-            'student_id' => '1',
-        ]);
-
-        Bookings::insert([
-            'wm_id' => '2',
-            'student_id' => '1',
-        ]);
-
-        Bookings::insert([
-            'wm_id' => '3',
-            'student_id' => '1',
-        ]);
     } 
 }
