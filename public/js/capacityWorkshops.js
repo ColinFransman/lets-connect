@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     waitUntilApi()
 
-    whenWorkshopIsFull()
+    workshopCheckRules()
 });
 
 
@@ -96,7 +96,7 @@ function handleMouseOver() {
 
     workshopContainers.forEach(container => {
         container.addEventListener("mouseleave", () => {
-            
+
             if (hoverState) {
                 const hoveredDiv = container.querySelector('.title');
                 const hoverCapText = container.querySelector('.capacityText');
@@ -136,44 +136,93 @@ function handleMouseOver() {
     });
 }
 
-function whenWorkshopIsFull() {
+function workshopCheckRules() {
     const observer = new MutationObserver((mutationsList, observer) => {
+
         if (!document.cookie.match("workshopWhile=removed")) return;
         if (!inRoundContainers) return;
 
-        inRoundContainers.forEach(container => {
+        ifFullWorkshop()
 
-            let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
+        ifEmptyRound()
+    });
 
-            if (!workshopElement) return; // if any workshop exists
-            var capacityElement = workshopElement.querySelectorAll('.capacityText p');
+    observer.observe(document.body, { childList: true, subtree: true });
+}
 
-            if (!capacityElement) return; // if cap text exists inside workshop.
+function ifFullWorkshop() {
+    inRoundContainers.forEach(container => {
 
-            var closeIcon = container.querySelector('.close-button');
-            var disabledRounds = [];
+        let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
 
-            capacityElement.forEach(text => {
-                if (!text.textContent) return;
+        if (!workshopElement) return; // if any workshop exists
+        var capacityElement = workshopElement.querySelectorAll('.capacityText p');
 
-                var numbersText = text.textContent.replace(/\D/g, "");
+        if (!capacityElement) return; // if cap text exists inside workshop.
 
-                if (numbersText.length === 1 && numbersText) {
-                    disabledRounds.push(numbersText)
-                }
-            })
+        var closeIcon = container.querySelector('.close-button');
+        var disabledRounds = [];
 
-            var roundID = container.getAttribute('id')
+        capacityElement.forEach(text => {
+            if (!text.textContent) return;
 
-            if (disabledRounds[0] === roundID) {
+            var numbersText = text.textContent.replace(/\D/g, "");
+
+            if (numbersText.length === 1) {
+                disabledRounds.push(numbersText)
+            }
+        })
+
+        var roundID = container.getAttribute('id')
+
+        for (let i = 0; i < disabledRounds.length; i++) {
+            if (disabledRounds[i] === roundID) { // disables the round based on 
                 showErrorPopup("Deze ronde zit vol!")
                 var closeIcon = container.querySelector('.close-button');
                 closeIcon.click()
                 return;
             }
+        }
+    });
+}
+
+function ifEmptyRound() {
+    inRoundContainers.forEach(container => {
+        let workshopElement = container.querySelector('.workshop');
+
+        if (!workshopElement) return;
+
+        let capacityElements = workshopElement.querySelectorAll('.capacityText p');
+
+        let uniqueRounds = new Set(); // Store unique round numbers
+
+        capacityElements.forEach(text => {
+
+            let content = text.textContent.trim();
+
+            // Extract round number (e.g., "Ronde 1" -> 1)
+            let match = content.match(/Ronde (\d+)/);
+            if (match) {
+                uniqueRounds.add(parseInt(match[1])); // Convert to integer and store
+            }
         });
 
-    });
+        var exampleFullRounds = [1, 2, 3];
 
-    observer.observe(document.body, { childList: true, subtree: true });
+        // Check if one or more values from exampleFullRounds do not exist in uniqueRounds
+        exampleFullRounds.forEach(round => {
+            if (!uniqueRounds.has(round)) {
+                // Do something if one or more values from exampleFullRounds are missing
+
+                var roundID = container.getAttribute('id')
+                
+                if (round.toString() === roundID) { // disables the round based on                     
+                    showErrorPopup("De geselecteerde workshop heeft niet deze ronde!")
+                    var closeIcon = container.querySelector('.close-button');
+                    closeIcon.click()
+                    return;
+                }
+            }
+        });
+    });
 }
