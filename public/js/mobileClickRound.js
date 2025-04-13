@@ -1,16 +1,11 @@
 if (window.innerWidth < 800) {
-    var element = document.getElementById("workshopsContainer");
+    var element = document.querySelector(".main .workshops");
     element.remove()
 }
 
-var rounds = document.querySelectorAll('.rounds .round')
-
-var workshopsContainer = document.querySelector('.main .workshops');
-
+var rounds = document.querySelectorAll('.rounds .round');
 var workshops = document.querySelectorAll('.workshops .workshop');
-
 var clickedWorkshop = document.querySelector('.clickedWorkshop');
-
 var popupWrapper = document.getElementById('workshopsPopup');
 var selectedPopupWrapper = document.getElementById('selectedWorkshopPopup');
 
@@ -18,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clickedRound()
 
     window.addEventListener('click', function (e) {
-        var popup = document.querySelector('.popupWrapper');
+        var popup = document.querySelector('#workshopsPopup .popupWrapper');
         var mainElement = document.querySelector('.main');
 
         var tutOverlay = document.querySelector('.tutorial-overlay');
@@ -45,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             popupWrapper.style.display = "none";
             console.log("click");
-
         }
     });
 });
@@ -98,9 +92,7 @@ function clickedRound() {
         if (window.innerWidth > 800) return;
 
         round.addEventListener("click", (e) => {
-            if (e.target === round) {
-                console.log("click");
-                
+            if (e.target === round) {                
                 roundClick(round);
             }
         });
