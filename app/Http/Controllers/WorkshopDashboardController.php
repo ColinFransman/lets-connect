@@ -28,7 +28,7 @@ class WorkshopDashboardController extends Controller
         return view('dashboard.showbookings', compact('workshopmoments'));
     }
     
-
+ 
 
     public function showbookings(WorkShopMoment $wsm)
     {

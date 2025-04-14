@@ -1,41 +1,39 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Mail;
 
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
-class MailController extends Controller
+class SendMail extends Mailable
 {
+    use Queueable, SerializesModels;
+
+    public $subject;
+    public $body;
+    public $additionalData;
+
     /**
-     * Show the email form
+     * Create a new message instance.
      */
-    public function index()
+    public function __construct($subject = "Default Subject", $body = "Default email body", $additionalData = [])
     {
-        return view('send-mail');
+        $this->subject = $subject;
+        $this->body = $body;
+        $this->additionalData = $additionalData;
     }
 
     /**
-     * Handle email sending
+     * Build the message.
      */
-    public function store(Request $request)
+    public function build()
     {
-        try {
-            // Haal de data op uit de request
-            $email = auth()->user()->email;
-            $subject = "Let's Connect";
-            $body = "test";
-
-            // Verstuur de e-mail
-            Mail::to($email)->send(new SendMail($subject, $body));
-
-            // Redirect naar een succespagina na het versturen van de e-mail
-            return redirect('/success')->with(['status' => 'success', 'title' => 'Bedankt voor je aanmelding', 'message' => 'Je planning is succesvol opgeslagen. Je ontvangt zo snel mogelijk een mail ter bevestiging van je gekozen planning. Je kan dit scherm nu sluiten.']);
-        } catch (Exception $e) {
-            // Als er iets misgaat, toon een foutmelding
-            return redirect('/dashboard')->with(['status' => 'error', 'message' => 'Er is iets misgegaan :\'(']);
-        }
+        return $this->subject($this->subject)
+                    ->view('emailstemplate')  // View for the email body
+                    ->with(array_merge(
+                        ['body' => $this->body],
+                        $this->additionalData
+                    ));  // Data passed to the view
     }
 }

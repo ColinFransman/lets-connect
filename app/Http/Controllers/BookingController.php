@@ -128,4 +128,40 @@ class BookingController extends Controller
             'data' => $data,
         ]);
     }    
+    public function viewRoundCapacity()
+    {
+        // Get all workshops along with their moments and bookings count
+        $workshops = Workshop::with(['workshopMoments' => function ($query) {
+            $query->withCount('bookings');
+        }])->get();
+        
+        // Prepare the response data in a structured format
+        $data = $workshops->map(function ($workshop) {
+         return [
+    'workshop_name' => $workshop->name,
+    'moments' => $workshop->workshopMoments->map(function ($moment) use ($workshop) {
+        return [
+            'wm_id' => $moment->moment_id, 
+            'capacity' => $workshop->capacity, // Add capacity for each moment
+            'bookings_count' => $moment->bookings_count, // bookings count from withCount()
+        ];
+    })
+];
+
+        });
+            // Check if $data is not empty
+            if ($data->isEmpty()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No data available',
+                ], 404); 
+            }
+        
+            // If data exists, return success with the data
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
+    }
+     
 }
