@@ -22,7 +22,11 @@ let workshopsInRounds = new Set();
 //     closeSavePopup();
 // }
 
-function confirmSave() {
+function confirmSave(e) {
+    e.preventDefault();
+    document.getElementById('confirm-yes-button').setAttribute('disabled', '');
+    document.getElementById("confirmForm").submit();
+
     const rounds = [...document.querySelectorAll(".round")].map(round => ({
         roundId: round.id,
         workshops: [...round.children].map(workshop => workshop.id)

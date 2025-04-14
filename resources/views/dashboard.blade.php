@@ -93,13 +93,13 @@
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
-                    <form method="POST" action="{{ url('/save') }}">
+                    <form id="confirmForm" method="POST" action="{{ url('/save') }}">
                         @csrf
                         <input type="hidden" name="save1" id="save1" value="">
                         <input type="hidden" name="save2" id="save2" value="">
                         <input type="hidden" name="save3" id="save3" value="">
                         <div class="button-container">
-                            <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
+                            <button type="button" id="confirm-yes-button" onclick="confirmSave(event)">Ja</button>
                             <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
                         </div>
                     </form>
