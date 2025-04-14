@@ -111,8 +111,8 @@ if (window.innerWidth < 800) {
             // clicked on 'i' does things.
             roundOne.addEventListener('click', function () {
                 if (currentStepIndex === 1) {                    
-                    nextButton.disabled = false;
-                    nextStep();
+                    nextButton.disabled = false;                    
+                    nextStep();                                   
                 }
             })
             mobileObserver.disconnect(); // Stop observing once we find it
@@ -127,8 +127,10 @@ if (window.innerWidth < 800) {
             // clicked on 'i' does things.
             infoIcons.forEach(infoIcon => {
                 infoIcon.addEventListener('click', function () {
-                    nextButton.disabled = false;
-                    nextStep();
+                    if (currentStepIndex === 2) { 
+                        nextButton.disabled = false;
+                        nextStep();
+                    }
                 })
                 mobileObserver.disconnect(); // Stop observing once we find it
             })
@@ -310,14 +312,20 @@ async function defaultStyling() {
         }
 
         tutOverlay.style.background = "rgba(0, 0, 0, 0.7)";
+        tutOverlay.style.display = "flex";
+
         var popupWrapper = document.querySelector('.popupWrapper');
-        var workshops = document.querySelector('.popupWrapper .workshops')
+        var workshops = document.querySelector('.popupWrapper .workshops');
+
         if (popupWrapper) popupWrapper.style.top = "unset";
         if (workshops) workshops.style.maxHeight = "unset";
 
         var popup = document.getElementById('workshopsPopup');
 
-        if (popup) popup.style.background = "rgba(0, 0, 0, 0.7)";
+        if (popup) {
+            popup.style.background = "rgba(0, 0, 0, 0.7)";
+            // popup.style.display = "unset";
+        }
 
         var workshopsWrapper = popup.querySelector('.popupWrapper .workshops')
         if (workshopsWrapper) {
@@ -426,12 +434,28 @@ function thirdStep() {
 
         var popup = document.getElementById('workshopsPopup');
 
-        var workshops = popup.querySelector('.workshops');
+        var workshopsWrapper = popup.querySelector('.workshops');
 
         popup.style.background = "unset";
         popup.style.alignItems = "unset";
         popupWrapper.style.top = "40px";
-        workshops.style.maxHeight = "250px"
+        workshopsWrapper.style.maxHeight = "250px"
+
+        var workshops = workshopsWrapper.querySelectorAll('.workshop')
+
+        workshops[0].classList.add("tutorial-highlight")
+        console.log(workshops);
+        var firstInfo = workshops[0].querySelector('.info')
+        var firstPopup = workshops[0].querySelector('.popup')
+        
+        tutOverlay.style.display = "grid";
+
+        workshops[0].addEventListener('click', function(e) {
+            if (!firstInfo.contains(e.target) && !firstPopup.contains(e.target)) {                
+                nextButton.disabled = false;
+                nextStep();
+            }
+        })
     }
 }
 
@@ -458,10 +482,10 @@ function fourthStep() {
         tutStep.style.position = "relative";
         tutStep.style.top = "25%";        
 
-        var removeIcon = roundOne.querySelector('.workshop .close-button')
+        var removeIcon = roundOne.querySelector('.rounds .workshop .close-button')
         if (removeIcon) removeIcon.style.zIndex = "1004";
 
-        removeIcon.addEventListener('click', function () {
+        removeIcon.addEventListener('click', function () {            
             nextButton.disabled = false;
             nextStep();
         })

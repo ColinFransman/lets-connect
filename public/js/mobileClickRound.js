@@ -20,10 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!popupWrapper || !popup || !mainElement || !tutOverlay) return;
         const tut = window.getComputedStyle(tutOverlay);
-        if (tut.display === "flex") {
-            console.log("test")
-            return;
-        }
+        if (tut.display === "flex") return;
 
         const styles = window.getComputedStyle(popupWrapper);
         if (!styles.display === "flex") return;
@@ -162,23 +159,25 @@ function insertWorkshops(divs, round) {
 
 function clickedWorkshopToRound(round) {
     let workshops = document.querySelectorAll('.popupWrapper > .workshops .workshop');
-    // let mainElement = document.querySelector('.main')
 
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
-
+            
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
-
-            var popupStyle = window.getComputedStyle(popupWrapper)
-
+            
+            var tutPopup = document.querySelector('.tutorial-overlay');
+            var popupStyle = window.getComputedStyle(tutPopup)
+            
+            console.log(popupStyle.display);
+            
             if (popupStyle.display === "flex") return;
-
+            
             // if (mainElement.contains(e.target)) return;
             if (iconInfo.contains(e.target)) return;
             if (infoPopup.contains(e.target)) return;
             if (round.contains(e.target)) return;
-            if (workshop.getAttribute("has-been-selected") === "true") return;
+            // if (workshop.getAttribute("has-been-selected") === "true") return;
 
             confirmationPopup(workshop, round)
         });

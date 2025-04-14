@@ -633,7 +633,7 @@ body {
     background: rgba(0, 0, 0, 0.7);
     z-index: 1002;
     overflow: auto;
-    pointer-events: bounding-box;
+    pointer-events: none;
 }
 
 .popupWrapper, .selectedWrapper {
@@ -648,7 +648,7 @@ body {
     transition: opacity 0.3s ease-in-out;
     z-index: 1001;
     position: fixed;
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 /* loader animation */
