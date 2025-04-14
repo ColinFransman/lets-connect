@@ -11,11 +11,12 @@ inRoundContainers.forEach(container => {
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
+
     insertData()
 
     waitUntilApi()
 
-    workshopCheckRules()
+    whenWorkshopIsFull()
 });
 
 
@@ -63,11 +64,11 @@ async function insertData() {
                     if (roundCount == 0) {
                         roundCount = roundCount + 3;
                     }
-                    return `<p> Ronde ${roundCount}: ${spotsLeft > 0 ? spotsLeft + " plek(ken) over" : "workshop zit vol!"} </p>`;
+                    return `Ronde ${roundCount}: ${spotsLeft > 0 ? spotsLeft + " plekken over" : "workshop zit vol!"}`;
                 })
                 .join("\n");
 
-            element.innerHTML = text;
+            element.innerText = text;
         }
     });
 
@@ -84,7 +85,6 @@ function handleMouseOver() {
     var hoverState = true;
     inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
         roundContainer.addEventListener('mouseenter', function () {
-
             var text = roundContainer.querySelector('.title');
             if (text) {
                 hoverState = false;
@@ -96,7 +96,6 @@ function handleMouseOver() {
 
     workshopContainers.forEach(container => {
         container.addEventListener("mouseleave", () => {
-
             if (hoverState) {
                 const hoveredDiv = container.querySelector('.title');
                 const hoverCapText = container.querySelector('.capacityText');
@@ -136,93 +135,38 @@ function handleMouseOver() {
     });
 }
 
-function workshopCheckRules() {
+function whenWorkshopIsFull() {
     const observer = new MutationObserver((mutationsList, observer) => {
+        if (document.cookie.match("workshopWhile=removed")) {
+            if (inRoundContainers) {
+                inRoundContainers.forEach(container => {
+                    let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
 
-        if (!document.cookie.match("workshopWhile=removed")) return;
-        if (!inRoundContainers) return;
+                    if (workshopElement) { // if any workshop exists
+                        var capacityElement = workshopElement.querySelector('.capacityText');
+                        if (capacityElement) { // if cap text exists inside workshop.
+                            var text = capacityElement.textContent.trim();
+                            var numberText = text.substring(0, 7).replace(/\D/g, "");
 
-        ifFullWorkshop()
+                            roundAmountIds.forEach(count => {
 
-        ifEmptyRound()
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-}
-
-function ifFullWorkshop() {
-    inRoundContainers.forEach(container => {
-
-        let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
-
-        if (!workshopElement) return; // if any workshop exists
-        var capacityElement = workshopElement.querySelectorAll('.capacityText p');
-
-        if (!capacityElement) return; // if cap text exists inside workshop.
-
-        var closeIcon = container.querySelector('.close-button');
-        var disabledRounds = [];
-
-        capacityElement.forEach(text => {
-            if (!text.textContent) return;
-
-            var numbersText = text.textContent.replace(/\D/g, "");
-
-            if (numbersText.length === 1) {
-                disabledRounds.push(numbersText)
-            }
-        })
-
-        var roundID = container.getAttribute('id')
-
-        for (let i = 0; i < disabledRounds.length; i++) {
-            if (disabledRounds[i] === roundID) { // disables the round based on 
-                showErrorPopup("Deze ronde zit vol!")
-                var closeIcon = container.querySelector('.close-button');
-                closeIcon.click()
-                return;
+                                if (numberText === count) {
+                                    if (!text.includes('workshop zit vol!')) {
+                                        return;
+                                    } else {
+                                        showErrorPopup("Deze ronde zit vol!")
+                                        var closeIcon = container.querySelector('.close-button');
+                                        closeIcon.click()
+                                        return;
+                                    }
+                                }
+                            })
+                        }
+                    }
+                });
             }
         }
     });
-}
 
-function ifEmptyRound() {
-    inRoundContainers.forEach(container => {
-        let workshopElement = container.querySelector('.workshop');
-
-        if (!workshopElement) return;
-
-        let capacityElements = workshopElement.querySelectorAll('.capacityText p');
-
-        let uniqueRounds = new Set(); // Store unique round numbers
-
-        capacityElements.forEach(text => {
-
-            let content = text.textContent.trim();
-
-            // Extract round number (e.g., "Ronde 1" -> 1)
-            let match = content.match(/Ronde (\d+)/);
-            if (match) {
-                uniqueRounds.add(parseInt(match[1])); // Convert to integer and store
-            }
-        });
-
-        var exampleFullRounds = [1, 2, 3];
-
-        // Check if one or more values from exampleFullRounds do not exist in uniqueRounds
-        exampleFullRounds.forEach(round => {
-            if (!uniqueRounds.has(round)) {
-                // Do something if one or more values from exampleFullRounds are missing
-
-                var roundID = container.getAttribute('id')
-                
-                if (round.toString() === roundID) { // disables the round based on                     
-                    showErrorPopup("De geselecteerde workshop heeft niet deze ronde!")
-                    var closeIcon = container.querySelector('.close-button');
-                    closeIcon.click()
-                    return;
-                }
-            }
-        });
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
 }
