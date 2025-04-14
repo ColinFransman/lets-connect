@@ -132,7 +132,6 @@ tr:hover {
     color: #721c24;
     padding: 8px 12px;
     border-radius: 5px;
-    white-space: nowrap;
     font-size: 14px;
     max-width: 250px;
     text-align: center;
@@ -173,8 +172,6 @@ tr:hover {
     /* Responsieve tooltip aanpassing */
     .error-tooltip {
         font-size: 12px;
-        width: 150px;
-        bottom: 25px;
     }
 
     .error-icon {
