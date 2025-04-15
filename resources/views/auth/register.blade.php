@@ -49,10 +49,9 @@
                             <option value="opleiding13">Creative Development</option>
                         </select>
                     </div>
-                        <select id="klas" name="klas">
-                            <option value="">Kies een klas</option>
-                        </select>
-                    </div>
+                    <select id="klas" name="klas">
+                        <option value="">Kies een klas</option>
+                    </select>
                     <x-input-error :messages="$errors->get('klas')" class="mt-2" />
                 </div>
 
