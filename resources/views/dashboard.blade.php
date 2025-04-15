@@ -100,12 +100,15 @@
                         <input type="hidden" name="save2" id="save2" value="">
                         <input type="hidden" name="save3" id="save3" value="">
                         <div class="button-container">
-                            <button type="button" id="confirm-yes-button" onclick="confirmSave(event)">Ja</button>
+                            <button type="button" id="confirm-yes-button" onclick="confirmSave(event)">
+                                Ja
+                                <span id="save-spinner" class="spinner" style="display: none;"></span>
+                            </button>
                             <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
                         </div>
                     </form>
                 </div>
-            </div> 
+            </div>
         <div class="flex">
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
         </div> 
