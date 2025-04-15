@@ -74,19 +74,13 @@ body {
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     text-align: center;
     flex-direction: column;
     position: relative;
     overflow: hidden;
     cursor: grab;
     margin: 3px 3px;
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
 }
 
 .workshop {
@@ -173,7 +167,7 @@ body {
 
 /* Popup styling */
 .popup {
-    z-index: 8;
+    z-index: 1002;
     display: none;
     position: fixed;
     top: 50%;
@@ -302,8 +296,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    pointer-events: auto;
+    z-index: 1002;
 }
 
 .tutorial-step {
@@ -566,18 +559,17 @@ body {
 .showText {
     display: flex !important;
     flex-direction: column;
-    padding: 5%;
+    padding: 10px 5px;
 }
 
 .locationWorkshop {
     display: flex;
     font-size: 12px;
-    position: absolute;
-    bottom: 0;
     gap: 3px;
     color: #cbcbcb;
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .disabledStyle {
@@ -585,7 +577,8 @@ body {
     cursor: not-allowed !important;
 }
 
-.confpopup .button-container {
+/* .confpopup .button-container */
+.button-container {
     display: flex;
     gap: 15px;
     /* Afstand tussen de knoppen */
@@ -594,7 +587,7 @@ body {
     margin-top: 15px;
 }
 
-.confpopup .yes-button {
+.yes-button {
     background-color: black;
     color: white;
     padding: 10px 20px;
@@ -604,11 +597,11 @@ body {
     cursor: pointer;
 }
 
-.confpopup .yes-button:hover {
+.yes-button:hover {
     background-color: black;
 }
 
-.confpopup .no-button {
+.no-button {
     background-color: white;
     color: black;
     padding: 10px 20px;
@@ -620,7 +613,7 @@ body {
     border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
-.confpopup .no-button:hover {
+.no-button:hover {
     background-color: white;
 
 }
@@ -632,6 +625,8 @@ body {
     align-items: center;
     text-align: center;
     background: #343469;
+}
+=========
 }
 .image-container {
     display: flex;
@@ -650,4 +645,79 @@ body {
     white-space: nowrap; /* Prevents text from wrapping */
 }
 
+@media (max-width: 500px) {
+    .main {
+        margin-top: 25px;
+        justify-content: center;
+    }
 
+    /* rounds */
+    .round {
+        height: 110px;
+        width: 230px;
+    }
+
+    /* workshops */
+    #workshopsContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .workshops {
+        max-height: 460px;
+    }
+
+    .workshops .workshop {
+        height: auto;
+    }
+
+    .chosenRound {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    /* workshop popup */
+    .description {
+        flex-direction: column-reverse;
+    }
+
+    .descriptionText {
+        max-width: 100%;
+    }
+
+    .popup-header {
+        width: 85%;
+    }
+
+    .popup {
+        width: 85%;
+    }
+
+    .emptyDataDiv {
+        display: none;
+    }
+
+    .roundWorkshop {
+        align-items: center;
+        display: flex;
+        padding-right: 30px;
+    }
+
+    .main .rounds .round .locationWorkshop {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .tutorial-overlay {
+        pointer-events: auto;
+    }
+
+    .round {
+        z-index: 1;
+    }
+}

@@ -11,18 +11,28 @@ inRoundContainers.forEach(container => {
 })
 
 document.addEventListener("DOMContentLoaded", (event) => {
-
     insertData()
 
     waitUntilApi()
 
-    whenWorkshopIsFull()
+    workshopCheckRules()
 });
 
 
 async function fetchData() {
+    workshopContainers.forEach(workshop => {
+        var text = workshop.querySelector('.capacityText');
+
+        text.classList.add('whiteLoader')
+    })
     var response = await fetch("/viewCapacity")
     const data = await response.json();
+    
+    workshopContainers.forEach(workshop => {
+        var text = workshop.querySelector('.capacityText');
+
+        text.classList.remove('whiteLoader')
+    })
 
     if (data.status === "success") {
         return data;
@@ -75,9 +85,11 @@ async function insertData() {
 }
 
 async function waitUntilApi() {
+
+    handleMouseOver()
+
     var data = await fetchData();
     if (data.status === "success") {
-        handleMouseOver()
     }
 }
 
@@ -138,32 +150,80 @@ function handleMouseOver() {
 function whenWorkshopIsFull() {
     const observer = new MutationObserver((mutationsList, observer) => {
         if (document.cookie.match("workshopWhile=removed")) {
-            if (inRoundContainers) {
+            if (inRoundContainers) {    
                 inRoundContainers.forEach(container => {
                     let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
-
                     if (workshopElement) { // if any workshop exists
+
                         var capacityElement = workshopElement.querySelector('.capacityText');
                         if (capacityElement) { // if cap text exists inside workshop.
                             var text = capacityElement.textContent.trim();
                             var numberText = text.substring(0, 7).replace(/\D/g, "");
-
                             roundAmountIds.forEach(count => {
 
-                                if (numberText === count) {
-                                    if (!text.includes('workshop zit vol!')) {
-                                        return;
-                                    } else {
-                                        showErrorPopup("Deze ronde zit vol!")
-                                        var closeIcon = container.querySelector('.close-button');
-                                        closeIcon.click()
-                                        return;
-                                    }
-                                }
-                            })
-                        }
-                    }
-                });
+        var closeIcon = container.querySelector('.close-button');
+        var disabledRounds = [];
+
+        capacityElement.forEach(text => {
+            if (!text.textContent) return;
+
+            var numbersText = text.textContent.replace(/\D/g, "");
+
+            if (numbersText.length === 1) {
+                disabledRounds.push(numbersText)
+            }
+        })
+
+        var roundID = container.getAttribute('id')
+
+        for (let i = 0; i < disabledRounds.length; i++) {
+            if (disabledRounds[i] === roundID) { // disables the round based on 
+                showErrorPopup("Deze ronde zit vol!")
+                var closeIcon = container.querySelector('.close-button');
+                closeIcon.click()
+                return;
+            }
+        }
+    });
+}
+
+function ifEmptyRound() {
+    inRoundContainers.forEach(container => {
+        let workshopElement = container.querySelector('.workshop');
+
+        if (!workshopElement) return;
+
+        let capacityElements = workshopElement.querySelectorAll('.capacityText p');
+
+        let uniqueRounds = new Set(); // Store unique round numbers
+
+        capacityElements.forEach(text => {
+
+            let content = text.textContent.trim();
+
+            // Extract round number (e.g., "Ronde 1" -> 1)
+            let match = content.match(/Ronde (\d+)/);
+            if (match) {
+                uniqueRounds.add(parseInt(match[1])); // Convert to integer and store
+            }
+        });
+
+        var exampleFullRounds = [1, 2, 3];
+
+        // Check if one or more values from exampleFullRounds do not exist in uniqueRounds
+        exampleFullRounds.forEach(round => {
+            if (!uniqueRounds.has(round)) {
+                // Do something if one or more values from exampleFullRounds are missing
+
+                var roundID = container.getAttribute('id')
+                if (window.innerWidth < 800) return;
+                
+                if (round.toString() === roundID) {                   
+                    showErrorPopup("De geselecteerde workshop heeft niet deze ronde!")
+                    var closeIcon = container.querySelector('.close-button');
+                    closeIcon.click()
+                    return;
+                }
             }
         }
     });

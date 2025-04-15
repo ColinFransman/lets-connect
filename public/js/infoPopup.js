@@ -1,8 +1,9 @@
-let currentZIndex = 1000;
+let currentZIndex = 1002;
 let originalWorkshopPositions = new Map(); 
 
 function storeOriginalPositions() {
     const workshopList = document.getElementById("4");
+    if (!workshopList) return;
     Array.from(workshopList.children).forEach((workshop, index) => {
         originalWorkshopPositions.set(workshop.id, index);
     });
@@ -39,7 +40,6 @@ function addCloseButton(workshop) {
         const workshopList = document.getElementById("4");
         let closeXpath = `//div[@workshop="` + workshop.querySelector(".title").getAttribute("workshop") + `"]`;
         newLocation = document.evaluate(closeXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.parentNode.parentNode;
-        console.log("new location: ", newLocation);
 
         let index = originalWorkshopOrder.indexOf(workshop.id);
 
@@ -54,6 +54,7 @@ function addCloseButton(workshop) {
         document.getElementById("save" + newLocation.id).value = "";
         updateSaveButton();
         closeButton.remove();
+        setTimeout(() => workshop.removeAttribute("has-been-selected"), 500);
     });
 
     workshop.appendChild(closeButton);
@@ -80,13 +81,14 @@ function info(event) {
             p.style.display = "none";
         }
     });
-
+    
     if (popup.style.display === "flex") {
         popup.style.display = "none";
+        
     } else {
         currentZIndex++;
         popup.style.zIndex = currentZIndex;
-        popup.style.display = "flex";
+        popup.style.display = "flex";        
     }
 }
 

@@ -185,12 +185,10 @@ button:hover {
     outline: none;
     box-shadow: 0 0 5px rgba(245, 130, 32, 0.5);
 }
-
-/* Responsieve aanpassing */
-@media (max-width: 600px) {
-    .form-group-row {
-        flex-direction: column;
-    }
+.logo img {
+    width: 250px;  
+    display: block;
+    margin: 0 auto 20px; /* Zentereer het logo en geef het een beetje marge onderaan */
 
     #opleiding,
     #klas {
