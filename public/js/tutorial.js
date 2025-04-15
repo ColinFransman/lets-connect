@@ -57,7 +57,7 @@ if (window.innerWidth > 800) {
     const observerI = new MutationObserver((mutationsList, observer) => {
         let iconOne = sendInfoIcon();
 
-        if (iconOne) {
+        if (iconOne && currentStepIndex === 1) {
             // If the icon exists, attach the click listener and disable the observer.
             iconOne.addEventListener('click', function () {
                 nextButton.disabled = false; // Enable the next button
@@ -76,13 +76,12 @@ if (window.innerWidth > 800) {
     const observerDrag = new MutationObserver((mutationsList, observer) => {
         let roundOneX = sendRoundX();
         let workshopOne = sendWorkshop();
+        
         if (roundOneX) {
-            // roundOneX.addEventListener('click', function () {
             if (roundOne.contains(workshopOne)) {
                 nextButton.disabled = false;
                 nextStep();
             }
-            // })
             observer.disconnect();
         }
     });
@@ -91,8 +90,8 @@ if (window.innerWidth > 800) {
     // remove workshop.
     const observerX = new MutationObserver((mutationsList, observer) => {
         let roundOneX = sendRoundX();
-        if (roundOneX) {
-            // clicked on 'i' does things.
+        if (roundOneX && currentStepIndex === 4) {
+            // clicked on 'i' does things.            
             roundOneX.addEventListener('click', function () {
                 nextButton.disabled = false;
                 nextStep();
@@ -110,7 +109,7 @@ if (window.innerWidth < 800) {
         if (roundOne && window.getComputedStyle(tutOverlay).display === "flex") {
             // clicked on 'i' does things.
             roundOne.addEventListener('click', function () {
-                if (currentStepIndex === 1) {
+                if (currentStepIndex === 1) {                    
                     nextButton.disabled = false;
                     nextStep();
                 }

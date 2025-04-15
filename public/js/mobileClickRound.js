@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             !tutOverlay.contains(e.target)) {
 
             popupWrapper.style.display = "none";
-            console.log("click");
         }
     });
 });
@@ -162,8 +161,6 @@ function clickedWorkshopToRound(round) {
             var tutPopup = document.querySelector('.tutorial-overlay');
             var popupStyle = window.getComputedStyle(tutPopup)
 
-            console.log(popupStyle.display);
-
             if (popupStyle.display === "flex") return;
 
             if (iconInfo.contains(e.target)) return;
@@ -217,7 +214,6 @@ function addConfirmedWorkshop(workshop, round) {
     if (!targetRound.hasChildNodes()) {
         targetRound.appendChild(draggedElement);
         draggedElement.setAttribute("has-been-selected", "true");
-        // ... rest of your logic ...
 
         let title = draggedElement.querySelector(".title");
         let xpath = `//input[@value="` + title.getAttribute('workshop') + `"]`;
