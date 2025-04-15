@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!styles.display === "flex") return;
 
         rounds.forEach(round => {
-            round.removeEventListener('click', function() {})
+            round.removeEventListener('click', function () { })
         })
 
         // Check if clicked outside of popup and outside main container
@@ -43,22 +43,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function roundClick(round) {
     if (!round) return;
+
     if (round.querySelector('div')) return;
 
-    var roundNumber = round.getAttribute('id')
-    roundNumber = Number(roundNumber)
+    var roundNumber = round.getAttribute('id');
+    roundNumber = Number(roundNumber);
 
     var roundString = document.querySelector('.roundWorkshop');
     roundString.innerText = roundNumber;
 
     const popup = document.getElementById("workshopsPopup");
     if (!popup) return;
+
     popup.style.display = "flex";
     var loader = popup.querySelector('.loader');
     loader.style.display = "inline-block";
 
     var popupTitle = document.querySelector('.chosenRound');
     popupTitle.innerText = "Laden ronde: ";
+
+    var workshops = popup.querySelectorAll('.workshops')
+    if (workshops) {
+
+        workshops.forEach(workshop => {
+            workshop.innerHTML = '';
+        })
+    }
 
     try {
         var data = await fetchUserData();
@@ -84,18 +94,6 @@ async function roundClick(round) {
     }
 }
 
-function clickedRound() {
-    rounds.forEach(round => {
-        if (window.innerWidth > 800) return;
-
-        round.addEventListener("click", (e) => {
-            if (e.target === round) {                
-                roundClick(round);
-            }
-        });
-    })
-}
-
 async function fetchUserData() {
     var response = await fetch("/Capacity")
     const data = await response.json();
@@ -107,7 +105,6 @@ async function fetchUserData() {
 }
 
 async function createWorkshops(filtered, round) {
-
     var divStructure = document.createElement('div')
     divStructure.classList.add('workshops');
     divStructure.setAttribute('id', '4');
@@ -145,14 +142,10 @@ async function createWorkshops(filtered, round) {
 
 function insertWorkshops(divs, round) {
     var popup = document.querySelector('.popupWrapper');
-
-    // Append each div individually
-
-    if (!popup.querySelector('.workshops')) {
-        divs.forEach(div => {
-            popup.appendChild(div);
-        });
-    }
+    
+    divs.forEach(div => {
+        popup.appendChild(div);
+    });
 
     clickedWorkshopToRound(round)
 }
@@ -162,22 +155,20 @@ function clickedWorkshopToRound(round) {
 
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
-            
+
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
-            
+
             var tutPopup = document.querySelector('.tutorial-overlay');
             var popupStyle = window.getComputedStyle(tutPopup)
-            
+
             console.log(popupStyle.display);
-            
+
             if (popupStyle.display === "flex") return;
-            
-            // if (mainElement.contains(e.target)) return;
+
             if (iconInfo.contains(e.target)) return;
             if (infoPopup.contains(e.target)) return;
             if (round.contains(e.target)) return;
-            // if (workshop.getAttribute("has-been-selected") === "true") return;
 
             confirmationPopup(workshop, round)
         });
@@ -236,6 +227,7 @@ function addConfirmedWorkshop(workshop, round) {
         }
         document.getElementById("save" + targetRound.id).value = title.getAttribute('workshop');
         addCloseButton(draggedElement, targetRound);
+
     }
 
     updateSaveButton();
@@ -254,6 +246,7 @@ function ifWorkshopFull() {
         var closeButton = round.querySelector('.close-button');
         if (!closeButton) return;
 
+        if (currentStepIndex !== 0) return;
         if (capacity.innerText.trim() === 'Workshop zit vol!') {
             showErrorPopup("Deze ronde zit vol!")
             closeButton.click()
