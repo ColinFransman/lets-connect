@@ -55,6 +55,8 @@
                     <div class="form-group" style="flex: 1;">
                         <select id="klas" name="klas" style="width: 100%; max-width: 280px;">
                             <option value="">Kies een klas</option>
+                
+                        </select>
                     </div>
                 </div>
 
