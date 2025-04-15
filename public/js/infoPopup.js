@@ -34,7 +34,7 @@ function addCloseButton(workshop) {
 
     const closeButton = document.createElement("button");
     closeButton.classList.add("close-button");
-    closeButton.textContent = "X";
+    closeButton.innerHTML = `<span class="material-symbols-outlined">close</span>`;
     closeButton.addEventListener("click", function () {
         const workshopList = document.getElementById("4");
         let closeXpath = `//div[@workshop="` + workshop.querySelector(".title").getAttribute("workshop") + `"]`;
