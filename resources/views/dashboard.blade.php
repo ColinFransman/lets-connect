@@ -104,6 +104,7 @@
                                 Ja
                                 <span id="save-spinner" class="spinner" style="display: none;"></span>
                             </button>
+                            </button>
                             <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
                         </div>
                     </form>
