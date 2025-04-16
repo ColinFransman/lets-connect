@@ -177,7 +177,7 @@ function whenWorkshopIsFull() {
         var roundID = container.getAttribute('id')
 
         for (let i = 0; i < disabledRounds.length; i++) {
-            if (disabledRounds[i] === roundID) { // disables the round based on 
+            if (disabledRounds[i] === roundID) { 
                 showErrorPopup("Deze ronde zit vol!")
                 var closeIcon = container.querySelector('.close-button');
                 closeIcon.click()

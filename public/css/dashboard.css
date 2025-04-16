@@ -66,6 +66,7 @@ body {
     gap: 10px;
     overflow: auto;
     padding-right: 15px;
+    -webkit-user-drag: none;
 }
 
 .workshops .workshop {
@@ -178,6 +179,7 @@ body {
 
 /* Popup styling */
 .popup {
+    z-index: 1005 !important;
     z-index: 8;
     display: none;
     position: fixed;
@@ -502,6 +504,7 @@ body {
 .popup-header {
     color: black;
     text-decoration: none;
+    -webkit-user-drag: none;
 }
 
 .popup-header .highlight {
@@ -638,6 +641,72 @@ body {
     text-align: center;
     background: #343469;
 }
+
+/* popups */
+#workshopsPopup, #selectedWorkshopPopup {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1002;
+    overflow: auto;
+    pointer-events: none;
+}
+
+.popupWrapper, .selectedWrapper {
+    background-color: #F5F4F7;
+    color: black;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1001;
+    position: fixed;
+    pointer-events: auto;
+}
+
+/* loader animation */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid black;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: none;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin: 10px;
+}
+
+.whiteLoader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid white;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: none;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .image-container {
     display: flex;
     align-items: center; /* Align text with image */
@@ -655,4 +724,79 @@ body {
     white-space: nowrap; /* Prevents text from wrapping */
 }
 
+@media (max-width: 500px) {
+    .main {
+        margin-top: 25px;
+        justify-content: center;
+    }
 
+    /* rounds */
+    .round {
+        height: 110px;
+        width: 230px;
+    }
+
+    /* workshops */
+    #workshopsContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .workshops {
+        max-height: 460px;
+    }
+
+    .workshops .workshop {
+        height: auto;
+    }
+
+    .chosenRound {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    /* workshop popup */
+    .description {
+        flex-direction: column-reverse;
+    }
+
+    .descriptionText {
+        max-width: 100%;
+    }
+
+    .popup-header {
+        width: 85%;
+    }
+
+    .popup {
+        width: 85%;
+    }
+
+    .emptyDataDiv {
+        display: none;
+    }
+
+    .roundWorkshop {
+        align-items: center;
+        display: flex;
+        padding-right: 30px;
+    }
+
+    .main .rounds .round .locationWorkshop {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .tutorial-overlay {
+        pointer-events: auto;
+    }
+
+    .round {
+        z-index: 1;
+    }
+}

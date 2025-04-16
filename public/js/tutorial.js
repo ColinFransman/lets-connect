@@ -53,54 +53,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-if (window.innerWidth > 800) {    
-const observerI = new MutationObserver((mutationsList, observer) => {
-    let iconOne = sendInfoIcon();
+if (window.innerWidth > 800) {
+    const observerI = new MutationObserver((mutationsList, observer) => {
+        let iconOne = sendInfoIcon();
 
-    if (iconOne && currentStepIndex === 1) {
-        // If the icon exists, attach the click listener and disable the observer.
-        iconOne.addEventListener('click', function () {
-            nextButton.disabled = false; // Enable the next button
-            nextStep(); // Proceed to next step
-        });
+        if (iconOne && currentStepIndex === 1) {
+            // If the icon exists, attach the click listener and disable the observer.
+            iconOne.addEventListener('click', function () {
+                nextButton.disabled = false; // Enable the next button
+                nextStep(); // Proceed to next step
+            });
 
-        // Disconnect the observer once we've attached the event listener
-        observer.disconnect();
-    }
-});
-
-// Start observing when the DOM is ready
-observerI.observe(document.body, { childList: true, subtree: true });
-
-// dragged workshop.
-const observerDrag = new MutationObserver((mutationsList, observer) => {
-    let roundOneX = sendRoundX();
-    let workshopOne = sendWorkshop();
-    if (roundOneX) {
-        // roundOneX.addEventListener('click', function () {
-        if (roundOne.contains(workshopOne)) {
-            nextButton.disabled = false;
-            nextStep();
+            // Disconnect the observer once we've attached the event listener
+            observer.disconnect();
         }
-        // })
-        observer.disconnect();
-    }
-});
-observerDrag.observe(document.body, { childList: true, subtree: true });
+    });
 
-// remove workshop.
-const observerX = new MutationObserver((mutationsList, observer) => {
-    let roundOneX = sendRoundX();
-    if (roundOneX) {
-        // clicked on 'i' does things.
-        roundOneX.addEventListener('click', function () {
-            nextButton.disabled = false;
-            nextStep();
-        });
-        observer.disconnect(); // Stop observing once we find it
-    }
-});
-observerX.observe(document.body, { childList: true, subtree: true });
+    // Start observing when the DOM is ready
+    observerI.observe(document.body, { childList: true, subtree: true });
+
+    // dragged workshop.
+    const observerDrag = new MutationObserver((mutationsList, observer) => {
+        let roundOneX = sendRoundX();
+        let workshopOne = sendWorkshop();
+        
+        if (roundOneX) {
+            if (roundOne.contains(workshopOne)) {
+                nextButton.disabled = false;
+                nextStep();
+            }
+            observer.disconnect();
+        }
+    });
+    observerDrag.observe(document.body, { childList: true, subtree: true });
+
+    // remove workshop.
+    const observerX = new MutationObserver((mutationsList, observer) => {
+        let roundOneX = sendRoundX();
+        if (roundOneX && currentStepIndex === 4) {
+            // clicked on 'i' does things.            
+            roundOneX.addEventListener('click', function () {
+                nextButton.disabled = false;
+                nextStep();
+            });
+            observer.disconnect(); // Stop observing once we find it
+        }
+    });
+    observerX.observe(document.body, { childList: true, subtree: true });
 }
 
 if (window.innerWidth < 800) {
@@ -127,8 +126,10 @@ if (window.innerWidth < 800) {
             // clicked on 'i' does things.
             infoIcons.forEach(infoIcon => {
                 infoIcon.addEventListener('click', function () {
-                    nextButton.disabled = false;
-                    nextStep();
+                    if (currentStepIndex === 2) {
+                        nextButton.disabled = false;
+                        nextStep();
+                    }
                 })
                 mobileObserver.disconnect(); // Stop observing once we find it
             })
@@ -136,6 +137,24 @@ if (window.innerWidth < 800) {
 
     });
     mobileInfoObserver.observe(document.body, { childList: true, subtree: true });
+}
+
+var rounds = document.querySelectorAll('.rounds .round');
+function clickedRound() {
+    rounds.forEach(round => {
+        if (window.innerWidth > 800) return;
+
+        round.addEventListener("click", (e) => {
+            var tutOver = document.querySelector('.tutorial-overlay')
+            var tutDisplay = window.getComputedStyle(tutOver).display;
+            if (e.target === round && tutDisplay === "none") {                
+                roundClick(round);
+            }
+            if (currentStepIndex === 1) {
+                roundClick(round);
+            }
+        });
+    })
 }
 
 function startTutorial() {
@@ -276,7 +295,7 @@ async function defaultStyling() {
     }
     // rounds style
     roundOne.style.zIndex = "unset";
-    
+
     if (tutOverlay) tutOverlay.style.pointerEvents = "auto"
 
     if (window.innerWidth > 800) {
@@ -310,18 +329,24 @@ async function defaultStyling() {
         }
 
         tutOverlay.style.background = "rgba(0, 0, 0, 0.7)";
+        tutOverlay.style.display = "flex";
+
         var popupWrapper = document.querySelector('.popupWrapper');
-        var workshops = document.querySelector('.popupWrapper .workshops')
+        var workshops = document.querySelector('.popupWrapper .workshops');
+
         if (popupWrapper) popupWrapper.style.top = "unset";
         if (workshops) workshops.style.maxHeight = "unset";
 
         var popup = document.getElementById('workshopsPopup');
 
-        if (popup) popup.style.background = "rgba(0, 0, 0, 0.7)";
+        if (popup) {
+            popup.style.background = "rgba(0, 0, 0, 0.7)";
+            // popup.style.display = "unset";
+        }
 
         var workshopsWrapper = popup.querySelector('.popupWrapper .workshops')
         if (workshopsWrapper) {
-            
+
             workshopsWrapper.style.background = "none";
             workshopsWrapper.style.maxHeight = "250px";
         }
@@ -374,19 +399,18 @@ async function secondStep() {
         tutStep.style.top = "25%";
     }
     if (window.innerWidth < 800) {
-        await fetchData();
 
         nextButton.disabled = true;
         nextButton.classList.add("disabledStyle")
 
-
         tutStep.style.position = "relative";
-        tutStep.style.top = "25%";
+        tutStep.style.top = "200px";
 
+        await fetchData();
         var popup = document.getElementById('workshopsPopup');
         var popupWrapper = popup.querySelector('.popupWrapper');
         var workshops = popup.querySelector('.workshops');
-        
+
         popup.style.background = "unset";
         popup.style.alignItems = "unset";
         popupWrapper.style.top = "40px";
@@ -422,16 +446,28 @@ function thirdStep() {
         nextButton.classList.add("disabledStyle")
 
         tutStep.style.position = "relative";
-        tutStep.style.top = "25%";
+        tutStep.style.top = "200px";
 
         var popup = document.getElementById('workshopsPopup');
 
-        var workshops = popup.querySelector('.workshops');
+        var workshopsWrapper = popup.querySelector('.workshops');
 
         popup.style.background = "unset";
         popup.style.alignItems = "unset";
         popupWrapper.style.top = "40px";
-        workshops.style.maxHeight = "250px"
+        workshopsWrapper.style.maxHeight = "250px"
+
+        var workshops = workshopsWrapper.querySelectorAll('.workshop')
+
+        workshops[0].classList.add("tutorial-highlight")
+
+        tutOverlay.style.display = "grid";
+
+        var yesBtn = document.querySelector('.selectedWrapper .button-container .yes-button')
+        yesBtn.addEventListener('click', function (e) {
+            nextButton.disabled = true;
+            nextStep();
+        })
     }
 }
 
@@ -456,15 +492,26 @@ function fourthStep() {
     }
     if (window.innerWidth < 800) {
         tutStep.style.position = "relative";
-        tutStep.style.top = "25%";        
+        tutStep.style.top = "25%";
 
-        var removeIcon = roundOne.querySelector('.workshop .close-button')
-        if (removeIcon) removeIcon.style.zIndex = "1004";
+        const any = new MutationObserver(() => {
+            var removeIcon = roundOne.querySelector('#round1 .close-button')
+            if (removeIcon) {
+                var workshop = document.querySelector('#round1 .workshop');
+                if (workshop.classList.contains("tutorial-highlight")) {
+                    workshop.classList.remove("tutorial-highlight");
+                }
+                removeIcon.style.zIndex = "1004";
 
-        removeIcon.addEventListener('click', function () {
-            nextButton.disabled = false;
-            nextStep();
-        })
+                removeIcon.addEventListener('click', function () {            
+                    nextButton.disabled = true;
+                    nextStep();
+                })
+                any.disconnect();
+            }
+        });
+
+        any.observe(document.body, { childList: true, subtree: true });
     }
 }
 

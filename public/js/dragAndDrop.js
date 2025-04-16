@@ -84,7 +84,7 @@ function customDrag(event) {
 
     const draggedElement = event.target;
     
-    const title = draggedElement.querySelector('.title');
+    if(draggedElement.tagName.toString() === 'IMG') return;    
 
     ghostEl = event.target.cloneNode(true);
     ghostEl.classList.remove('hiddenText');
