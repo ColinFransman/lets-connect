@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const observerI = new MutationObserver((mutationsList, observer) => {
     let iconOne = sendInfoIcon();
 
-    if (iconOne) {
+    if (iconOne && currentStepIndex === 1) {
         // If the icon exists, attach the click listener and disable the observer.
         iconOne.addEventListener('click', function () {
             nextButton.disabled = false; // Enable the next button
