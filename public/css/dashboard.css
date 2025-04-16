@@ -537,8 +537,8 @@ body {
 }
 
 .success-img {
-    height: 70%;
-    padding-top: 20px;
+    height: 65%;
+    padding-top: 15px;
 }
 
 .deltion-orange {
@@ -550,7 +550,8 @@ body {
 }
 
 .success-subtitle {
-    font-size: 15px;
+    font-size: 20px;
+    font-family: Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
 }
 
