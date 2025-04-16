@@ -1,32 +1,34 @@
+/* Algemene styling */
 *{
     font-family: Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 html,
 body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+height: 100%;
+margin: 0;
+overflow: hidden;
 }
 
 .container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 }
 
 .main {
-    width: 100%;
-    display: flex;
-    margin-top: 50px;
-    justify-content: space-around;
-    padding-bottom: 10px;
+width: 100%;
+display: flex;
+margin-top: 50px;
+justify-content: space-around;
+padding-bottom: 10px;
 }
 
 .rounds {
-    display: flex;
-    flex-direction: column;
+display: flex;
+flex-direction: column;
 }
 .spinner {
     border: 3px solid #f3f3f3;
@@ -61,481 +63,469 @@ body {
 }
 
 .round .workshop {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    border-radius: 8px;
+width: 100%;
+height: 100%;
+text-align: center;
+border-radius: 8px;
 }
 
 .round .workshop {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    cursor: n-resize;
-    max-width: none;
+width: 100%;
+height: 100%;
+text-align: center;
+cursor: n-resize;
+max-width: none;
 }
 
 .workshops {
-    margin-bottom: 15px;
-    max-height: 500px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    overflow: auto;
-    padding-right: 15px;
+margin-bottom: 15px;
+max-height: 500px;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 10px;
+overflow: auto;
+padding-right: 15px;
+-webkit-user-drag: none;
 }
 
 .workshops .workshop {
-    width: 98%;
-    height: 150px;
-    margin: 0;
-    border: 3px solid rgb(1, 1, 116);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    cursor: grab;
-    margin: 3px 3px;
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
+width: 98%;
+height: 150px;
+margin: 0;
+border: 3px solid rgb(1, 1, 116);
+border-radius: 10px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+text-align: center;
+flex-direction: column;
+position: relative;
+overflow: hidden;
+cursor: grab;
+margin: 3px 3px;
 }
 
 .workshop {
-    background-color: #343469;
-    color: white;
-    font-weight: bold;
-    max-width: 240px;
+background-color: #343469;
+color: white;
+font-weight: bold;
+max-width: 240px;
 }
 
 .workshop:hover {
-    background-color: rgb(245, 130, 32);
-    border-color: rgb(206, 107, 21);
+background-color: rgb(245, 130, 32);
+border-color: rgb(206, 107, 21);
 }
 
 
 /* Info knop */
 .info {
-    z-index: 999;
-    position: absolute;
-    margin: 5px 10px;
-    top: 0;
-    left: 0;
-    display: flex;
-    font-family: monospace;
-    font-weight: bold;
-    font-size: 25px;
-    color: white;
-    cursor: pointer;
+z-index: 999;
+position: absolute;
+margin: 5px 10px;
+top: 0;
+left: 0;
+display: flex;
+font-family: monospace;
+font-weight: bold;
+font-size: 25px;
+color: white;
+cursor: pointer;
 }
 .round .close-button {
     display: flex !important; /* Maak de knop zichtbaar binnen de workshop */
 }
 /* Rood kruisje binnen workshops */
 .close-button {
-    position: absolute;
-    top: 10px;
-    /* Plaats in de rechterbovenhoek van de workshop */
-    right: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    display: none !important;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+position: absolute;
+top: 10px;
+/* Plaats in de rechterbovenhoek van de workshop */
+right: 10px;
+background-color: red;
+color: white;
+border: none;
+border-radius: 50%;
+width: 30px;
+height: 30px;
+font-size: 16px;
+cursor: pointer;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 /* Titel van de workshop */
 .title {
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    padding: 8%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+margin-top: 30px;
+width: 100%;
+display: flex;
+padding: 8%;
+justify-content: center;
+align-items: center;
+text-align: center;
 
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centreert verticaal */
-    align-items: center; /* Centreert horizontaal */
-    text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
- 
-
+font-size: smaller;
 }
 
 .description {
-    display: flex;
+display: flex;
 }
 
 .description img {
-    padding-left: 10px;
-    padding-top: 30px;
+padding-left: 10px;
+padding-top: 30px;
 }
 
 .descriptionText {
-    min-width: 50%;
-    max-width: 50%;
-    padding-top: 30px;
+min-width: 50%;
+max-width: 50%;
+padding-top: 30px;
 }
 
 /* Popup styling */
 .popup {
-    z-index: 8;
-    display: none;
-    position: fixed;
-    top: 50%;
-    /* Zorg dat de popup correct gecentreerd wordt */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #F5F4F7;
-    color: black;
-    font-size: 14px;
-    border: 2px solid rgb(1, 1, 116);
-    border-radius: 10px;
-    text-align: center;
-    width: auto;
-    height: auto;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s ease-in-out;
-    max-height: 70%;
-    overflow: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
+    z-index: 1005 !important;
+display: none;
+position: fixed;
+top: 50%;
+/* Zorg dat de popup correct gecentreerd wordt */
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 20px;
+background-color: #F5F4F7;
+color: black;
+font-size: 14px;
+border: 2px solid rgb(1, 1, 116);
+border-radius: 10px;
+text-align: center;
+width: auto;
+height: auto;
+flex-direction: column;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+transition: opacity 0.3s ease-in-out;
+max-height: 70%;
+overflow: auto;
+overflow-x: hidden;
+overflow-y: auto;
 }
 
 
 .popup p {
-    padding-top: 4px;
+padding-top: 4px;
 }
 
 .popup .close {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 16px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+background-color: red;
+color: white;
+border: none;
+border-radius: 50%;
+padding: 5px;
+cursor: pointer;
+position: fixed;
+top: 10px;
+right: 10px;
+font-size: 16px;
+width: 30px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .popup::-webkit-scrollbar {
-    width: 20px;
+width: 20px;
 }
 
 /* Track */
 .popup::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 15px;
+box-shadow: inset 0 0 5px grey;
+border-radius: 15px;
 }
 
 /* Handle */
 .popup::-webkit-scrollbar-thumb {
-    background: #343469;
-    border-radius: 7px;
+background: #343469;
+border-radius: 7px;
 }
 
 /* Handle on hover */
 .popup::-webkit-scrollbar-thumb:hover {
-    background: rgb(245, 130, 32);
+background: rgb(245, 130, 32);
 }
 
 /* Opslaan-knop */
 .button {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 20px;
-    color: white;
-    background-color: #010174;
-    cursor: pointer;
+margin: 10px;
+padding: 10px;
+border-radius: 10px;
+font-size: 20px;
+color: white;
+background-color: #010174;
+cursor: pointer;
 }
 
 .button:hover {
-    background-color: #010174;
+background-color: #010174;
 }
 
 /* Bevestigingspopup styling */
 .confpopup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
-    padding: 20px;
-    background-color: white;
-    border: 2px solid rgb(1, 1, 116);
-    border-radius: 10px;
-    text-align: center;
-    width: 400px;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s ease-in-out;
+display: none;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 999;
+padding: 20px;
+background-color: white;
+border: 2px solid rgb(1, 1, 116);
+border-radius: 10px;
+text-align: center;
+width: 400px;
+flex-direction: column;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+transition: opacity 0.3s ease-in-out;
 }
 
 .confpopup button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #010174;
-    color: white;
+margin: 10px;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+background-color: #010174;
+color: white;
 }
 
 .confpopup button:hover {
-    background-color: rgb(245, 130, 32);
+background-color: rgb(245, 130, 32);
 }
 
 /* Tutorial overlay */
 .tutorial-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    pointer-events: auto;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.7);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1002;
+pointer-events: auto
 }
 
 .tutorial-step {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 300px;
-    z-index: 1001;
-    pointer-events: auto;
+background: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+text-align: center;
+width: 300px;
+z-index: 1001;
+pointer-events: auto;
 }
 
 .tutorial-box {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    pointer-events: auto;
-    z-index: 9999;
+background-color: white;
+border-radius: 10px;
+padding: 20px;
+max-width: 400px;
+text-align: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+pointer-events: auto;
+z-index: 9999;
 }
 
 .tutorial-button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #343469;
-    color: white;
+margin: 10px;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+background-color: #343469;
+color: white;
 }
 
 .tutorial-buttons button {
-    margin: 5px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background: #343469;
-    color: #fff;
-    cursor: pointer;
+margin: 5px;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+background: #343469;
+color: #fff;
+cursor: pointer;
 }
 
 .tutorial-buttons button:hover {
-    background-color: rgb(245, 130, 32);
+background-color: rgb(245, 130, 32);
 }
 
 .tutorial-highlight {
-    position: relative;
-    z-index: 105;
-    outline: 2px solid rgb(245, 130, 32);
-    background: rgba(255, 165, 0, 0.2);
+position: relative;
+z-index: 105;
+outline: 2px solid rgb(245, 130, 32);
+background: rgba(255, 165, 0, 0.2);
 }
 
 .textbox {
-    display: block;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+display: block;
+margin: 10px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
 }
 
 #save-button {
-    display: flex;
-    background-color: rgb(1, 1, 116);
-    margin-bottom: 10px;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+display: flex;
+background-color: rgb(1, 1, 116);
+margin-bottom: 10px;
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
 }
 
 #save-button:hover {
-    background-color: orange;
-    /* Donkerder blauw bij hover */
+background-color: orange;
+/* Donkerder blauw bij hover */
 }
 
 .flex {
-    display: flex;
-    justify-content: center;
+display: flex;
+justify-content: center;
 }
 
 .col {
-    flex-direction: column;
+flex-direction: column;
 }
 
 .placeholder {
-    position: absolute;
+position: absolute;
 }
 
 /* Error overlay */
 .error-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 9999;
 }
 
 /* Error box styling */
 .error-box {
-    background-color: #F5F4F7;
-    color: black;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    width: auto;
-    max-width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    flex-direction: column;
-    transition: opacity 0.3s ease-in-out;
-    z-index: 9999;
+background-color: #F5F4F7;
+color: black;
+border-radius: 10px;
+padding: 20px;
+text-align: center;
+width: auto;
+max-width: 400px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+flex-direction: column;
+transition: opacity 0.3s ease-in-out;
+z-index: 9999;
 
 }
 
 /* Error box title */
 .error-box h3 {
-    margin-bottom: 10px;
-    color: #333;
+margin-bottom: 10px;
+color: #333;
 }
 
 /* Error box content */
 .error-box p {
-    margin-bottom: 20px;
-    color: #555;
+margin-bottom: 20px;
+color: #555;
 }
 
 /* Button styling in error box */
 .error-box button {
-    background-color: #010174;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
+background-color: #010174;
+color: white;
+border: none;
+padding: 8px 12px;
+border-radius: 5px;
+cursor: pointer;
 }
 
 .error-box button:hover {
-    background-color: #0a28aa;
+background-color: #0a28aa;
 }
 
 
 .tutorial-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
 }
 
 .workshops::-webkit-scrollbar {
-    width: 20px;
+width: 20px;
 }
 
 /* Track */
 .workshops::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
-    border: 2px solid #343469;
+box-shadow: inset 0 0 5px grey;
+border-radius: 10px;
+border: 2px solid #343469;
 }
 
 /* Handle */
 .workshops::-webkit-scrollbar-thumb {
-    background: #343469;
-    border-radius: 10px;
-    border: 2px solid #181838;
+background: #343469;
+border-radius: 10px;
+border: 2px solid #181838;
 }
 
 /* Handle on hover */
 .workshops::-webkit-scrollbar-thumb:hover {
-    background: rgb(245, 130, 32);
-    border: 2px solid rgb(165, 110, 7);
+background: rgb(245, 130, 32);
+border: 2px solid rgb(165, 110, 7);
 }
 
 .api-error {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 10px;
-    font-size: large;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px solid black;
+border-radius: 10px;
+font-size: large;
 }
 
 .popup-header {
-    color: black;
-    text-decoration: none;
+color: black;
+text-decoration: none;
+-webkit-user-drag: none;
 }
 
 .popup-header .highlight {
-    color: blue;
-    text-decoration: underline;
+color: blue;
+text-decoration: underline;
 }
 
 .success-page {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    -webkit-box-shadow: inset 0px 0px 0px 20px #343469;
-    -moz-box-shadow: inset 0px 0px 0px 20px #343469;
-    box-shadow: inset 0px 0px 0px 20px #343469;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+-webkit-box-shadow: inset 0px 0px 0px 20px #343469;
+-moz-box-shadow: inset 0px 0px 0px 20px #343469;
+box-shadow: inset 0px 0px 0px 20px #343469;
 }
 
 .success-img {
@@ -544,11 +534,11 @@ body {
 }
 
 .deltion-orange {
-    color: rgb(245, 130, 32)
+color: rgb(245, 130, 32)
 }
 
 .deltion-blue {
-    color: #343469;
+color: #343469;
 }
 
 .success-subtitle {
@@ -558,119 +548,260 @@ body {
 }
 
 .SaveSave {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #010174;
+margin: 10px;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+background-color: #010174;
 
-    color: white;
+color: white;
 }
 
 .SaveSave button:hover {
-    background-color: orange;
+background-color: orange;
 }
 
 .hiddenText {
-    display: none !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centreert verticaal */
-    align-items: center; /* Centreert horizontaal */
-    text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
+display: none !important;
+display: flex;
+flex-direction: column;
+justify-content: center; /* Centreert verticaal */
+align-items: center; /* Centreert horizontaal */
+text-align: center; /* Zorgt ervoor dat tekst netjes in het midden blijft */
 }
 
 .capacityText {
-    display: none;
+display: none;
 }
 
 .showText {
-    display: flex !important;
-    flex-direction: column;
-    padding: 5%;
+display: flex !important;
+flex-direction: column;
+padding: 10px 5px;
 }
 
 .locationWorkshop {
-    display: flex;
-    font-size: 12px;
-    position: absolute;
-    bottom: 0;
-    gap: 3px;
-    color: #cbcbcb;
-    width: 100%;
-    justify-content: center;
+display: flex;
+font-size: 12px;
+gap: 3px;
+color: #cbcbcb;
+width: 100%;
+justify-content: center;
+flex-wrap: wrap;
 }
 
 .disabledStyle {
-    background: grey !important;
-    cursor: not-allowed !important;
+background: grey !important;
+cursor: not-allowed !important;
 }
 
-.confpopup .button-container {
-    display: flex;
-    gap: 15px;
-    /* Afstand tussen de knoppen */
-    justify-content: center;
-    /* Knoppen centreren */
-    margin-top: 15px;
+/* .confpopup .button-container */
+.button-container {
+display: flex;
+gap: 15px;
+/* Afstand tussen de knoppen */
+justify-content: center;
+/* Knoppen centreren */
+margin-top: 15px;
 }
 
-.confpopup .yes-button {
-    background-color: black;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.yes-button {
+background-color: black;
+color: white;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
 }
 
-.confpopup .yes-button:hover {
-    background-color: black;
+.yes-button:hover {
+background-color: black;
 }
 
-.confpopup .no-button {
-    background-color: white;
-    color: black;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border: 2px solid black;
-    border-radius: 5px;
-    cursor: pointer;
-    border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+.no-button {
+background-color: white;
+color: black;
+padding: 10px 20px;
+font-size: 16px;
+border: none;
+border: 2px solid black;
+border-radius: 5px;
+cursor: pointer;
+border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
-.confpopup .no-button:hover {
-    background-color: white;
+.no-button:hover {
+background-color: white;
 
 }
 
 .ghost {
-    border-radius: 10px;
-    border: 3px solid rgb(1, 1, 116);
-    outline: unset;
-    align-items: center;
-    text-align: center;
-    background: #343469;
+border-radius: 10px;
+border: 3px solid rgb(1, 1, 116);
+outline: unset;
+align-items: center;
+text-align: center;
+background: #343469;
 }
+
+/* popups */
+#workshopsPopup, #selectedWorkshopPopup {
+display: none;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+align-items: center;
+justify-content: center;
+background: rgba(0, 0, 0, 0.7);
+z-index: 1002;
+overflow: auto;
+pointer-events: none;
+}
+
+.popupWrapper, .selectedWrapper {
+background-color: #F5F4F7;
+color: black;
+border-radius: 10px;
+padding: 20px;
+text-align: center;
+width: auto;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+flex-direction: column;
+transition: opacity 0.3s ease-in-out;
+z-index: 1001;
+position: fixed;
+pointer-events: auto;
+}
+
+/* loader animation */
+.loader {
+width: 48px;
+height: 48px;
+border: 5px solid black;
+border-bottom-color: transparent;
+border-radius: 50%;
+display: none;
+box-sizing: border-box;
+animation: rotation 1s linear infinite;
+margin: 10px;
+}
+
+.whiteLoader {
+width: 48px;
+height: 48px;
+border: 5px solid white;
+border-bottom-color: transparent;
+border-radius: 50%;
+display: none;
+box-sizing: border-box;
+animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+0% {
+transform: rotate(0deg);
+}
+
+100% {
+transform: rotate(360deg);
+}
+}
+
 .image-container {
-    display: flex;
-    align-items: center; /* Align text with image */
-    gap: 10px; /* Add space between image and text */
+display: flex;
+align-items: center; /* Align text with image */
+gap: 10px; /* Add space between image and text */
 }
 
 .image-container img {
-    width: 115px; 
-    height: auto;
+width: 115px; 
+height: auto;
 }
 
 .image-title {
-    font-size: 24px; /* Bigger text */
-    font-weight: bold;
-    white-space: nowrap; /* Prevents text from wrapping */
+font-size: 24px; /* Bigger text */
+font-weight: bold;
+white-space: nowrap; /* Prevents text from wrapping */
 }
 
+@media (max-width: 500px) {
+.main {
+margin-top: 25px;
+justify-content: center;
+}
 
+/* rounds */
+.round {
+height: 110px;
+width: 230px;
+}
+
+/* workshops */
+#workshopsContainer {
+grid-template-columns: repeat(1, 1fr);
+}
+
+.workshops {
+max-height: 460px;
+}
+
+.workshops .workshop {
+height: auto;
+}
+
+.chosenRound {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 5px;
+margin: 5px;
+}
+}
+
+@media (max-width: 800px) {
+
+/* workshop popup */
+.description {
+flex-direction: column-reverse;
+}
+
+.descriptionText {
+max-width: 100%;
+}
+
+.popup-header {
+width: 85%;
+}
+
+.popup {
+width: 85%;
+}
+
+.emptyDataDiv {
+display: none;
+}
+
+.roundWorkshop {
+align-items: center;
+display: flex;
+padding-right: 30px;
+}
+
+.main .rounds .round .locationWorkshop {
+position: absolute;
+bottom: 0;
+}
+
+.tutorial-overlay {
+pointer-events: auto;
+}
+
+.round {
+z-index: 1;
+}
+}

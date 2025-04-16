@@ -51,10 +51,10 @@
                         </select>
                     </div>
                     <div class="form-group" style="flex: 1;">
-                        <select id="klas" name="klas" style="width: 100%; max-width: 280px;">
+                        <select id="klas" name="klas">
                             <option value="">Kies een klas</option>
-                
                         </select>
+                        <x-input-error :messages="$errors->get('klas')" class="mt-2" />
                     </div>
                 </div>
 

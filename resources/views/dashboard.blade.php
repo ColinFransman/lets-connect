@@ -10,6 +10,9 @@
                 </div>
             </a> 
         </h2>
+        @role('admin')
+            <a href="/wdashboard" style="text-decoration: underline">Bekijk het overzicht</a>
+        @endrole
     </x-slot>
 
     <!DOCTYPE html>
