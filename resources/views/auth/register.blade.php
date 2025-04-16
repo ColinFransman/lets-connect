@@ -5,14 +5,12 @@
     <div class="register-container" style="max-width: 400px; margin: 0 auto; padding: 20px;">
         <form method="POST" action="{{ route('register') }}" class="register-form">
             @csrf
-
-            <!-- Logo en tekst naast elkaar -->
+            
             <div class="logo-container" style="display: flex; align-items: center; justify-content: center; margin-bottom: 5px; text-align: center;">
                 <div class="logo">
                     <img src="{{ asset('/images/Letsconnect2.0.jpeg') }}" alt="Logo" class="logo-image" style="max-width: 250px; height: auto; margin-bottom: 0;">
                 </div>
                 <div class="logo-text" style="margin-left: 10px; font-size: 20px; font-weight: bold;">
-        
                 </div>
             </div>
 
