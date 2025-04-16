@@ -10,7 +10,7 @@ body, html {
     align-items: center;
 }
 
-/* Container voor registratie- en loginformulieren */
+
 .register-container, 
 .login-container {
     max-width: 500px;
@@ -19,7 +19,7 @@ body, html {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    min-height: 400px; /* ➜ Houdt de hoogte stabiel */
+    min-height: 400px; 
     box-sizing: border-box;
 }
 
