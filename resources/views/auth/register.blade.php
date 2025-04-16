@@ -56,6 +56,7 @@
                         </select>
                         <x-input-error :messages="$errors->get('klas')" class="mt-2" />
                     </div>
+                </div>
 
                 <!-- Registreren Button -->
                 <div class="form-actions flex items-center justify-end mt-2">
