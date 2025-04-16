@@ -32,7 +32,7 @@ body {
 .round {
     width: 300px;
     height: 150px;
-    margin: 20px;
+    margin: 8px;
     border: 3px dashed rgb(1, 1, 116);
     border-radius: 10px;
     background-color: #00000000;
