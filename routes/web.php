@@ -5,6 +5,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\WorkshopDashboardController;
+use App\Http\Controllers\TwoFactorAuthController;
 use App\Http\Middleware\Success;
 use App\Http\Controllers\MailController;
 use App\Mail\SendMail;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/save', [BookingController::class, 'bookWorkshop'])->middleware(['auth', 'verified']);
 
+
 Route::get('/overzicht', function () {
     return view('overzicht');
 });
@@ -46,6 +48,7 @@ Route::get('/workshop', function () {
 });
 
 Route::get('/wdashboard', [WorkshopDashboardController::class, 'index'])->middleware(['role:admin']);
+Route::get('/pdashboard', [WorkshopDashboardController::class, 'pdf'])->middleware(['role:admin']);
 Route::get('/workshop-moment/{wsm}', [WorkshopDashboardController::class, 'showbookings'])->name('workshop-moment.showbookings');
 
 /*Route::get('/bookings', function () {
@@ -57,6 +60,19 @@ Route::get('/workshop-moment/{wsm}', [WorkshopDashboardController::class, 'showb
 Route::get('/moments', function () {
     //return Bookings::with('student','workshopMoment')->get();
     return json_encode(Moment::get());
+});
+
+
+// Two-factor authentication routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/two-factor/challenge', [TwoFactorAuthController::class, 'showChallenge'])
+        ->name('two-factor.challenge');
+        
+    Route::post('/two-factor/verify', [TwoFactorAuthController::class, 'verify'])
+        ->name('two-factor.verify');
+        
+    Route::post('/two-factor/resend', [TwoFactorAuthController::class, 'resend'])
+        ->name('two-factor.resend');
 });
 
 require __DIR__.'/auth.php';

@@ -17,12 +17,15 @@ class BookingController extends Controller
 
         // Initialize an array to hold the workshop objects
         $workshops = [];
+
         // Loop through the workshop names to fetch workshop data
         foreach ($workshopNames as $workshopName) {
             // Fetch the workshop by name (assuming 'name' is the field storing the workshop name)
             $workshops[] = Workshop::where('name', $workshopName)->first();
+            //dd(Workshop::pluck('name'));
         }
         //dd($workshops);
+
 
         // Initialize the error message
         $errormessage = "";

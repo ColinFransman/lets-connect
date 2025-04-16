@@ -5,15 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WorkshopMoment;
 use App\Models\Workshop;
+use Spatie\LaravelPdf\Facades\Pdf;
 
-class WorkshopDashboardController extends Controller
+
+class WorkshopDashboardController extends Controller 
 {
-    public function index() 
+    public function index(Request $request) 
     {
         return view('dashboard.workshops')->with('workshopmoments', WorkshopMoment::with(['workshop'], ['bookings'])->get());
-                                        
-        //return view('dashboard.bookings')->with ('bookings',  Bookings::with(['student', 'workshopMoment.workshop', 'workshopMoment.moment'])->get());
+      
     }
+
+    
+    public function pdf(Request $request){
+        $workshopmoments = WorkshopMoment::with(['workshop', 'bookings.student', 'moment'])->get();
+    
+        if ($request->query('pdf')) {
+            $pdf = Pdf::view('dashboard.showbookings', compact('workshopmoments')); 
+            return $pdf->download('boekingen.pdf');
+        }
+    
+        return view('dashboard.showbookings', compact('workshopmoments'));
+    }
+    
+ 
+
     public function showbookings(WorkShopMoment $wsm)
     {
         //$wsm->load('bookings');
