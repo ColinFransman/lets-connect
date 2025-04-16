@@ -21,6 +21,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/viewCapacity', [BookingController::class, 'viewCapacity'])->name('viewCapacity');
+Route::get('/Capacity', [BookingController::class, 'viewRoundCapacity'])->name('Capacity');
 
 Route::get('/send-mail', [MailController::class, 'store']);
 

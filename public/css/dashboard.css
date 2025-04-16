@@ -1,4 +1,6 @@
-/* Algemene styling */
+*{
+    font-family: Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
 html,
 body {
     height: 100%;
@@ -8,7 +10,6 @@ body {
 
 .container {
     height: 100vh;
-    /* 100% van de schermhoogte */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +40,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    /* Context voor het kruisje */
+    
 }
 
 .round .workshop {
@@ -59,8 +60,7 @@ body {
 
 .workshops {
     margin-bottom: 15px;
-    /* width: 40%; */
-    max-height: 580px;
+    max-height: 500px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -118,7 +118,9 @@ body {
     color: white;
     cursor: pointer;
 }
-
+.round .close-button {
+    display: flex !important; /* Maak de knop zichtbaar binnen de workshop */
+}
 /* Rood kruisje binnen workshops */
 .close-button {
     position: absolute;
@@ -128,6 +130,7 @@ body {
     background-color: red;
     color: white;
     border: none;
+    display: none !important;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -635,3 +638,21 @@ body {
     text-align: center;
     background: #343469;
 }
+.image-container {
+    display: flex;
+    align-items: center; /* Align text with image */
+    gap: 10px; /* Add space between image and text */
+}
+
+.image-container img {
+    width: 115px; 
+    height: auto;
+}
+
+.image-title {
+    font-size: 24px; /* Bigger text */
+    font-weight: bold;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+
+

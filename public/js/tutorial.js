@@ -1,4 +1,4 @@
-let currentStepIndex = 0;
+var currentStepIndex = 0;
 
 // for buttons styling.
 let prevButton = document.getElementById('prevButton');
@@ -13,16 +13,34 @@ let tutStep = document.getElementById('tutorial-step')
 // first round
 let roundOne = document.querySelector('#round1 .round:nth-child(2)');
 
-const tutorialSteps = [
-    { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
-    { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
-    { text: "Dit is een ronde. Hier voeg je straks je workshops toe om de volgorde van jouw workshops in te stellen.", highlight: ".round:nth-child(1)" },
-    { text: "Hier is een workshop! Sleep deze workshop naar een ronde om je planning te starten.", highlight: ".workshop:nth-child(1)" },
-    { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
-    { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
-    { text: "", highlight: ".round:nth-child(1)" }
-];
-let tutorialLength = tutorialSteps.length - 1;
+var rounds = document.querySelector('.rounds .round');
+
+let tutorialSteps;
+if (window.innerWidth > 800) {
+    tutorialSteps = [
+        { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
+        { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
+        { text: "Dit is een ronde. Hier voeg je straks je workshops toe om de volgorde van jouw workshops in te stellen.", highlight: ".round:nth-child(1)" },
+        { text: "Hier is een workshop! Sleep deze workshop naar een ronde om je planning te starten.", highlight: ".workshop:nth-child(1)" },
+        { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
+        { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
+        { text: "", highlight: ".round:nth-child(1)" }
+    ];
+    var tutorialLength = tutorialSteps.length - 1;
+}
+
+if (window.innerWidth < 800) {
+    tutorialSteps = [
+        { text: "Welkom op het dashboard! Dit is het startpunt om je workshops te beheren. Hier leggen we stap voor stap uit hoe je de website gebruikt.", highlight: ".round:nth-child(1)" },
+        { text: "Dit is een ronde. Klik erop om de workshops te bekijken.", highlight: ".round:nth-child(1)" },
+        { text: "Klik op het 'i' icoon om meer informatie te krijgen over een workshop.", highlight: ".round:nth-child(1)" },
+        { text: "Hier is een workshop! Klik erop om je planning te starten.", highlight: ".workshop:nth-child(1)" },
+        { text: "Wil je een workshop verwijderen? Klik op de 'x' om deze uit de ronde te halen.", highlight: ".round:nth-child(1)" },
+        { text: "Gefeliciteerd! Je hebt de tutorial van Lets-connect voltooid. Nu weet je precies hoe je je kunt inschrijven voor een workshop!", highlight: ".round:nth-child(1)" },
+        { text: "", highlight: ".round:nth-child(1)" }
+    ];
+    var tutorialLength = tutorialSteps.length - 1;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     var cookieSatus = cookieState();
@@ -35,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+if (window.innerWidth > 800) {    
 const observerI = new MutationObserver((mutationsList, observer) => {
     let iconOne = sendInfoIcon();
 
@@ -82,10 +101,47 @@ const observerX = new MutationObserver((mutationsList, observer) => {
     }
 });
 observerX.observe(document.body, { childList: true, subtree: true });
+}
+
+if (window.innerWidth < 800) {
+    const mobileTutObserver = new MutationObserver((mutationsList, mobileObserver) => {
+        var tutOverlay = document.querySelector('.tutorial-overlay');
+
+        if (roundOne && window.getComputedStyle(tutOverlay).display === "flex") {
+            // clicked on 'i' does things.
+            roundOne.addEventListener('click', function () {
+                if (currentStepIndex === 1) {                    
+                    nextButton.disabled = false;
+                    nextStep();
+                }
+            })
+            mobileObserver.disconnect(); // Stop observing once we find it
+        }
+    });
+    mobileTutObserver.observe(document.body, { childList: true, subtree: true });
+
+    const mobileInfoObserver = new MutationObserver((mutationsList, mobileObserver) => {
+        var infoIcons = document.querySelectorAll('#workshopsPopup .workshop .info');
+
+        if (infoIcons) {
+            // clicked on 'i' does things.
+            infoIcons.forEach(infoIcon => {
+                infoIcon.addEventListener('click', function () {
+                    nextButton.disabled = false;
+                    nextStep();
+                })
+                mobileObserver.disconnect(); // Stop observing once we find it
+            })
+        }
+
+    });
+    mobileInfoObserver.observe(document.body, { childList: true, subtree: true });
+}
 
 function startTutorial() {
     // if ID exists, the popup becomes visible
     tutOverlay.style.display = "flex";
+
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
 
     // styling buttons onload.
@@ -97,7 +153,7 @@ function startTutorial() {
 
 function nextStep() {
     // gets the index out of a function and displays the right json on the index number.
-    let currentStepIndex = hidePreviousOverlay();
+    currentStepIndex = hidePreviousOverlay();
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
 
     // styling buttons
@@ -130,7 +186,8 @@ function nextStep() {
 }
 
 function prevStep() {
-    let currentStepIndex = showNextOverlay();
+    currentStepIndex = showNextOverlay();
+
     document.getElementById('tutorial-text').textContent = tutorialSteps[currentStepIndex].text;
 
     // styling buttons
@@ -191,7 +248,10 @@ function sendWorkshop() {
 
 function sendInfoIcon() {
     // first icon
-    let iconOne = document.getElementById('info0');
+    var iconOne;
+    if (window.innerWidth > 800) {
+        iconOne = document.getElementById('info0');
+    }
     return iconOne;
 }
 
@@ -207,7 +267,7 @@ function sendRoundX() {
     return roundOneX;
 }
 
-function defaultStyling() {
+async function defaultStyling() {
     document.cookie = "workshopWhile=removed";
 
     nextButton.disabled = false;
@@ -216,28 +276,55 @@ function defaultStyling() {
     }
     // rounds style
     roundOne.style.zIndex = "unset";
+    
+    if (tutOverlay) tutOverlay.style.pointerEvents = "auto"
 
-    // imported div.
-    let workshopOne = sendWorkshop();
-    // workshop style.
-    workshopOne.style.zIndex = "unset";
+    if (window.innerWidth > 800) {
+        // imported div.
+        let workshopOne = sendWorkshop();
+        // workshop style.
+        workshopOne.style.zIndex = "unset";
 
-    let iconOne = sendInfoIcon();
-    iconOne.style.zIndex = "unset";
+        let iconOne = sendInfoIcon();
+        iconOne.style.zIndex = "unset";
 
-    let roundOneX = sendRoundX();
-    if (roundOneX && currentStepIndex !== 4) {
-        roundOneX.style.zIndex = "unset";
+        let roundOneX = sendRoundX();
+        if (roundOneX && currentStepIndex !== 4) {
+            roundOneX.style.zIndex = "unset";
+        }
+        if (roundOne.contains(workshopOne) && currentStepIndex !== 4) {
+            roundOneX.click();
+        }
+
+        if (roundOne.classList.contains("tutorial-highlight")) {
+            roundOne.classList.remove("tutorial-highlight");
+        }
+        if (workshopOne.classList.contains("tutorial-highlight")) {
+            workshopOne.classList.remove("tutorial-highlight");
+        }
     }
-    if (roundOne.contains(workshopOne) && currentStepIndex !== 4) {
-        roundOneX.click();
-    }
 
-    if (roundOne.classList.contains("tutorial-highlight")) {
-        roundOne.classList.remove("tutorial-highlight");
-    }
-    if (workshopOne.classList.contains("tutorial-highlight")) {
-        workshopOne.classList.remove("tutorial-highlight");
+    if (window.innerWidth < 800) {
+        if (roundOne.classList.contains("tutorial-highlight")) {
+            roundOne.classList.remove("tutorial-highlight");
+        }
+
+        tutOverlay.style.background = "rgba(0, 0, 0, 0.7)";
+        var popupWrapper = document.querySelector('.popupWrapper');
+        var workshops = document.querySelector('.popupWrapper .workshops')
+        if (popupWrapper) popupWrapper.style.top = "unset";
+        if (workshops) workshops.style.maxHeight = "unset";
+
+        var popup = document.getElementById('workshopsPopup');
+
+        if (popup) popup.style.background = "rgba(0, 0, 0, 0.7)";
+
+        var workshopsWrapper = popup.querySelector('.popupWrapper .workshops')
+        if (workshopsWrapper) {
+            
+            workshopsWrapper.style.background = "none";
+            workshopsWrapper.style.maxHeight = "250px";
+        }
     }
 
     tutStep.style.position = "unset";
@@ -251,25 +338,62 @@ function firstStep() {
     nextButton.disabled = true; // disables next button
     nextButton.classList.add("disabledStyle")
 
-    let iconOne = sendInfoIcon();
+    if (window.innerWidth > 800) {
+        let iconOne = sendInfoIcon();
 
-    iconOne.style.zIndex = "1001";
+        iconOne.style.zIndex = "1004";
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+    }
+    if (window.innerWidth < 800) {
+        roundOne.style.zIndex = "1004";
+
+        roundOne.classList.add("tutorial-highlight")
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "10%";
+    }
+
+
+    var closeIcon = document.querySelector('#workshopsPopup .close-button')
+    if (closeIcon) closeIcon.click()
 }
 
 // each step with styling.
-function secondStep() {
+async function secondStep() {
     defaultStyling() // resets previous styling.
 
-    // rounds style
-    roundOne.style.zIndex = "1001";
+    if (window.innerWidth > 800) {
+        // rounds style
+        roundOne.style.zIndex = "1004";
 
-    roundOne.classList.add("tutorial-highlight")
+        roundOne.classList.add("tutorial-highlight")
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+    }
+    if (window.innerWidth < 800) {
+        await fetchData();
+
+        nextButton.disabled = true;
+        nextButton.classList.add("disabledStyle")
+
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+
+        var popup = document.getElementById('workshopsPopup');
+        var popupWrapper = popup.querySelector('.popupWrapper');
+        var workshops = popup.querySelector('.workshops');
+        
+        popup.style.background = "unset";
+        popup.style.alignItems = "unset";
+        popupWrapper.style.top = "40px";
+        workshops.style.maxHeight = "250px"
+
+        if (tutOverlay) tutOverlay.style.pointerEvents = "none"
+    }
 }
 
 function thirdStep() {
@@ -278,43 +402,76 @@ function thirdStep() {
     nextButton.disabled = true;
     nextButton.classList.add("disabledStyle")
 
-    // imported div.
-    let workshopOne = sendWorkshop();
+    if (window.innerWidth > 800) {
+        // imported div.
+        let workshopOne = sendWorkshop();
 
-    // rounds style.
-    roundOne.style.zIndex = "1001";
+        // rounds style.
+        roundOne.style.zIndex = "1004";
 
-    // workshop style.
-    workshopOne.style.zIndex = "1001";
-    workshopOne.classList.add("tutorial-highlight")
+        // workshop style.
+        workshopOne.style.zIndex = "1004";
+        workshopOne.classList.add("tutorial-highlight")
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+    }
+    if (window.innerWidth < 800) {
+
+        nextButton.disabled = true;
+        nextButton.classList.add("disabledStyle")
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
+
+        var popup = document.getElementById('workshopsPopup');
+
+        var workshops = popup.querySelector('.workshops');
+
+        popup.style.background = "unset";
+        popup.style.alignItems = "unset";
+        popupWrapper.style.top = "40px";
+        workshops.style.maxHeight = "250px"
+    }
 }
 
 function fourthStep() {
     defaultStyling() // resets previous styling.
 
-    document.cookie = "workshopWhile=tutorial";
+    if (window.innerWidth > 800) {
+        document.cookie = "workshopWhile=tutorial";
 
-    nextButton.disabled = true;
+        nextButton.disabled = true;
 
-    nextButton.classList.add("disabledStyle")
+        nextButton.classList.add("disabledStyle")
 
-    let roundOneX = sendRoundX();
+        let roundOneX = sendRoundX();
 
-    if (roundOneX) { // Ensure it's not undefined
-        roundOneX.style.zIndex = "1001";
+        if (roundOneX) { // Ensure it's not undefined
+            roundOneX.style.zIndex = "1004";
+        }
+
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";
     }
+    if (window.innerWidth < 800) {
+        tutStep.style.position = "relative";
+        tutStep.style.top = "25%";        
 
-    tutStep.style.position = "relative";
-    tutStep.style.top = "25%";
+        var removeIcon = roundOne.querySelector('.workshop .close-button')
+        if (removeIcon) removeIcon.style.zIndex = "1004";
+
+        removeIcon.addEventListener('click', function () {
+            nextButton.disabled = false;
+            nextStep();
+        })
+    }
 }
 
 function sixthStep() {
     defaultStyling();
 
-    tutOverlay.style.display = "none";// hides the overlay.
+    tutOverlay.style.display = "none"; // hides the overlay.
 }
 
 function cookieState() {
@@ -325,4 +482,14 @@ function cookieState() {
         cookieSatus = false;
     }
     return cookieSatus;
+}
+
+async function fetchData() {
+    var response = await fetch("/viewCapacity")
+    const data = await response.json();
+
+    if (data.status === "success") {
+        return data;
+    }
+    return;
 }

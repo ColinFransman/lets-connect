@@ -1,7 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma" target="_blank" style="display: flex"><p class="deltion-blue">Let's</p><pre> </pre><p class="deltion-orange">Connect</p></a>
+            <a href="https://xerte.deltion.nl/play.php?template_id=8708#programma">
+                <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+                <div class="image-container">
+                    <img src="{{ asset('images/Letsconnect2.0.jpeg') }}" alt="Klik hier">
+                    <div class="image-title">
+                    </div>
+                </div>
+            </a> 
         </h2>
         @role('admin')
             <a href="/wdashboard" style="text-decoration: underline">Bekijk het overzicht</a>
@@ -90,26 +97,57 @@
             <div id="confirmation-popup" class="confpopup" style="display: none;">
                 <div class="popup-content">
                     <p>Wil je dit opslaan?</p>
-                    <form method="POST" action="{{ url('/save') }}">
+                    <form id="confirmForm" method="POST" action="{{ url('/save') }}">
                         @csrf
                         <input type="hidden" name="save1" id="save1" value="">
                         <input type="hidden" name="save2" id="save2" value="">
                         <input type="hidden" name="save3" id="save3" value="">
                         <div class="button-container">
-                            <button type="submit" class="yes-button" onclick="SaveSave()">Ja</button>
+                            <button type="button" id="confirm-yes-button" onclick="confirmSave(event)">
+                                Ja
+                                <span id="save-spinner" class="spinner" style="display: none;"></span>
+                            </button>
                             <button type="button" class="no-button" onclick="cancelSave()">Nee</button>
                         </div>
                     </form>
                 </div>
-            </div> 
+            </div>
         <div class="flex">
             <button id="save-button" style="display: none;" onclick="showSavePopup()">Opslaan</button>
+        </div> 
+        <div class="flex">
+            <div id="workshopsPopup">
+                <div class="popupWrapper">
+                    <div class="close-button" onclick="closeWorkshops()">X</div>
+                    <div class="flex">
+                        <div class="chosenRound"></div>
+                        <div class="roundWorkshop"></div>
+                    </div>
+                    <p class="loader"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex">
+            <div id="selectedWorkshopPopup">
+                <div class="selectedWrapper">
+                    <p>Wil je deze workshop bewaren?</p>
+                    <p class="workshopNameInfo"></p>
+                    <p>Plekken over:</p>
+                    <p id="viewCapacityRound"></p>
+                    <div class="button-container">
+                        <button class="yes-button" onclick="addConfirmedWorkshop()">Ja</button>
+                        <button class="no-button" onclick="removeConfirm()">Nee</button>
+                    </div>
+                </div>
+            </div>
         </div> 
         <!-- loading script after html has loaded because of getElementById -->
         <script src="{{ asset('/js/capacityWorkshops.js') }}"></script>
         <script src="{{ asset('/js/tutorial.js') }}"></script>
         <script src="{{ asset('/js/dragAndDrop.js') }}"></script>
         <script src="{{ asset('/js/sameWorkshop.js') }}"></script>  
+        <script src="{{ asset('/js/mobileClickRound.js') }} "></script>  
     </body>
     </html>
 </x-app-layout>
