@@ -18,7 +18,7 @@ class AuthenticatedSessionController extends Controller
      */
     protected $emailsRequiring2FA = [
         'damianvandernat@gmail.com',
-        'manager@example.com'
+        'admin@example.com'
     ];
 
     /**

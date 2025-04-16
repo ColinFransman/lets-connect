@@ -77,7 +77,7 @@
                 </table>
             @endif
         </div>
-        @pageBreak
+        <div style="page-break-after: always;"></div>
     @endforeach
 </div>
 
