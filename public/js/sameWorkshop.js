@@ -17,7 +17,7 @@ function checkDupe() {
 
         if (!text) return;
 
-        var truncatedText = text.substring(15, 20);
+        var truncatedText = text.substring(0, 13) + text.substring(15, 20);
 
         allTitles.push(truncatedText)
     })
