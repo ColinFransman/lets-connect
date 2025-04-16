@@ -10,12 +10,14 @@ inRoundContainers.forEach(container => {
     roundAmountIds.push(id)
 })
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    insertData()
-
-    waitUntilApi()
-
-    workshopCheckRules()
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.innerWidth > 800) {
+        insertData()
+        
+        waitUntilApi()
+        
+        workshopCheckRules()
+    }
 });
 
 
@@ -74,11 +76,11 @@ async function insertData() {
                     if (roundCount == 0) {
                         roundCount = roundCount + 3;
                     }
-                    return `Ronde ${roundCount}: ${spotsLeft > 0 ? spotsLeft + " plekken over" : "workshop zit vol!"}`;
+                    return `<p> Ronde ${roundCount}: ${spotsLeft > 0 ? spotsLeft + " plek(ken) over" : "workshop zit vol!"} </p>`;
                 })
                 .join("\n");
 
-            element.innerText = text;
+            element.innerHTML = text;
         }
     });
 
@@ -97,6 +99,7 @@ function handleMouseOver() {
     var hoverState = true;
     inRoundContainers.forEach(roundContainer => { // disables the element from changing inside the main rounds.
         roundContainer.addEventListener('mouseenter', function () {
+
             var text = roundContainer.querySelector('.title');
             if (text) {
                 hoverState = false;
@@ -108,6 +111,7 @@ function handleMouseOver() {
 
     workshopContainers.forEach(container => {
         container.addEventListener("mouseleave", () => {
+
             if (hoverState) {
                 const hoveredDiv = container.querySelector('.title');
                 const hoverCapText = container.querySelector('.capacityText');
@@ -147,19 +151,28 @@ function handleMouseOver() {
     });
 }
 
-function whenWorkshopIsFull() {
+function workshopCheckRules() {
     const observer = new MutationObserver((mutationsList, observer) => {
-        if (document.cookie.match("workshopWhile=removed")) {
-            if (inRoundContainers) {    
-                inRoundContainers.forEach(container => {
-                    let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
-                    if (workshopElement) { // if any workshop exists
 
-                        var capacityElement = workshopElement.querySelector('.capacityText');
-                        if (capacityElement) { // if cap text exists inside workshop.
-                            var text = capacityElement.textContent.trim();
-                            var numberText = text.substring(0, 7).replace(/\D/g, "");
-                            roundAmountIds.forEach(count => {
+        if (!document.cookie.match("workshopWhile=removed")) return;
+        if (!inRoundContainers) return;
+
+        ifFullWorkshop()
+
+        ifEmptyRound()
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+function ifFullWorkshop() {    
+    inRoundContainers.forEach(container => {
+
+        let workshopElement = container.querySelector('.workshop'); // foreach container grabs the workshop.
+        if (!workshopElement) return; // if any workshop exists
+
+        var capacityElement = workshopElement.querySelectorAll('.capacityText p');
+        if (!capacityElement) return; // if cap text exists inside workshop.
 
         var closeIcon = container.querySelector('.close-button');
         var disabledRounds = [];
@@ -225,8 +238,6 @@ function ifEmptyRound() {
                     return;
                 }
             }
-        }
+        });
     });
-
-    observer.observe(document.body, { childList: true, subtree: true });
 }

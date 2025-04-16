@@ -155,6 +155,8 @@ function clickedWorkshopToRound(round) {
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
 
+            console.log("aaaaa", workshop);
+            
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
 
@@ -243,7 +245,10 @@ function ifWorkshopFull() {
         if (!closeButton) return;
 
         if (currentStepIndex !== 0) return;
+
         if (capacity.innerText.trim() === 'Workshop zit vol!') {
+            console.log(capacity.innerText.trim());
+            
             showErrorPopup("Deze ronde zit vol!")
             closeButton.click()
             return;

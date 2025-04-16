@@ -341,7 +341,8 @@ async function defaultStyling() {
 
         if (popup) {
             popup.style.background = "rgba(0, 0, 0, 0.7)";
-            // popup.style.display = "unset";
+            popup.style.top = "0";
+            popup.style.alignItems = "center";
         }
 
         var workshopsWrapper = popup.querySelector('.popupWrapper .workshops')
@@ -466,6 +467,7 @@ function thirdStep() {
         var yesBtn = document.querySelector('.selectedWrapper .button-container .yes-button')
         yesBtn.addEventListener('click', function (e) {
             nextButton.disabled = true;
+            nextButton.classList.add("disabledStyle")
             nextStep();
         })
     }
@@ -478,8 +480,7 @@ function fourthStep() {
         document.cookie = "workshopWhile=tutorial";
 
         nextButton.disabled = true;
-
-        nextButton.classList.add("disabledStyle")
+        nextButton.classList.add("disabledStyle");
 
         let roundOneX = sendRoundX();
 
@@ -491,6 +492,9 @@ function fourthStep() {
         tutStep.style.top = "25%";
     }
     if (window.innerWidth < 800) {
+        nextButton.disabled = true;
+        nextButton.classList.add("disabledStyle")
+        
         tutStep.style.position = "relative";
         tutStep.style.top = "25%";
 
@@ -505,6 +509,7 @@ function fourthStep() {
 
                 removeIcon.addEventListener('click', function () {            
                     nextButton.disabled = true;
+                    nextButton.classList.add("disabledStyle")
                     nextStep();
                 })
                 any.disconnect();
