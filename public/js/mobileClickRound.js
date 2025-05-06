@@ -61,12 +61,11 @@ async function roundClick(round) {
     var popupTitle = document.querySelector('.chosenRound');
     popupTitle.innerText = "Laden ronde: ";
 
-    var workshops = popup.querySelectorAll('.workshops')
+    var workshops = popup.querySelector('.workshops');
     if (workshops) {
-
-        workshops.forEach(workshop => {
-            workshop.innerHTML = '';
-        })
+        console.log(workshops);
+        
+        workshops.remove();
     }
 
     try {
@@ -154,8 +153,6 @@ function clickedWorkshopToRound(round) {
 
     workshops.forEach(workshop => {
         workshop.addEventListener("click", (e) => {
-
-            console.log("aaaaa", workshop);
             
             var iconInfo = workshop.querySelector('.info');
             var infoPopup = workshop.querySelector('.popup');
@@ -168,9 +165,9 @@ function clickedWorkshopToRound(round) {
             if (iconInfo.contains(e.target)) return;
             if (infoPopup.contains(e.target)) return;
             if (round.contains(e.target)) return;
-
+            
             confirmationPopup(workshop, round)
-        });
+        }, { once: true });
     });
 }
 
@@ -212,7 +209,7 @@ function addConfirmedWorkshop(workshop, round) {
     if (!targetRound) return;
 
     const draggedElement = workshop;
-
+    
     if (!targetRound.hasChildNodes()) {
         targetRound.appendChild(draggedElement);
         draggedElement.setAttribute("has-been-selected", "true");
@@ -235,9 +232,9 @@ function addConfirmedWorkshop(workshop, round) {
     ifWorkshopFull()
 }
 
-function ifWorkshopFull() {
-    var roundsCheck = document.querySelectorAll('.rounds .round:nth-child(2)')
-
+async function ifWorkshopFull() {
+    var roundsCheck = document.querySelectorAll('.rounds .round')
+    
     roundsCheck.forEach(round => {
         var capacity = round.querySelector('.workshop .emptyDataDiv');
         if (!capacity) return;
